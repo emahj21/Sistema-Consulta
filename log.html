@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="sweetalert2.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Bienvenido</title>
+  </head>
+  <body>
+     
+    <div class="container ">
+         <div class="row ">
+            <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto  ">
+                <form action="autenticacion.php" class="form" method="POST" autocomplete="off">
+                    <div class="card">
+                        <div class="card-header card-header-rose text-center">
+                            <div class="row">
+                              <div class="col-md-12" >
+                                <img class="img-fluid" style="height: 80px;" src="https://unibrand.com.mx/wp-content/uploads/2020/02/logo_blanco-1024x558.png" alt="Logo empresarial">
+                              </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="bmd-form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <span class="material-icons">person</span>
+                                        </span> 
+                                    </div>
+                                    <input type="email" name="correoelectronico" class="form-control" placeholder="ejemplo@unibrand.com.mx" for="usuario" required>
+                                </div>
+                            </span>
+                            <span class="bmd-form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <span class="material-icons">lock</span>
+                                        </span> 
+                                    </div>
+                                    <input type="password" name="usercontra" class="form-control" placeholder="Contraseña..." required>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="card-footer justify-content-center">
+                            <button type="submit" class="btn btn-round" style="background-color: #EF172F;" value="">Iniciar sesión</button>
+                        </div>
+                    </div>
+                </form>
+            </div>        
+        </div> 
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+
+    <!-- SweetAlert 2 -->  
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="sweetalert2.all.min.js"></script>
+  <script src="sweetalert2.min.js"></script>
+
+  
+
+  </body>
+</html>
