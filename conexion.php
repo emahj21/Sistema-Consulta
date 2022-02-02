@@ -3,7 +3,7 @@
 
     if($conexion)
     {
-        echo 'Hola prros xD';
+        //echo 'Hola prros xD';
 
     }else{
         echo 'Falló la conexión';
