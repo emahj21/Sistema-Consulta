@@ -37,8 +37,8 @@ if ($varsesion == null || $varsesion = '') {
 
 ?>
 
-<?php 
-  $conexion = new mysqli("localhost", "root", "", "bd_uni");
+<?php
+$conexion = new mysqli("localhost", "root", "", "bd_uni");
 ?>
 
 
@@ -60,13 +60,12 @@ if ($varsesion == null || $varsesion = '') {
   <!-- Animations-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-   <!--<link rel="stylesheet" href="css/style.css"> -->
+  <!--<link rel="stylesheet" href="css/style.css"> -->
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-
-  <link rel="stylesheet" src="libs/morris.css">
-  <script src="libs/morris.min.js" charset="utf-8"></script>
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/plotly-2.8.3.min.js"></script>
 
 
 
@@ -77,6 +76,7 @@ if ($varsesion == null || $varsesion = '') {
     background-color: #EF172F;
   }
 </style>
+
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
@@ -99,50 +99,57 @@ if ($varsesion == null || $varsesion = '') {
               <?php echo $_SESSION["correoelectronico"]; ?>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item"  href="cerrar_sesion.php">Cerrar Sesión</a></li>
+              <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar Sesión</a></li>
             </ul>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <div class="container" style="margin-top: 20px;">
-    <div class="row">
-      <form class="col-4" action="pag/con_fecha.php" method="POST" target="_blank">
+  <div class="container-fluid" style="margin: 20px 0 0 20px;">
+    <div class="container row ">
+      <form class="col-4" action="pag/lineal.php" method="POST" target="_blank">
         <div class="row">
           <label class="col-12" for="">Fecha Inicial</label>
-          <input type="date" name="f1" >
+          <input type="date" name="f1" required>
           <label class="col-12" for="">Fecha Final</label>
-          <input type="date" name="f2"  >
-          <input type="submit" value="Consultar" >
+          <input type="date" name="f2" required>
+          <button type="submit" style="margin-top: 30px; border-radius: 50px;" class=" col-12 btn btn-outline-secondary">Consultar</button>
         </div>
-        <!--<button class="btn" src="range.php">Enivar</button>-->
       </form>
 
-  
-      <div class="col-6">
-        <!--consulta-->
+
+
+      <div class="col-sm-8">
         <div class="row">
-
-          <div class="col-md-6">
-            <h2>Grafica de linea</h2>
-            <hr>
-            <div id="myfirstchart"></div>
+          <div class="panel panel-heading">
+            Indicadores
           </div>
-
-          <div class="col-md-6">
-            <h2>Grafica de area</h2>
-            <hr>
-          </div>
-
         </div>
+        <div class="row">
+          <!--consulta-->
+          <div class="panel panel-primary">
+            <div class="panel panel-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div id="cargaLineal"></div>
+                </div>
+                <div class="col-sm-6">
+                  <div id="cargaBarras"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+
       </div>
 
 
     </div>
+    
   </div>
 
-  
+
   <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -150,9 +157,9 @@ if ($varsesion == null || $varsesion = '') {
 
   <!-- Option 2: Separate Popper and Bootstrap JS -->
   <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+-->
 
   <!-- SweetAlert 2 -->
   <script src="js/lineas.js" charset="utf-8"></script>
@@ -172,7 +179,7 @@ if ($varsesion == null || $varsesion = '') {
       background: '#545454',
       position: 'top-end',
       showConfirmButton: false,
-      
+
       timer: '3000',
       toast: true,
       hideClass: {
@@ -180,6 +187,14 @@ if ($varsesion == null || $varsesion = '') {
       }
     })
   </script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#cargaLineal').load('pag/lineal.php');
+      $('#cargaBarras').load('pag/barras.php');
+    });
+  </script>
+
 
 </body>
 
