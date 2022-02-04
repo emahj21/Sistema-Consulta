@@ -37,6 +37,10 @@ if ($varsesion == null || $varsesion = '') {
 
 ?>
 
+<?php 
+  $conexion = new mysqli("localhost", "root", "", "bd_uni");
+?>
+
 
 <!DOCTYPE html>
 
@@ -57,6 +61,12 @@ if ($varsesion == null || $varsesion = '') {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
    <!--<link rel="stylesheet" href="css/style.css"> -->
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+
+  <link rel="stylesheet" src="libs/morris.css">
+  <script src="libs/morris.min.js" charset="utf-8"></script>
 
 
 
@@ -98,24 +108,41 @@ if ($varsesion == null || $varsesion = '') {
   </nav>
   <div class="container" style="margin-top: 20px;">
     <div class="row">
-      <form class="col-4">
-      <!--<form class="col-4" action="range.php">-->
+      <form class="col-4" action="pag/con_fecha.php" method="POST" target="_blank">
         <div class="row">
-          <label class="col-12" style=" font-weight: bold;" for="">Fecha Inicial</label>
-          <input class="col-12"type="date" name="start_date">
-          <label class="col-12" style=" font-weight: bold;" for="">Fecha Final</label>
-          <input class="col-12"type="date" name="end_date">
-          <!--<input type="hidden" name="form_sent" value="true">-->
-          <!--<input type="submit" style="margin-top: 30px;" class="btn btn-outline-secondary btn-round" value="Consultar">-->
-          <button type="submit" style="margin-top: 30px; border-radius: 50px;" class="btn btn-outline-secondary">Consultar</button>
+          <label class="col-12" for="">Fecha Inicial</label>
+          <input type="date" name="f1" >
+          <label class="col-12" for="">Fecha Final</label>
+          <input type="date" name="f2"  >
+          <input type="submit" value="Consultar" >
         </div>
         <!--<button class="btn" src="range.php">Enivar</button>-->
       </form>
 
+  
+      <div class="col-6">
+        <!--consulta-->
+        <div class="row">
 
-    
+          <div class="col-md-6">
+            <h2>Grafica de linea</h2>
+            <hr>
+            <div id="myfirstchart"></div>
+          </div>
+
+          <div class="col-md-6">
+            <h2>Grafica de area</h2>
+            <hr>
+          </div>
+
+        </div>
+      </div>
 
 
+    </div>
+  </div>
+
+  
   <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -128,9 +155,12 @@ if ($varsesion == null || $varsesion = '') {
     -->
 
   <!-- SweetAlert 2 -->
+  <script src="js/lineas.js" charset="utf-8"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="sweetalert2.all.min.js"></script>
   <script src="sweetalert2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/chart.esm.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/helpers.esm.min.js"></script>
 
 
   <script>
@@ -150,7 +180,6 @@ if ($varsesion == null || $varsesion = '') {
       }
     })
   </script>
-
 
 </body>
 

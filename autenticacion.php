@@ -1,5 +1,6 @@
 
 <?php
+
 	$correoelectronico = $_POST['correoelectronico'];
     $usercontra = $_POST['usercontra'];
     session_start();
