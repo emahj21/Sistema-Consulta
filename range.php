@@ -1,39 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<?php
-  require_once('conexion.php');
-  if(ISSET($_POST['search'])){
-    $date1 = date("Y-m-d", strtotime($_POST['inicio']));
-    $date2 = date("Y-m-d", strtotime($_POST['fin']));
-    $query=mysqli_query($conn, "SELECT * FROM `member` WHERE `date_submit` BETWEEN '$date1' AND '$date2'") ;
-    $row=mysqli_num_rows($query);
-    if($row>0){
-      while($fetch=mysqli_fetch_array($query)){
-?>
-  <tr>
-    <td><?php echo $fetch['firstname']?></td>
-    <td><?php echo $fetch['lastname']?></td>
-    <td><?php echo $fetch['project']?></td>
-    <td><?php echo $fetch['date_submit']?></td>
-  </tr>
-<?php
-      }
-    }else{
-      echo'
-      <tr>
-        <td colspan = "4"><center>Registros no Existen</center></td>
-      </tr>';
-    }
-  }else{
-    $query=mysqli_query($conn, "SELECT * FROM `pruebafechas`") ;
-    while($fetch=mysqli_fetch_array($query)){
-?>
-  <tr>
-    <td><?php echo $fetch['firstname']?></td>
-    <td><?php echo $fetch['lastname']?></td>
-    <td><?php echo $fetch['project']?></td>
-    <td><?php echo $fetch['date_submit']?></td>
-  </tr>
-<?php
-    }
-  }
-?>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="bower_components/chartist/dist/chartist.min.css">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+  <div class="col-4">
+        <!--consulta-->
+      </div>
+      <div class="col-4 embed-responsive embed-responsive-16by9">
+       
+      <div class="ct-chart ct-perfect-fourth"></div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <script src="bower_components/chartist/dist/chartist.min.js"> 
+  </body>
+</html>

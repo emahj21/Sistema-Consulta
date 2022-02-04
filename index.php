@@ -53,13 +53,20 @@ if ($varsesion == null || $varsesion = '') {
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="sweetalert2.min.css">
+  <!-- Animations-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+   <!--<link rel="stylesheet" href="css/style.css"> -->
 
 
-  <!-- <link rel="stylesheet" href="css/style.css"> -->
 
   <title>Document</title>
 </head>
-
+<style>
+  .dropdown-item:active {
+    background-color: #EF172F;
+  }
+</style>
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
@@ -82,31 +89,31 @@ if ($varsesion == null || $varsesion = '') {
               <?php echo $_SESSION["correoelectronico"]; ?>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar Sesión</a></li>
+              <li><a class="dropdown-item"  href="cerrar_sesion.php">Cerrar Sesión</a></li>
             </ul>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <div class="container">
+  <div class="container" style="margin-top: 20px;">
     <div class="row">
-      <form class="col-4" action="">
+      <form class="col-4">
+      <!--<form class="col-4" action="range.php">-->
         <div class="row">
-          <label class="col-12" for="">Fecha Inicial</label>
-          <input type="date" name="start_date">
-          <label class="col-12" for="">Fecha Final</label>
-          <input type="date" name="end_date">
-          <input type="hidden" name="form_sent" value="true">
-          <input type="submit" value="Consultar">
+          <label class="col-12" style=" font-weight: bold;" for="">Fecha Inicial</label>
+          <input class="col-12"type="date" name="start_date">
+          <label class="col-12" style=" font-weight: bold;" for="">Fecha Final</label>
+          <input class="col-12"type="date" name="end_date">
+          <!--<input type="hidden" name="form_sent" value="true">-->
+          <!--<input type="submit" style="margin-top: 30px;" class="btn btn-outline-secondary btn-round" value="Consultar">-->
+          <button type="submit" style="margin-top: 30px; border-radius: 50px;" class="btn btn-outline-secondary">Consultar</button>
         </div>
+        <!--<button class="btn" src="range.php">Enivar</button>-->
       </form>
 
-      <div class="col-4">
-        <!--consulta-->
-      </div>
-    </div>
-  </div>
+
+    
 
 
   <!-- Optional JavaScript; choose one of the two! -->
@@ -127,12 +134,23 @@ if ($varsesion == null || $varsesion = '') {
 
 
   <script>
-    Swal.fire(
-      'Bienvenido',
-      'Has iniciado sesión',
-      'OK'
-    )
+    Swal.fire({
+      icon: 'success',
+      title: 'Bienvenido',
+      text: 'Has iniciado sesión',
+      color: '#fff',
+      background: '#545454',
+      position: 'top-end',
+      showConfirmButton: false,
+      
+      timer: '3000',
+      toast: true,
+      hideClass: {
+        popup: 'animate__animated  animate__backOutUp'
+      }
+    })
   </script>
+
 
 </body>
 
