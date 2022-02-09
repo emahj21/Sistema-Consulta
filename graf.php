@@ -1,10 +1,46 @@
 <?php 
+echo '<h1 align="center"> Indicadores </h1>';
   include("conexion.php");
 
   $f1 = $_POST['f1'];
   $f2 = $_POST['f2'];
 
-  $query= "SELECT * FROM fechas WHERE fechain ";
+  $query = "SELECT fechain, fechafin, DATEDIFF (fechafin, fechain) from fechas WHERE fechain BETWEEN '$f1' AND '$f2'";
+
+  $resultado = $conexion->query($query);
+  $tiempo = 0;
+  $no_tiempo = 0;
+  while($row=$resultado->fetch_assoc()){
+      ?>
+    <?php $integer = intval($row['DATEDIFF (fechafin, fechain)']);
+
+        echo $integer;
+
+        if($integer <= 7)
+        {
+            $tiempo++;
+            echo ' A tiempo'.'<br>';
+            
+        }else
+        {
+            $no_tiempo++;
+            echo ' Destiempo'.'<br>';
+            
+        }
+
+
+    ?>
+        
+    <?php
+       
+}
+
+echo 'Entregados a tiempo: '.$tiempo.'<br>';
+echo 'No entregados a tiempo: '.$no_tiempo;
+
+
+
+  /* $query= "SELECT * FROM fechas WHERE fechain ";
   $resultado= $conexion->query($query);
 
   $query2= "SELECT * FROM fechas WHERE fechain BETWEEN '$f1' AND '$f2'  AND ent_tiempo='no'";
@@ -22,7 +58,7 @@
 
 $integer = intval($cuentafila2);
 $integer2 = intval($cuentafila3);
-
+ */
 //echo $integer;
 
   ?>
@@ -35,9 +71,10 @@ $integer2 = intval($cuentafila3);
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.com/libraries/Chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="icon" href="images/ico.ico">
   
 
-<title>Prueba</title>
+<title>Inidicadores</title>
 </head>
 <body>
 
@@ -63,12 +100,12 @@ $integer2 = intval($cuentafila3);
     var chart = new Chart(miCanvas,{
         type: "bar",
         data:{
-            labels:["No Entregados a tiempo", "Entregados a tiempo"],
+            labels:["Entregados a tiempo", "No Entregados a tiempo"],
             datasets:[
                 {
                 label: "Mi gráfica",
                 backgroundColor: "#EF172F",
-                data: [<?php echo $integer?>, <?php echo $integer2?>]
+                data: [<?php echo $tiempo?>, <?php echo $no_tiempo?>]
                 }
             ]
         }

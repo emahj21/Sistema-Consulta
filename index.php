@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 if (isset($_SESSION['tiempo'])) {
   
@@ -106,7 +105,7 @@ $conexion = new mysqli("localhost", "root", "", "bd_uni");
 </div>
 </div>
 </nav>
-<div class="container-fluid" style="margin: 20px 0 0 20px;">
+<div class="container-fluid" style="padding: 20px;">
 <div class="container row ">
 <form class="col-4" action="graf.php" method="POST" target="_blank">
 <div class="row">
