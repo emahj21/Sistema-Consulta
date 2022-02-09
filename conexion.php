@@ -1,8 +1,13 @@
 <?php
-    function conexion(){
-        return mysqli_connect('localhost',
-                            'root',
-                            '',
-                            'bd_uni');
+    $conexion = new mysqli("localhost", "root", "", "bd_uni");
+
+    if($conexion)
+    {
+       
+
+    }else{
+        echo 'Falló la conexión';
+   
+                           
     }
 ?>
