@@ -73,10 +73,6 @@ $conexion = new mysqli("localhost", "root", "", "unibrandprod");
 <script src="https://cdnjs.com/libraries/Chart.js"></script>
 
 
-
-
-
-
 <title>Inicio</title>
 </head>
 <style>
