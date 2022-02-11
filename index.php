@@ -27,7 +27,7 @@ if (isset($_SESSION['tiempo'])) {
 }
 
 
-$varsesion = $_SESSION['correoelectronico'];
+$varsesion = $_SESSION['UserMail'];
 if ($varsesion == null || $varsesion = '') {
   
   header("Location: pag/denied.html");
@@ -37,7 +37,8 @@ if ($varsesion == null || $varsesion = '') {
 ?>
 
 <?php
-$conexion = new mysqli("localhost", "root", "", "bd_uni");
+$conexion = new mysqli("localhost", "root", "", "unibrandprod");
+
 ?>
 
 
@@ -60,12 +61,17 @@ $conexion = new mysqli("localhost", "root", "", "bd_uni");
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 <link rel="icon" href="images/ico.ico">
 
+
 <!--<link rel="stylesheet" href="css/style.css"> -->
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
 <script src="js/jquery-3.6.0.min.js"></script>
-<script src="js/funciones.js"></script>
+<script src="https://cdnjs.com/libraries/Chart.js"></script>
+
+
+
 
 
 <title>Inicio</title>
@@ -95,7 +101,7 @@ $conexion = new mysqli("localhost", "root", "", "bd_uni");
 
 <li class="nav-item dropdown">
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-<?php echo $_SESSION["correoelectronico"]; ?>
+<?php echo $_SESSION["UserMail"]; ?>
 </a>
 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar Sesión</a></li>
@@ -105,18 +111,18 @@ $conexion = new mysqli("localhost", "root", "", "bd_uni");
 </div>
 </div>
 </nav>
+
+<!-- Formulario -->
 <div class="container-fluid" style="padding: 20px;">
 <div class="container row ">
-<form class="col-4" action="graf.php" method="POST" target="_blank">
+<form class="col-4" action="">
 <div class="row">
 <label class="col-12" for="">Fecha Inicial</label>
-<input type="date" name="f1" required>
+<input type="date" id="f1" required>
 <label class="col-12" for="">Fecha Final</label>
-<input type="date" name="f2" required>
-<button type="submit" style="margin-top: 30px; border-radius: 50px;" class=" col-12 btn btn-outline-secondary" >Consultar</button>
-<a href="#" onclick="edicion()">Mostrar</a>
+<input type="date" id="f2" required>
+<button type="button" style="margin-top: 30px; border-radius: 50px;" class=" col-12 btn btn-outline-secondary" id="Enviar">Consultar</button>
 </div>
-
 </form>
 
 
@@ -126,12 +132,13 @@ $conexion = new mysqli("localhost", "root", "", "bd_uni");
 <div class="col-sm-8">
 <div class="row">
 <div class="panel panel-heading">
-Indicadores
+
 </div>
 </div>
 <div class="row">
 <!--consulta-->
-<div id="derecha"></div>
+<div id="respuesta"></div>
+
 </div>
 
 
@@ -152,18 +159,17 @@ Indicadores
 -->
 
 <!-- SweetAlert 2 -->
-<script src="js/lineas.js" charset="utf-8"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="sweetalert2.all.min.js"></script>
 <script src="sweetalert2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/chart.esm.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/helpers.esm.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 
 <script>
 Swal.fire({
   icon: 'success',
-  title: 'Bienvenido',
+  title: 'Bienvenido' ,
   text: 'Has iniciado sesión',
   color: '#fff',
   background: '#545454',
@@ -175,15 +181,35 @@ Swal.fire({
   hideClass: {
     popup: 'animate__animated  animate__backOutUp'
   }
-})
+});
 </script>
 
-<script type="text/javascript">
-function edicion(){
-  $('#derecha').load('graf.php')/*aqui no se como cargar la pagina en el div derecho*/ 
-}
-</script>
+<script> 
+  $('#Enviar').click(function(){
+      var Fechain=document.getElementById('f1').value;
+      var Fechafin=document.getElementById('f2').value;
 
+      var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+      $.ajax({
+        url: 'graf.php',
+        type: 'POST',
+        data: ruta,
+      })
+
+      .done(function(res){
+        $('#respuesta').html(res)
+      })
+
+      .fail(function(){
+        console.log("error");
+      })
+      .always(function(){
+        console.log("complete");
+      })
+  });  
+
+</script>
 </body>
 
 </html>

@@ -2,8 +2,8 @@
 echo '<h1 align="center"> Indicadores </h1>';
   include("conexion.php");
 
-  $f1 = $_POST['f1'];
-  $f2 = $_POST['f2'];
+  $f1 = $_POST['Fein'];
+  $f2 = $_POST['Fefin'];
 
   $query = "SELECT fechain, fechafin, DATEDIFF (fechafin, fechain) from fechas WHERE fechain BETWEEN '$f1' AND '$f2'";
 
@@ -14,64 +14,35 @@ echo '<h1 align="center"> Indicadores </h1>';
       ?>
     <?php $integer = intval($row['DATEDIFF (fechafin, fechain)']);
 
-        echo $integer;
+       // echo $integer;
 
         if($integer <= 7)
         {
             $tiempo++;
-            echo ' A tiempo'.'<br>';
+           // echo ' A tiempo'.'<br>';
             
         }else
         {
             $no_tiempo++;
-            echo ' Destiempo'.'<br>';
+           // echo ' Destiempo'.'<br>';
             
         }
-
-
-    ?>
-        
-    <?php
-       
+    ?>   
+    <?php     
 }
 
-echo 'Entregados a tiempo: '.$tiempo.'<br>';
-echo 'No entregados a tiempo: '.$no_tiempo;
+//echo 'Entregados a tiempo: '.$tiempo.'<br>';
+//echo 'No entregados a tiempo: '.$no_tiempo;
 
-
-
-  /* $query= "SELECT * FROM fechas WHERE fechain ";
-  $resultado= $conexion->query($query);
-
-  $query2= "SELECT * FROM fechas WHERE fechain BETWEEN '$f1' AND '$f2'  AND ent_tiempo='no'";
-
-    $resultado2= $conexion->query($query2);
-    $cuentafila2 = mysqli_num_rows($resultado2);
-
-    $query3= "SELECT * FROM fechas WHERE fechain BETWEEN '$f1' AND '$f2'  AND ent_tiempo='si'";
-
-    $resultado3= $conexion->query($query3);
-    $cuentafila3 = mysqli_num_rows($resultado3);
-
-
-
-
-$integer = intval($cuentafila2);
-$integer2 = intval($cuentafila3);
- */
-//echo $integer;
 
   ?>
-
-
-
-
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="icon" href="images/ico.ico">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.com/libraries/Chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="icon" href="images/ico.ico">
+
   
 
 <title>Inidicadores</title>
@@ -94,10 +65,10 @@ $integer2 = intval($cuentafila3);
 </body>
 
 <script>
+    //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
+    var ctx = document.getElementById("MiGrafica").getContext("2d");
 
-    let miCanvas=document.getElementById("MiGrafica").getContext("2d");
-
-    var chart = new Chart(miCanvas,{
+    var chart = new Chart(ctx,{
         type: "bar",
         data:{
             labels:["Entregados a tiempo", "No Entregados a tiempo"],
@@ -109,6 +80,7 @@ $integer2 = intval($cuentafila3);
                 }
             ]
         }
-    })
+    });   
+    
+
 </script>
-</html>

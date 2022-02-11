@@ -1,15 +1,15 @@
 
 <?php
 
-	$correoelectronico = $_POST['correoelectronico'];
-    $usercontra = $_POST['usercontra'];
+	$UserMail = $_POST['UserMail'];
+    $Usercontra = $_POST['Usercontra'];
     session_start();
 
-    $_SESSION['correoelectronico'] = $correoelectronico;
+    $_SESSION['UserMail'] = $UserMail;
 
-	$conn = mysqli_connect("localhost","root","","bd_uni");
+	$conn = mysqli_connect("localhost","root","","unibrandprod");
 
-	$consulta =  "SELECT * FROM usuario WHERE correoelectronico='$correoelectronico' AND usercontra = '$usercontra' AND (usertipo='LOG' OR  usertipo='DIR')";
+	$consulta =  "SELECT * FROM usuario WHERE UserMail='$UserMail' AND Usercontra = '$Usercontra' AND (Usertipo='LOG' OR  Usertipo='DIR')";
 
 	$resultado = mysqli_query($conn, $consulta);
 
