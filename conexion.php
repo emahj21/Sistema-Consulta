@@ -1,5 +1,5 @@
 <?php
-    $conexion = new mysqli("localhost", "root", "", "bd_uni");
+    $conexion = new mysqli("localhost", "root", "", "unibrandprod");
 
     if($conexion)
     {
