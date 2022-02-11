@@ -114,7 +114,7 @@ $conexion = new mysqli("localhost", "root", "", "unibrandprod");
 <!-- Formulario -->
 <div class="container-fluid" style="padding: 20px;">
 <div class="container row ">
-<form class="col-4" action="">
+<form class="col-4 mt-5" action="">
 <div class="row">
 <label class="col-12" for="">Fecha Inicial</label>
 <input type="date" id="f1" required>

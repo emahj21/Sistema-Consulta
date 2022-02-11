@@ -4,9 +4,19 @@ echo '<h1 align="center"> Indicadores </h1>';
 
   $f1 = $_POST['Fein'];
   $f2 = $_POST['Fefin'];
+  
+  $queryAreas="SELECT Area FROM configuracionind";
+  $consultaAreas=mysqli_query($conexion,$queryAreas);
+  $tabla_areas=[];
+  $i=0;  
+  while($row = mysqli_fetch_array($consultaAreas)){
+        $tabla_areas[$i]['nombre']=$row['Area'];
+        $i++;
+  }
+  
 
   $query = "SELECT FechaAdmin, FechaComp, DATEDIFF (FechaComp, FechaAdmin) from upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2'";
-
+    
   $resultado = $conexion->query($query);
   $tiempo = 0;
   $no_tiempo = 0;
@@ -43,22 +53,25 @@ echo 'No entregados a tiempo: '.$no_tiempo;
 <script src="https://cdnjs.com/libraries/Chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="sweetalert2.min.css">
   
 
 <title>Inidicadores</title>
 </head>
 <body>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <div class="col-sm-6">
+            <h3 class="text-center"><?php echo implode("",$tabla_areas[0]);?></h3>
             <canvas id="MiGrafica" width="500" height="300"></canvas>
-            <button class="btn">Ver más</button>
+            <button class="btn" onClick="mensaje();">Ver más</button>
         </div>
         <div class="col-sm-6">            
+        <h3 class="text-center"><?php echo implode("",$tabla_areas[1]);?></h3>
             <canvas id="MiGrafica2" width="500" height="300"></canvas>
-            <button class="btn">Ver más</button>
+            <button class="btn" onClick="mensaje();">Ver más</button>
         </div>
     </div>
 </div>
@@ -68,6 +81,9 @@ echo 'No entregados a tiempo: '.$no_tiempo;
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- Scripts -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/mensaje.js"></script>
 </body>
 
 <script>
