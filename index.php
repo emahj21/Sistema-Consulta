@@ -1,44 +1,5 @@
 <?php
-session_start();
-if (isset($_SESSION['tiempo'])) {
-  
-  //Tiempo en segundos para dar vida a la sesión.
-  $inactivo = 6000; //1min en este caso.
-  
-  //Calculamos tiempo de vida inactivo.
-  $vida_session = time() - $_SESSION['tiempo'];
-  
-  //Compraración para redirigir página, si la vida de sesión sea mayor a el tiempo insertado en inactivo.
-  if ($vida_session > $inactivo) {
-    //Removemos sesión.
-    session_unset();
-    //Destruimos sesión.
-    session_destroy();
-    //Redirigimos pagina.
-    header("Location: log.html");
-    
-    exit();
-  } else {  // si no ha caducado la sesion, actualizamos
-    $_SESSION['tiempo'] = time();
-  }
-} else {
-  //Activamos sesion tiempo.
-  $_SESSION['tiempo'] = time();
-}
-
-
-$varsesion = $_SESSION['UserMail'];
-if ($varsesion == null || $varsesion = '') {
-  
-  header("Location: pag/denied.html");
-  die();
-}
-
-?>
-
-<?php
-$conexion = new mysqli("localhost", "root", "", "unibrandprod");
-
+ include("pag/control_sesion.php");
 ?>
 
 
@@ -50,6 +11,7 @@ $conexion = new mysqli("localhost", "root", "", "unibrandprod");
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="images/ico.ico">
 
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -59,7 +21,7 @@ $conexion = new mysqli("localhost", "root", "", "unibrandprod");
 <link rel="stylesheet" href="sweetalert2.min.css">
 <!-- Animations-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-<link rel="icon" href="images/ico.ico">
+
 
 
 <!--<link rel="stylesheet" href="css/style.css"> -->
@@ -103,7 +65,7 @@ $conexion = new mysqli("localhost", "root", "", "unibrandprod");
 <?php echo $_SESSION["UserMail"]; ?>
 </a>
 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-<li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar Sesión</a></li>
+<li><a class="dropdown-item" href="pag/cerrar_sesion.php">Cerrar Sesión</a></li>
 </ul>
 </li>
 </ul>
@@ -114,12 +76,13 @@ $conexion = new mysqli("localhost", "root", "", "unibrandprod");
 <!-- Formulario -->
 <div class="container-fluid" style="padding: 20px;">
 <div class="container row ">
+  <!-- Formulario -->
 <form class="col-4 mt-5" action="">
 <div class="row">
 <label class="col-12" for="">Fecha Inicial</label>
-<input type="date" id="f1" required>
+<input type="date" id="f1" required value="2016-01-03">
 <label class="col-12" for="">Fecha Final</label>
-<input type="date" id="f2" required>
+<input type="date" id="f2" required value="2016-03-03">
 <button type="button" style="margin-top: 30px; border-radius: 50px;" class=" col-12 btn btn-outline-secondary" id="Enviar">Consultar</button>
 </div>
 </form>
@@ -137,6 +100,7 @@ $conexion = new mysqli("localhost", "root", "", "unibrandprod");
 <div class="row">
 <!--consulta-->
 <div id="respuesta"></div>
+<div id="con"></div>
 
 </div>
 
@@ -160,6 +124,7 @@ $conexion = new mysqli("localhost", "root", "", "unibrandprod");
 <script src="sweetalert2.all.min.js"></script>
 <script src="sweetalert2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/ajax.js"></script>
 
 
 
@@ -189,13 +154,13 @@ Swal.fire({
       var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
       $.ajax({
-        url: 'graf.php',
+        url: 'administracion.php',
         type: 'POST',
         data: ruta,
       })
 
       .done(function(res){
-        $('#respuesta').html(res)
+        $('#con').html(res)
         //$('#f1').val('');
         //$('#f2').val('');
       })

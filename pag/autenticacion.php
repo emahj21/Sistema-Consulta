@@ -18,7 +18,7 @@
 	if($filas>0 && ($UserMail=='comercial@unibrand.com.mx' && $Usercontra=='direccion') || ($UserMail=='logistica@unibrand.com.mx' && $Usercontra=='181217') || ($UserMail=='admon@unibrand.com.mx' && $Usercontra=='290800') )
 	{
         
-		header("Location: index.php");
+		header("Location: ../index.php");
 	}else
 	{
         echo'<script type="text/javascript">
