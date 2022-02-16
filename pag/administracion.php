@@ -1,12 +1,11 @@
 <?php 
 
 include("../conexion.php");
-include("../consulta.php")
-$f1 = $_GET['Fein'];
-$f2 = $_GET['Fefin'];
 
-$query = "SELECT FechaAdmin, FechaComp, DATEDIFF (FechaComp, FechaAdmin) from upedido WHERE FechaAdmin BETWEEN '$f1' AND '$f2'";  
-$resultado = $conexion->query($query);
+$f1 = $_POST['Fein'];
+$f2 = $_POST['Fefin'];
+
+
 
 
 ?>
@@ -27,12 +26,42 @@ $resultado = $conexion->query($query);
     <title>Administración</title>
   </head>
   <body class="m-0 ">
-    <h1 class="text-center mt-5">Área de Administración</h1>
+   <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-                <canvas id="MiGrafica" class="justify-content-center"></canvas>
-            </div>
+            <table  class="table">
+                
+                    <thead  class="thead-dark">
+                    <tr>
+                        <td>Nombre del Cliente</td>
+                        <td>Número de Pedido</td>
+                        <td>Fecha de Inicio</td>
+                        <td>Fecha Programada de Fin</td>
+                        <td>Fecha Real Fin de Proceso</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        include("../conexion.php");
+
+                        $query= "SELECT FechaRegistro, FechaAdmin, Idpedido, PeFeReqCli, FechaLiberacion, DAYOFWEEK(FechaRegistro), DATEDIFF(FechaAdmin, FechaRegistro) from upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2'  AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6)";
+                        $resultado= $conexion->query($query);
+                        while($row=$resultado->fetch_assoc()){
+                    ?>
+
+                    <tr>
+                        <td></td>
+                        <td><?php echo $row['Idpedido'] ?></td>
+                        <td></td>
+                        <td><?php echo $row['PeFeReqCli'] ?></td>
+                        <td><?php echo $row['FechaLiberacion'] ?></td>
+                    </tr>
+
+                    <?php
+                        }
+                        ?>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -42,27 +71,6 @@ $resultado = $conexion->query($query);
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <!-- Gráfica -->
-<script>
-    //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
-    var ctx = document.getElementById("MiGrafica").getContext("2d");
 
-    var chart = new Chart(ctx,{
-        type: "bar",
-        data:{
-            labels:["Entregados a tiempo", "No Entregados a tiempo"],
-            datasets:[
-                {
-                label: "Mi gráfica",
-                backgroundColor:[ 'rgb(17, 169, 7)',
-                                  'rgb(195, 3, 3)'],
-                data: [2, 6]
-                }
-            ]
-        }
-     
-        //ctx.update();
-        //ctx.destroy();
-    }); 
-</script>
   </body>
 </html>

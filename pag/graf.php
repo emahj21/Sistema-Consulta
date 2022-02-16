@@ -11,6 +11,7 @@ include('consulta.php');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="js/mensaje.js"></script>
+<script src="js/ajax.js"></script>
 
 
 <title class="mt-5">Inidicadores</title>
@@ -19,22 +20,24 @@ include('consulta.php');
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-sm-6" >
+        <div class="col-sm-12" >
             <h3 class="text-center"><?php echo implode("",$tabla_areas[0]);?></h3>
-            <canvas id="MiGrafica" width="500" height="300"></canvas>
-            <button class="btn" onclick="mensaje();">Ver más</button>
-            <h3 class="text-center"><?php echo implode("",$tabla_areas[2]);?></h3>
+            <canvas id="MiGrafica" style="width: 800px; height: 400px;"></canvas>
+            <a class="btn" target="_blank" id="Ver">Ver más</a>
+            <div id="con"></div>
+            <!-- <h3 class="text-center"><?php echo implode("",$tabla_areas[2]);?></h3>
             <canvas id="MiGrafica3" width="500" height="300"></canvas>
             <a class="btn"  href="pag/administracion.php" target="_blank">Ver más</a>
-            
+             -->
         </div>
-        <div class="col-sm-6"> 
+        <div class="col-sm-12   "> 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[1]);?></h3>         
             <canvas id="MiGrafica2" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button>
-            <h3 class="text-center"><?php echo implode("",$tabla_areas[3]);?></h3>
+            <div id="con"></div>
+            <!-- <h3 class="text-center"><?php echo implode("",$tabla_areas[3]);?></h3>
             <canvas id="MiGrafica4" width="500" height="300"></canvas>
-            <button class="btn" onclick="mensaje();">Ver más</button>
+            <button class="btn" onclick="mensaje();">Ver más</button> -->
         </div>
     </div>
 </div>
@@ -54,13 +57,13 @@ include('consulta.php');
     var chart = new Chart(ctx,{
         type: "bar",
         data:{
-            labels:["Entregados a tiempo", "No Entregados a tiempo"],
+            labels:["Revisión de Anticipos y Facturas", "Liberación", "Reclamaciones", "Pedidos entregados"],
             datasets:[
                 {
-                label: "Mi gráfica",
+                labels: "Mi gráfica",
                 backgroundColor: [ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempoad?>, <?php echo $no_tiempoad?>]
+                data: [<?php echo $RAF?>, <?php echo $LIB?>, <?php echo $totalR?>,<?php echo $PEA?>]
                 },
  /*                {
                 label: "2",
