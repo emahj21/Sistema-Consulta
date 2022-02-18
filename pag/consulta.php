@@ -134,38 +134,44 @@ $PEA = ($pedidos*30)/$cuentafila2;
 $RAF=  ($tiempoad*20)/$cuentafila;
 //echo 'Prom '.$RAF;
 
-$totalR=0;
-        //Consultas Reclamo
-        $queryReclamo="SELECT reclamacion,FechaRegistro, dayofweek(FechaRegistro)  FROM upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2' AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6);
-        ";
-        $queryPuntosReclamo='SELECT PesoPuntos FROM configuracionindindicadores WHERE configuracionindindicadores.ConId=1 AND configuracionindindicadores.IndId=4;';
-        
-        $resultado=$conexion->query($queryReclamo);
-        $resultado2= $conexion->query($queryPuntosReclamo);
-        
-        //Recorrido de consultas
-        while($row2=$resultado2->fetch_assoc()){
-            $puntosR=intval($row2['PesoPuntos']);
-        }
+//----------Funcion para consulta de Reclamos----------
+function reclamos($f1, $f2, $conexion, $area)
+{
+  $totalR = 0;
+  //Consultas Reclamo
+  $queryReclamo = "SELECT reclamacion,FechaRegistro, dayofweek(FechaRegistro)  FROM upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2' AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6);
+  ";
+  $queryPuntosReclamo = "SELECT PesoPuntos FROM configuracionindindicadores WHERE configuracionindindicadores.ConId='$area' AND configuracionindindicadores.IndId=4;";
 
-        while($row=$resultado->fetch_assoc()){
-            
-            if($row['reclamacion']!=0){
-                $totalR++;
-            }
-      //Valor total de reclamos
-             
-          
-        }
-        
-        if($totalR==0){
-          $totalR=$puntosR;
+  $resultado = $conexion->query($queryReclamo);
+  $resultado2 = $conexion->query($queryPuntosReclamo);
 
-      }
+  //Recorrido de consultas
+  while ($row2 = $resultado2->fetch_assoc()) {
+    $puntosR = intval($row2['PesoPuntos']);
+  }
 
-        if(($totalR*5)>$puntosR){
-          $puntosR=0;
-      }else{
-          $totalR=$puntosR-($totalR*5);
-      }
+  while ($row = $resultado->fetch_assoc()) {
+
+    if ($row['reclamacion'] != 0) {
+      $totalR++;
+    }
+    //Valor total de reclamos
+
+
+  }
+
+  if ($totalR == 0) {
+    $totalR = $puntosR;
+  }else{
+    if (($totalR * 5) > $puntosR) {
+      $puntosR = 0;
+    } else {
+      $totalR = $puntosR - ($totalR * 5);
+    }
+  }
+  return $totalR;
+}
+
+
   ?>
