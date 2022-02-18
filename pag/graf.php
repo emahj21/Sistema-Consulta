@@ -20,10 +20,7 @@ include('consulta.php');
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-sm-12" >
-        
-            
-        </div>
+      
         <div class="col-sm-12   "> 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[0]);?></h3>
             <canvas id="MiGrafica" style="width: 800px; height: 400px;"></canvas>
