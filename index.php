@@ -42,21 +42,50 @@
   background-color: #EF172F;
 }
 
+body {
+  scrollbar-width: thin;          /* "auto" or "thin" */
+  scrollbar-color: blue orange;   /* scroll thumb and track */
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: blue #E6E3DC;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #E6E3DC;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #B5B3AE;
+  border-radius: 20px;
+  border: 3px solid #E6E3DC;
+}
+
 .goup
 {
-  background:#76aadb;
+  background: red;
 	bottom:0px;
 	display: block;
-	height: 50px;
+	height: 40px;
 	position: fixed;
 	right:0px;
-	width:50px;
+	width:40px;
+  border-radius: 25px;
 }
+
+
+
 </style>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top" id="1">
 <div class="container">
 <a class="navbar-brand" href="#">
 <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_lossy,ret_img,w_1024/https://unibrand.com.mx/wp-content/uploads/2020/02/icono-1024x612.png" height="30" class="d-inline-block align-top" alt="">
@@ -88,7 +117,7 @@
 <div class="container-fluid" style="padding: 20px;">
 <div class="container row ">
   <!-- Formulario -->
-<form class="col-4 mt-5" action="">
+<form class="col-4 mt-5" action="" >
 <div class="row">
 <label class="col-12" for="">Fecha Inicial</label>
 <input type="date" id="f1" required value="2021-01-03">
@@ -124,8 +153,10 @@
 
 </div>
 
-<div class="goup">
-  <span>Hola</span>
+<div class="goup" >
+<a href="#1"><span class="material-icons" style="font-size: 40px; color: #fff;">
+arrow_upward
+</span></a>
 </div>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

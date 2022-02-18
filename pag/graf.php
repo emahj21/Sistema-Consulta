@@ -20,23 +20,25 @@ include('consulta.php');
 
 <div class="container mt-5">
     <div class="row">
-      
-        <div class="col-sm-12   "> 
+        <div class="col-sm-12" >
             <h3 class="text-center"><?php echo implode("",$tabla_areas[0]);?></h3>
             <canvas id="MiGrafica" style="width: 800px; height: 400px;"></canvas>
             <a class="btn" target="_blank" id="Ver">Ver más</a>
             <div id="con"></div>
 
-
-            <h3 class="text-center"><?php echo implode("",$tabla_areas[1]);?></h3>
-            <canvas id="MiGrafica20" width="500" height="300"></canvas>
-            <a class="btn"  href="pag/administracion.php" target="_blank">Ver más</a>
+            
+        </div>
+        <div class="col-sm-12   "> 
+            <h3 class="text-center"><?php echo implode("",$tabla_areas[1]);?></h3>         
+            <canvas id="MiGrafica2" width="500" height="300"></canvas>
+            <button class="btn" onclick="mensaje();">Ver más</button>
+            <div id="con"></div>
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[2]);?></h3>
             <canvas id="MiGrafica3" width="500" height="300"></canvas>
             <a class="btn"  href="pag/administracion.php" target="_blank">Ver más</a>
 
-            <h3 class="text-center"><?php echo implode("",$tabla_areas[3]);?></h3>
+            <h3 class="text-center">Imagen</h3>
             <canvas id="MiGrafica4" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button>
 
@@ -52,9 +54,14 @@ include('consulta.php');
             <canvas id="MiGrafica7" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button>
 
+            
             <h3 class="text-center"><?php echo implode("",$tabla_areas[7]);?></h3>
             <canvas id="MiGrafica8" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button>
+
+<!--             <h3 class="text-center"><?php echo implode("",$tabla_areas[8]);?></h3>
+            <canvas id="MiGrafica9" width="500" height="300"></canvas>
+            <button class="btn" onclick="mensaje();">Ver más</button> -->
         </div>
     </div>
 </div>
@@ -97,18 +104,18 @@ include('consulta.php');
 
 <script>
     //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
-    var ctx = document.getElementById("MiGrafica20").getContext("2d");
+    var ctx = document.getElementById("MiGrafica2").getContext("2d");
 
     var chart = new Chart(ctx,{
         type: "bar",
         data:{
-            labels:["Generación de OC's", "Recepción de OC's", "Reclamaciones" "Pedidos Entregados"],
+            labels:["Generación de OC's", "Recepción de OC's", "Reclamaciones" , "Pedidos Entregados"],
             datasets:[
                 {
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [20, 30]
+                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>]
                 }
             ]
         }
@@ -130,7 +137,7 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>]
+                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>]
                 }
             ]
         }
@@ -168,7 +175,7 @@ include('consulta.php');
     var chart = new Chart(ctx,{
         type: "bar",
         data:{
-            labels:["Empaque", "Reclamaciones", "Pedidos Entregados"],
+            labels:["Empaque" , "Reclamaciones", "Pedidos Entregados"],
             datasets:[
                 {
                 label: "Mi gráfica",
@@ -190,7 +197,7 @@ include('consulta.php');
     var chart = new Chart(ctx,{
         type: "bar",
         data:{
-            labels:["Pedidos Registrados", "Regresos a Asesores", "Reclamaciones", "Pedidos Entregados"],
+            labels:["Pedidos Registrados", "Pedidos a Asesores" , "Reclamaciones", "Pedidos Entregados"],
             datasets:[
                 {
                 label: "Mi gráfica",
@@ -212,7 +219,7 @@ include('consulta.php');
     var chart = new Chart(ctx,{
         type: "bar",
         data:{
-            labels:["Revisiones", "Recepción de OC's" , "Recolección", "Reclamaciones", "Pedidos Entregados"],
+            labels:["Revisiones", "Recepción OC's", "Recolección" , "Reclamaciones", "Pedidos Entregados"],
             datasets:[
                 {
                 label: "Mi gráfica",
@@ -234,7 +241,7 @@ include('consulta.php');
     var chart = new Chart(ctx,{
         type: "bar",
         data:{
-            labels:["Revisión Maquilas #1", "Revisión Maquilas #2", "Defectos de calidad", "Reclamaciones", "Pedidos entregados"],
+            labels:["Revision Maquilas #1" , "Revisión Maquilas #2", "Defectos de calidad","Reclamaciones", "Pedidos Entregados"],
             datasets:[
                 {
                 label: "Mi gráfica",
@@ -248,6 +255,10 @@ include('consulta.php');
         //ctx.destroy();
     }); 
 </script>
+
+
+
+
 
 
 
