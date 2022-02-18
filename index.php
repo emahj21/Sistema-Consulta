@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="sweetalert2.min.css">
 <!-- Animations-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" type="text/css" href="css/estilos.css">
 
 
 
@@ -37,52 +38,6 @@
 
 <title>Inicio</title>
 </head>
-<style>
-.dropdown-item:active {
-  background-color: #EF172F;
-}
-
-body {
-  scrollbar-width: thin;          /* "auto" or "thin" */
-  scrollbar-color: blue orange;   /* scroll thumb and track */
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: blue #E6E3DC;
-}
-
-/* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 12px;
-}
-
-*::-webkit-scrollbar-track {
-  background: #E6E3DC;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #B5B3AE;
-  border-radius: 20px;
-  border: 3px solid #E6E3DC;
-}
-
-.goup
-{
-  background: red;
-	bottom:0px;
-	display: block;
-	height: 40px;
-	position: fixed;
-	right:0px;
-	width:40px;
-  border-radius: 25px;
-}
-
-
-
-</style>
-
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top" id="1">
