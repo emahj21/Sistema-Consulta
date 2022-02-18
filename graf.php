@@ -1,4 +1,4 @@
-<?php 
+<?php require("pag/prueba.php");
 echo '<h1 align="center"> Indicadores </h1>';
   include("conexion.php");
 
