@@ -69,7 +69,7 @@ echo 'No entregados a tiempo: '.$no_tiempo;
             <button class="btn" onClick="mensaje();">Ver más</button>
         </div>
         <div class="col-sm-6">            
-        <h3 class="text-center"><?php echo implode("",$tabla_areas[1]);?></h3>
+            <h3 class="text-center"><?php echo implode("",$tabla_areas[1]);?></h3>
             <canvas id="MiGrafica2" width="500" height="300"></canvas>
             <button class="btn" onClick="mensaje();">Ver más</button>
         </div>
