@@ -41,6 +41,17 @@
 .dropdown-item:active {
   background-color: #EF172F;
 }
+
+.goup
+{
+  background:#76aadb;
+	bottom:0px;
+	display: block;
+	height: 50px;
+	position: fixed;
+	right:0px;
+	width:50px;
+}
 </style>
 
 <body>
@@ -113,9 +124,13 @@
 
 </div>
 
+<div class="goup">
+  <span>Hola</span>
+</div>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <!-- Option 2: Separate Popper and Bootstrap JS -->
 <!--
@@ -206,6 +221,25 @@ Swal.fire({
       })
   });  
 
+</script>
+
+<script>
+  $(document).ready(function(){
+	$('.goup').hide();
+	$('.goup').click(function(){
+		$('body,html').animate({
+			scrollTop:0
+		},1000)
+	});
+	$(window).scroll(function () {
+		if ($(this).scrollTop() &gt; 200) {
+			$('.goup').fadeIn();
+		}
+		else {
+			$('.goup').fadeOut();
+		}
+	});
+});
 </script>
 </body>
 
