@@ -173,4 +173,37 @@ function reclamos($f1, $f2, $conexion, $area)
   
   return $totalR;
 }
-  ?>
+
+function pedidosEntregados($f1,$f2,$conexion,$area){
+
+  $totalPedidos=0;
+  $pedidosBuenos=0;
+  $pedidosEntregados=0;
+  $query="SELECT FechaLiberacion,PeFeReqCli FROM upedido WHERE FechaLiberacion BETWEEN '$f1' AND '$f2' ";
+  $queryPuntosPedidos = "SELECT PesoPuntos FROM configuracionindindicadores WHERE configuracionindindicadores.ConId='$area' AND configuracionindindicadores.IndId='pedidos entregados';";
+
+  $resultado=$conexion->query($query);
+  $resultado2=$conexion->query($queryPuntosPedidos);
+
+  if($resultado){
+    $totalPedidos=mysqli_num_rows($resultado);  
+  }
+
+  while ($row2 = $resultado2->fetch_assoc()) {
+    $puntosP = intval($row2['PesoPuntos']);
+  }
+
+ 
+  while ($row = $resultado->fetch_assoc()) {
+    $liberacion = intval($row['FechaLiberacion']);
+    $cliente = intval($row['PeFeReqCli']);
+    if ($liberacion <= $cliente) {
+      $pedidosBuenos++;
+    }
+  
+  }
+  $pedidosEntregados=($pedidosBuenos*$puntosP)/$totalPedidos;
+  echo $pedidosEntregados;
+
+  
+}
