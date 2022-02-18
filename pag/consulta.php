@@ -138,8 +138,9 @@ $RAF=  ($tiempoad*20)/$cuentafila;
 function reclamos($f1, $f2, $conexion, $area)
 {
   $totalR = 0;
+  $puntosR = 0;
   //Consultas Reclamo
-  $queryReclamo = "SELECT reclamacion,FechaRegistro, dayofweek(FechaRegistro)  FROM upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2' AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6);
+  $queryReclamo = "SELECT reclamacion,FechaRegistro  FROM upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2' ;
   ";
   $queryPuntosReclamo = "SELECT PesoPuntos FROM configuracionindindicadores WHERE configuracionindindicadores.ConId='$area' AND configuracionindindicadores.IndId=4;";
 
@@ -163,15 +164,13 @@ function reclamos($f1, $f2, $conexion, $area)
 
   if ($totalR == 0) {
     $totalR = $puntosR;
-  }else{
+  }
     if (($totalR * 5) > $puntosR) {
       $puntosR = 0;
     } else {
       $totalR = $puntosR - ($totalR * 5);
     }
-  }
+  
   return $totalR;
 }
-
-
   ?>

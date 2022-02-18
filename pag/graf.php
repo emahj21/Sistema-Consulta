@@ -87,7 +87,8 @@ include('consulta.php');
                 labels: "Mi gráfica",
                 backgroundColor: [ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $RAF?>, <?php echo $LIB?>, <?php echo $totalR?>,<?php echo $PEA?>]
+                
+                data: [<?php echo $RAF?>, <?php echo $LIB?>, <?php echo reclamos($f1,$f2,$conexion,$area=1)?>,<?php echo $PEA?>]
                 },
  /*                {
                 label: "2",
@@ -115,7 +116,7 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>]
+                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=2)?>]
                 }
             ]
         }
@@ -159,7 +160,7 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>]
+                data: [<?php echo $tiempocom?>,<?php echo $no_tiempocom?>,<?php echo $no_tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=4)?>]
                 }
             ]
         }
@@ -181,7 +182,7 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>]
+                data: [<?php echo $tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=5)?>, <?php echo $no_tiempocom?>]
                 }
             ]
         }
@@ -203,7 +204,7 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>]
+                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=6)?>]
                 }
             ]
         }
@@ -225,7 +226,7 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>]
+                data: [<?php echo $tiempocom?>,<?php echo $no_tiempocom?>,<?php echo $no_tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=7)?>]
                 }
             ]
         }
@@ -247,7 +248,7 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>]
+                data: [<?php echo $tiempocom?>,<?php echo $no_tiempocom?>,<?php echo $no_tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=8)?>]
                 }
             ]
         }
