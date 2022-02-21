@@ -1,54 +1,81 @@
 <?php
 
+
 include("../conexion.php");
 
-$query = "SELECT FechaRegistro FROM upedido";
-$resultado = $conexion->query($query);
-
-while($row=$resultado->fetch_assoc())
-{
-    $int = intval($row['FechaRegistro']);
+function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla){
     
-}
-
-echo $int;
-
-
-//----------Funcion para consulta de Reclamos----------
-function reclamos($f1,$f2,$area){
-    //conexion
-    $db = mysqli_connect('localhost', 'root', '', 'unibrandprod');
-    //Consultas Reclamo
-    //$queryReclamo = "SELECT reclamacion,FechaRegistro, dayofweek(FechaRegistro)  FROM upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2' AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6);";
-    //$queryReclamo = "SELECT reclamacion,FechaRegistro, dayofweek(FechaRegistro)  FROM upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2' AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6,7);";
-    $queryReclamo = "SELECT reclamacion,FechaRegistro  FROM upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2';";
-    $queryPuntosReclamo = "SELECT PesoPuntos FROM configuracionindindicadores WHERE configuracionindindicadores.ConId='$area' AND configuracionindindicadores.IndId=4;";
-    $resultado = $db->query($queryReclamo);
-    $resultado2 = $db->query($queryPuntosReclamo);
+    $query = "SELECT ".$FechaI.", ".$FechaF.", DATEDIFF(".$FechaF.", ".$FechaI.") from ".$tabla." WHERE ".$FechaI." BETWEEN '$f1' AND '$f2'";
+    $resultado = $conexion->query($query);
     
-    $totalR = 0;
-    //Recorrido de consultas
-    while ($row2 = $resultado2->fetch_assoc()) {
-        $puntosR = intval($row2['PesoPuntos']);
+    
+    $festivo = "SELECT DFFecha from diasfest";
+    $resultado1 = $conexion->query($festivo);
+    
+    $aux;
+    $contador_dias = 1;
+    
+    while($row1=$resultado1->fetch_assoc())
+    {
+    
+    }
+    
+    
+    while($row=$resultado->fetch_assoc())
+    {
+
+   
+        //echo date("d-m-Y",strtotime($row['".$FechaI."']."+ 1 days")).'<br>';
+        //$integer2 = intval($row['DATEDIFF('.$FechaF.', '.$FechaI.')']);
+       // echo $integer2.'<br>';
+        /* for($i=0; $i<=$integer2; $i++)
+        {
+            echo date("d-m-Y",strtotime($row[$FechaI])).'<br>';     
+            if( ($row[$FechaI] != $row1['DFFecha']) || date("w",strtotime($row[$FechaI])) != 0)
+            {
+                    $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+                    echo date("d-m-Y",strtotime($aux)).'<br>';
+                    $row[$FechaI] = $aux;
+                    if($contador_dias < $integer2 ){
+    
+                        $contador_dias++;
+                    }
+            }
+            else
+            {
+                echo date("d-m-Y",strtotime($aux)).'<br>';
+                $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+                $row[$FechaI] = $aux;
+            }
+        } */
+        while($row[$FechaI] <= $row[$FechaF]){
+            echo date("d-m-Y",strtotime($row[$FechaI])).'<br>';     
+            if($row[$FechaI] != $row1['DFFecha'] || date("w",strtotime($row[$FechaI]))!=0){
+                
+                $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+                echo date("d-m-Y",strtotime($aux)).'<br>';
+                $row[$FechaI] = $aux;
+               
+    
+                    $contador_dias++; 
+            }
+            else{
+                    echo date("d-m-Y",strtotime($aux)).'<br>';
+                    $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+                    $row[$FechaI] = $aux;
+            }
+        }
+        echo 'El proceso tardó '.($contador_dias).' días'.'<br>';
+        $contador_dias = 0;
+    }
     }
 
-    while ($row = $resultado->fetch_assoc()) {
 
-        if ($row['reclamacion'] != 0) {
-            $totalR++;
-        }
-    }
-    if ($totalR == 0) {
-        $totalR = $puntosR;
-    } else {
-        //Valor total de reclamos
-        if ($totalR * 5 > $puntosR) {
-            $puntosR = 0;
-        } else {
-            $totalR = $puntosR - ($totalR * 5);
-        }
-    }
-    echo $totalR."<br>";
-}
+
+dias($conexion,'FechaRegistro','FechaAdmin','2021-12-07','2021-12-16', 'upedido');
+
+echo'<h1>Otro query</h1>';
+
+dias($conexion,'FechaEmp','FechaLiberacion','2021-12-01','2021-12-15','upedido');
 
 ?>
