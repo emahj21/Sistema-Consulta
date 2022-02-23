@@ -23,6 +23,16 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla){
     while($row=$resultado->fetch_assoc())
     {
         //echo date("d-m-Y",strtotime($row['".$FechaI."']."+ 1 days")).'<br>';
+
+        /* Si la fecha es default */
+        if($row[$FechaF] == '1000-01-01')
+        {
+            $fechaActual = date('d-m-Y');
+            $FechaF = $fechaActual;
+            echo $FechaF;
+        }
+
+
         $integer2 = intval($row['DATEDIFF('.$FechaF.', '.$FechaI.')']);
         //echo $integer2.'<br>';
         
@@ -98,5 +108,7 @@ dias($conexion,'FechaEmp','FechaLiberacion','2021-12-01','2021-12-15','upedido')
 echo'<h1>FechaEmp - FechaLiberacion</h1>';
 dias($conexion,'FechaEmp','FechaLiberacion','2021-05-01','2021-05-20','upedido');
 echo'<h1>FechaRegistro - FechaEnvioBCK</h1>';
-dias($conexion,'FechaRegistro','FechaEnvioBCK','2021-12-01','2021-12-15','upedido');
+dias($conexion,'FechaRegistro','FechaEnvioBCK','2021-12-01','2021-12-15','upedido','.uentrega');
+echo'<h1>Default</h1>';
+dias($conexion,'FechaRegistro','FechaAdmin','2021-01-01','2021-03-01','upedido','.uentrega');
 ?>
