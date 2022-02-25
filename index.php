@@ -75,9 +75,9 @@
 <form class="col-4 mt-5" action="" >
 <div class="row">
 <label class="col-12" for="">Fecha Inicial</label>
-<input type="date" id="f1" required value="2021-01-03">
+<input type="datetime" id="f1" required value='2021-12-01 00:00:00'">
 <label class="col-12" for="">Fecha Final</label>
-<input type="date" id="f2" required value="2021-03-03">
+<input type="datetime" id="f2" required value='2021-12-15 23:59:59'">
 <button type="button" style="margin-top: 30px; border-radius: 50px;" class=" col-12 btn btn-outline-secondary" id="Enviar">Consultar</button>
 </div>
 </form>
@@ -151,34 +151,7 @@ Swal.fire({
 });
 </script>
 
-<script> 
-  $('#Enviar').click(function(){
-      var Fechain=document.getElementById('f1').value;
-      var Fechafin=document.getElementById('f2').value;
 
-      var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
-
-      $.ajax({
-        url: 'administracion.php',
-        type: 'POST',
-        data: ruta,
-      })
-
-      .done(function(res){
-        $('#con').html(res)
-        //$('#f1').val('');
-        //$('#f2').val('');
-      })
-
-      .fail(function(){
-        console.log("error");
-      })
-      .always(function(){
-        console.log("complete");
-      })
-  });  
-
-</script>
 
 <script> 
   $('#Ver').click(function(){

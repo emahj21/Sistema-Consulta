@@ -51,3 +51,29 @@ $('#Ver').click(function(){
     console.log("complete");
   })
 });  
+
+$('#Ver2').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/administracion.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});  

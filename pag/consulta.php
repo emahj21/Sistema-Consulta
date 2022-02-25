@@ -14,124 +14,6 @@ echo '<h1 align="center"> Indicadores </h1>';
         $tabla_areas[$i]['nombre']=$row['Area'];
         $i++;
   }
-
-  /* Área Administración */
-  $query = "SELECT FechaRegistro, FechaAdmin, DAYOFWEEK(FechaRegistro), DATEDIFF(FechaAdmin, FechaRegistro) from upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2'  AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6)";
-
-  $query2 = "SELECT FechaEmp, FechaLiberacion, DAYOFWEEK(FechaEmp), DATEDIFF(FechaLiberacion, FechaEmp) from upedido WHERE FechaEmp BETWEEN '$f1' AND '$f2'  AND DAYOFWEEK(FechaEmp) IN (2,3,4,5,6)";
-
-  /* Compras */
-
-  $query3 = "SELECT FechaRegistro, FechaAdmin, DAYOFWEEK(FechaRegistro), DATEDIFF(FechaAdmin, FechaRegistro) from upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2'  AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6)";
-
-  /* Pedidos Entregados */
-
-  $query4 = "SELECT FechaLiberacion, PeFeReqCli, DAYOFWEEK(FechaLiberacion) from upedido WHERE FechaLiberacion BETWEEN '$f1' AND '$f2' AND DAYOFWEEK(FechaLiberacion) IN (2,3,4,5,6)";
-
-  $resultado = $conexion->query($query);
-  $resultado1 = $conexion->query($query2);
-  $pedido_ent = $conexion->query($query4);
-    
-  $tiempoad = 0;
-  $no_tiempoad = 0;
-
-  $tiempocom = 0;
-  $no_tiempocom = 0;
-
-  $pedidos = 0;
-
-  //Contamos las filas RAF
-  $cuentafila; 
-  $cuentafila1;
-  $cuentafila2;
-
-  if($resultado)
-  {
-    $cuentafila = mysqli_num_rows($resultado);
-    echo 'Total '.$cuentafila;
-  }
-
-  if($resultado1)
-  {
-    $cuentafila1 = mysqli_num_rows($resultado1);
-    echo 'Total '.$cuentafila1;
-  }
-
-  if($pedido_ent)
-  {
-    $cuentafila2 = mysqli_num_rows($pedido_ent);
-    echo 'Total '.$cuentafila2;
-  }
-
-  /* Convirtiendo fechas a entero */
-  while($row2=$pedido_ent->fetch_assoc()){
-    ?>
-    <?php $integer2 = intval($row2['FechaLiberacion']);
-          $integer3 = intval($row2['PeFeReqCli']);
-    
-
-    if($integer2 <=$integer3)
-    {
-        $pedidos++;
-    }else
-    {
-        $no_tiempocom++;
-    }
-    ?>
-    <?php
-}
-
-$PEA = ($pedidos*30)/$cuentafila2;
-
-
-?>
-<?php
-
-  while($row1=$resultado1->fetch_assoc()){
-      ?>
-      <?php $integer2 = intval($row1['DATEDIFF(FechaLiberacion, FechaEmp)']);
-
-      if($integer2 <=1)
-      {
-          $tiempocom++;
-      }else
-      {
-          $no_tiempocom++;
-      }
-      ?>
-      <?php
-  }
-
-  $LIB = ($tiempocom*20)/$cuentafila1;
-
-  
-  ?>
-<?php   
-
-  while($row=$resultado->fetch_assoc()){
-      ?>
-    <?php $integer = intval($row['DATEDIFF(FechaAdmin, FechaRegistro)']);
-
-       // echo $integer;
-
-        if($integer <= 1)
-        {
-            $tiempoad++;
-         //   echo ' A tiempo'.'<br>';
-            
-        }else
-        {
-            $no_tiempoad++;
-          // echo ' Destiempo'.'<br>';
-            
-        }
-
-
-    ?>   
-    <?php     
-}
-
-$RAF=  ($tiempoad*20)/$cuentafila;
 //echo 'Prom '.$RAF;
 
 //----------Funcion para consulta de Reclamos----------
@@ -181,7 +63,7 @@ function pedidosEntregado($f1,$f2,$conexion,$area){
   $pedidosEntregados=0;
   $puntosP=0;
 
-  $query="SELECT FechaLiberacion,PeFeReqCli FROM upedido WHERE FechaLiberacion BETWEEN '$f1' AND '$f2' ";
+  $query="SELECT FechaEmp,PeFeReqCli FROM upedido WHERE FechaEmp BETWEEN '$f1' AND '$f2' ";
   $queryPuntosPedidos = "SELECT PesoPuntos FROM configuracionindindicadores WHERE configuracionindindicadores.ConId='$area' AND configuracionindindicadores.Indicador='Pedidos entregados';";
 
   $resultado=$conexion->query($query);
@@ -198,7 +80,7 @@ function pedidosEntregado($f1,$f2,$conexion,$area){
 
  
   while ($row = $resultado->fetch_assoc()) {
-    $liberacion = strtotime($row['FechaLiberacion']);
+    $liberacion = strtotime($row['FechaEmp']);
     $cliente = strtotime($row['PeFeReqCli']);
 
     if ($liberacion <= $cliente) {
@@ -215,3 +97,113 @@ function pedidosEntregado($f1,$f2,$conexion,$area){
 }
 
 
+
+function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$proc){
+  //---------- Consultas ----------
+  $query = "SELECT ".$FechaI.", ".$FechaF.", DATEDIFF(".$FechaF.", ".$FechaI.") from ".$tabla." WHERE ".$FechaI." BETWEEN '$f1' AND '$f2'";
+  $festivo = "SELECT DFFecha from diasfest";
+  $dia = "SELECT Proceso, Diastotal from uprocesos WHERE Proceso='$proc'";
+  
+  $resultado = $conexion->query($query);
+  $resultado1 = $conexion->query($festivo);
+  $resultado2 = $conexion->query($dia);
+  
+  //---------- Variables ----------
+  $aux;
+  $contador_dias = 0;
+  $a_tiempo=0;
+
+  /* Total Pedidos */
+  if($resultado){
+      $totalPedidos=mysqli_num_rows($resultado);  
+      //echo intval($totalPedidos);
+  }
+  while($row2=$resultado2->fetch_assoc())
+  {  
+    $val = intval($row2['Diastotal']);
+  }
+  while($row1=$resultado1->fetch_assoc()){
+  }
+  while($row=$resultado->fetch_assoc())
+  {
+      /* Si la fecha es default */
+      $integer2 = intval($row['DATEDIFF('.$FechaF.', '.$FechaI.')']);
+
+      for($i=0; $i<$integer2; $i++){    
+          if( ($row[$FechaI] != $row1['DFFecha'])){   
+              $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+              $row[$FechaI] = $aux;
+              //echo " al ".date("d-m-Y",strtotime($row[$FechaI])).'<br>';
+              if(date("w",strtotime($row[$FechaI])) != 0){
+                  $contador_dias++;
+              }       
+          }else{
+              $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+              $row[$FechaI] = $aux;
+          }
+      }
+      if($contador_dias <= $val){
+      $a_tiempo++;
+      }  
+      $contador_dias = 0;
+  }
+//echo $a_tiempo;
+$val_final = ($a_tiempo*20)/$totalPedidos;
+
+//echo $val_final;
+
+return $val_final;
+
+
+}
+
+
+function oc($conexion, $f1, $f2, $ind, $ind2)
+{
+    $query = "SELECT FechaOCprog, FechaOCReal FROM uordencompra WHERE FechaOCprog BETWEEN  '$f1' AND '$f2'";
+    $resultado = $conexion->query($query);
+    $contador = 0;
+
+    /* Consultando peso */
+
+    $peso = "SELECT PesoPuntos FROM configuracionindindicadores WHERE ConId = '$ind' AND IndId='$ind2';"; 
+    $result = $conexion->query($peso);
+
+    while($row2 = $result->fetch_assoc())
+    {
+        $peso = intval($row2['PesoPuntos']);
+        //echo $peso;
+    }
+
+
+    if($resultado)
+    {
+      $totalPedidos=mysqli_num_rows($resultado);
+    }
+
+    while($row = $resultado->fetch_assoc())
+    {
+        if($row['FechaOCReal'] == '1000-01-01')
+        {
+            $fechaActual = date('d-m-Y');
+            $row['FechaOCReal'] = $fechaActual;
+
+            if($row['FechaOCReal'] <= $row['FechaOCprog'])
+            {
+                $contador++;
+            }
+        }else
+        {
+            if($row['FechaOCReal'] <= $row['FechaOCprog'])
+            {
+                $contador++;
+            }
+        }
+
+    }
+    //echo 'Buenos '.$contador.'<br>';
+    $varfin = ($contador*$peso)/$totalPedidos;
+    return $varfin;
+}
+
+?>

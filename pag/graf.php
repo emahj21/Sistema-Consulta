@@ -1,6 +1,11 @@
 <?php
 
+include("../conexion.php");
 include('consulta.php');
+//include('prueba.php');
+$f1 = $_POST['Fein'];
+$f2 = $_POST['Fefin'];
+
 
 ?>
 <!-- Bootstrap CSS -->
@@ -24,6 +29,7 @@ include('consulta.php');
             <h3 class="text-center"><?php echo implode("",$tabla_areas[0]);?></h3>
             <canvas id="MiGrafica" style="width: 800px; height: 400px;"></canvas>
             <a class="btn" target="_blank" id="Ver">Ver más</a>
+            <a class="btn" target="_blank" id="Ver2">Ver más</a>
             <div id="con"></div>
 
             
@@ -88,7 +94,14 @@ include('consulta.php');
                 backgroundColor: [ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
                 
-                data: [<?php echo $RAF?>, <?php echo $LIB?>, <?php echo reclamos($f1,$f2,$conexion,$area=1)?>,<?php echo pedidosEntregado($f1,$f2,$conexion,$area=1)?>]
+                data: [
+                    <?php echo dias($conexion,'FechaRegistro', 'FechaAdmin',$f1,$f2,'upedido','Admin')?>,
+                   10,
+                   <?php echo reclamos($f1,$f2,$conexion,$area=1)?>,                   
+                   <?php echo pedidosEntregado($f1,$f2,$conexion,$area=1)?>
+                    
+                   
+                ]
                 },
             ]
 
@@ -96,6 +109,8 @@ include('consulta.php');
         //ctx.update();
         //ctx.destroy();
     }); 
+
+
 </script>
 
 <script>
@@ -111,7 +126,12 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=2)?>, <?php echo pedidosEntregado($f1,$f2,$conexion,$area=2)?>]
+                data: [
+                    1, 
+                    <?php echo oc($conexion, $f1, $f2,'2','2')?>,
+                    <?php echo reclamos($f1,$f2,$conexion,$area=2)?>, 
+                    <?php echo pedidosEntregado($f1,$f2,$conexion,$area=2)?>
+                ]
                 }
             ]
         }
@@ -133,7 +153,8 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo pedidosEntregado($f1,$f2,$conexion,$area=3)?>]
+                data: [<?php echo pedidosEntregado($f1,$f2,$conexion,$area=3)?>
+            ]
                 }
             ]
         }
@@ -155,7 +176,11 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>,<?php echo $no_tiempocom?>,<?php echo $no_tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=4)?>, <?php echo pedidosEntregado($f1,$f2,$conexion,$area=4    )?>]
+                data: [
+                    6,8,9,
+                    <?php echo reclamos($f1,$f2,$conexion,$area=4)?>, 
+                    <?php echo pedidosEntregado($f1,$f2,$conexion,$area=4)?>
+            ]
                 }
             ]
         }
@@ -177,7 +202,11 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=5)?>, <?php echo pedidosEntregado($f1,$f2,$conexion,$area=5)?>]
+                data: [
+                    7,
+                    <?php echo reclamos($f1,$f2,$conexion,$area=5)?>, 
+                    <?php echo pedidosEntregado($f1,$f2,$conexion,$area=5)?>
+                ]
                 }
             ]
         }
@@ -199,7 +228,11 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>, <?php echo $no_tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=6)?>]
+                data: [
+                    8,9,
+                    <?php echo reclamos($f1,$f2,$conexion,$area=6)?>,
+                    <?php echo pedidosEntregado($f1,$f2,$conexion,$area=6)?>
+                ]
                 }
             ]
         }
@@ -221,7 +254,13 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>,<?php echo $no_tiempocom?>,<?php echo $no_tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=7)?>]
+                data: [
+                    1,
+                    <?php echo oc($conexion, $f1, $f2,'2','2')?>,
+                    4,
+                    <?php echo reclamos($f1,$f2,$conexion,$area=7)?>,
+                    <?php echo pedidosEntregado($f1,$f2,$conexion,$area=7)?>
+                ]
                 }
             ]
         }
@@ -243,7 +282,11 @@ include('consulta.php');
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
-                data: [<?php echo $tiempocom?>,<?php echo $no_tiempocom?>,<?php echo $no_tiempocom?>,<?php echo reclamos($f1,$f2,$conexion,$area=8)?>]
+                data: [
+                    1,2,3,
+                    <?php echo reclamos($f1,$f2,$conexion,$area=8)?>,
+                    <?php echo pedidosEntregado($f1,$f2,$conexion,$area=8)?>
+                ]
                 }
             ]
         }
@@ -251,8 +294,6 @@ include('consulta.php');
         //ctx.destroy();
     }); 
 </script>
-
-
 
 
 
