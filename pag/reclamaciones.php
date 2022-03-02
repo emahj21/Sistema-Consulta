@@ -1,80 +1,12 @@
 <?php 
 
 include("../conexion.php");
+include("consulta_gral.php");
 
 
 $f1 = $_POST['Fein'];
 $f2 = $_POST['Fefin'];
 
-
-function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
-    //---------- Consultas ----------
-  
-
-    $query = "SELECT ".$FechaI.", ".$FechaF.", DATEDIFF(".$FechaF.", ".$FechaI.") from ".$tabla." WHERE ".$FechaI." BETWEEN '$f1' AND '$f2'";
-
-  $resultado = $conexion->query($query);
-  /* Total Pedidos */
-  if($resultado){
-      $totalPedidos=mysqli_num_rows($resultado);  
-      //echo intval($totalPedidos);
-  }
-  $festivo = "SELECT DFFecha from diasfest";
-  $resultado1 = $conexion->query($festivo);
-
-  $dia = "SELECT Proceso, Diastotal from uprocesos WHERE Proceso='$proc'";
-  $resultado2 = $conexion->query($dia);
-
-  $a_tiempo=0;
-
-  while($row2=$resultado2->fetch_assoc())
-  {  
-    $val = intval($row2['Diastotal']);
-  }
-  //---------- Variables ----------
-  $aux;
-  $contador_dias = 0;
-  
-  while($row1=$resultado1->fetch_assoc()){
-  }
-  
-  while($row=$resultado->fetch_assoc())
-  {
-    /* Si la fecha es default */
-    $integer2 = intval($row['DATEDIFF('.$FechaF.', '.$FechaI.')']);
-    /* if($integer2==0){
-        //echo "Del ".date("d-m-Y",strtotime($row[$FechaI]));
-        //echo " al ".date("d-m-Y",strtotime($row[$FechaF])).'<br>';
-    } */
-    for($i=0; $i<$integer2; $i++){    
-      if( ($row[$FechaI] != $row1['DFFecha'])){   
-        $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
-        $row[$FechaI] = $aux;
-        //echo " al ".date("d-m-Y",strtotime($row[$FechaI])).'<br>';
-        if(date("w",strtotime($row[$FechaI])) != 0){
-          $contador_dias++;
-        }       
-      }else{
-        $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
-        $row[$FechaI] = $aux;
-      }
-    }
-    if($contador_dias <= $val){
-        $cadena = '<h5>&#x2714;</h5>';
-      $a_tiempo++;
-    }else
-    {
-        $cadena = '<h5>&#10060;</h5>';
-    }  
-    $contador_dias = 0;
-  }
-  
-  $val_final = ($a_tiempo*20)/$totalPedidos;
- 
-  return $cadena;
-
-
-}
 
 ?>
 
@@ -95,17 +27,17 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
   </head>
   <body class="m-0 ">
    <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
-    <div class="" id="tabla">
+    <div class="container" id="tabla">
         <div class="row">
-            <table  class="table" width="">
+            <h3>Reclamaciones</h3>
+            <table  class="table">
                 
                     <thead  class="thead-dark">
                     <tr>
                         <td>Nombre del Cliente</td>
                         <td>Número de Pedido</td>
                         <td>Fecha de Inicio</td>
-                        <td>Fecha De Término</td>
-                        <td>Estatus</td>
+                        <td>Reclamos</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -114,10 +46,10 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
                         
 
                         /* $query= "SELECT FechaRegistro, FechaAdmin, Idpedido, PeFeReqCli, FechaLiberacion, DAYOFWEEK(FechaRegistro), DATEDIFF(FechaAdmin, FechaRegistro) from upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2'  AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6)"; */
-                        $query = "SELECT upedido.Idpedido, upedido.FechaRegistro, upedido.FechaAdmin, upedido.idcontacto, contacto.IdContacto, ucliente.IDCliente, ucliente.CRazonSocial FROM upedido 
+                        $query = "SELECT upedido.Idpedido, upedido.reclamacion, upedido.FechaRegistro, upedido.idcontacto, contacto.IdContacto, ucliente.IDCliente, ucliente.CRazonSocial FROM upedido 
                         INNER JOIN contacto ON contacto.IdContacto = upedido.idcontacto 
                         INNER JOIN ucliente ON  contacto.IDCliente = ucliente.IDCliente 
-                        WHERE FechaRegistro BETWEEN '$f1' AND '$f2'";
+                        WHERE FechaRegistro BETWEEN '$f1' AND '$f2';";
 
 
                         $resultado= $conexion->query($query);
@@ -125,11 +57,10 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
                     ?>
 
                     <tr>
-                        <td><?php echo $row['CRazonSocial'] ?></td>
-                        <td><?php echo $row['Idpedido'] ?></td> 
-                        <td><?php echo $row['FechaRegistro'] ?></td> 
-                        <td><?php echo $row['FechaAdmin'] ?></td>
-                        <td><?php echo dias($conexion,'FechaRegistro','FechaAdmin',$f1,$f2,'upedido',null, 'Admin')?></td>
+                        <td align="center"><?php echo $row['CRazonSocial'] ?></td>
+                        <td align="center"><?php echo $row['Idpedido'] ?></td> 
+                        <td align="center"><?php echo $row['FechaRegistro'] ?></td> 
+                        <td align="center"><?php echo reclamos($f1,$f2,$conexion, $area=1)?></td>
                       
                     </tr>
 

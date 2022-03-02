@@ -23,26 +23,49 @@ $f2 = $_POST['Fefin'];
 </head>
 <body>
 
-<div class="container mt-5">
+<div class=" mt-5">
     <div class="row">
         <div class="col-sm-12" >
-            <h3 class="text-center"><?php echo implode("",$tabla_areas[0]);?></h3>
-            <canvas id="MiGrafica" style="width: 800px; height: 400px;"></canvas>
-            <a class="btn" target="_blank" id="Ver">Ver más</a>
-            <a class="btn" target="_blank" id="Ver2">Ver más</a>
-            <div id="con"></div>
+
+        <h3 class="text-center">Calificación General</h3>
+            <canvas id="Global" width="500" height="300"></canvas>
+            <button class="btn" onclick="mensaje();">Ver más</button>
+
+
 
             
         </div>
         <div class="col-sm-12   "> 
+
+            
+        <h3 class="text-center"><?php echo implode("",$tabla_areas[0]);?></h3>
+            <h5 align="center">Calificación 
+            <?php $calificacion = (dias($conexion,'FechaRegistro', 'FechaAdmin',$f1,$f2,'upedido','Admin' ,'1', '1')+
+                dias($conexion,'FechaEmp', 'FechaLiberacion',$f1,$f2,'upedido','Admin' , '1', '1')+
+                reclamos($f1,$f2,$conexion,$area=1)+
+                pedidosEntregado($f1,$f2,$conexion,$area=1))/10; 
+                
+                echo $calificacion;?>
+            </h5>
+            <canvas id="MiGrafica" style="width: 800px; height: 400px;"></canvas>
+            <a class="btn" target="_blank" id="Ver">Ver más</a>
+            <a class="btn" target="_blank" id="Ver2">Ver más</a>
+            <a class="btn" target="_blank" id="Ver3">Ver más</a>
+            <a class="btn" target="_blank" id="Ver4">Ver más</a>
+            <div id="con"></div>
+
             <h3 class="text-center"><?php echo implode("",$tabla_areas[1]);?></h3>         
             <canvas id="MiGrafica2" width="500" height="300"></canvas>
-            <button class="btn" onclick="mensaje();">Ver más</button>
-            <div id="con"></div>
+            <a class="btn" target="_blank" id="Ver5">Ver más</a>
+            <a class="btn" target="_blank" id="Ver6">Ver más</a>
+            <a class="btn" target="_blank" id="Ver7">Ver más</a>
+            <a class="btn" target="_blank" id="Ver8">Ver más</a>
+            <div id="con2"></div>
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[2]);?></h3>
             <canvas id="MiGrafica3" width="500" height="300"></canvas>
-            <a class="btn"  href="pag/administracion.php" target="_blank">Ver más</a>
+            <a class="btn" target="_blank" id="logistica">Ver más</a>
+            <div id="con3"></div>
 
             <h3 class="text-center">Imagen</h3>
             <canvas id="MiGrafica4" width="500" height="300"></canvas>
@@ -65,6 +88,8 @@ $f2 = $_POST['Fefin'];
             <canvas id="MiGrafica8" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button>
 
+
+
 <!--             <h3 class="text-center"><?php echo implode("",$tabla_areas[8]);?></h3>
             <canvas id="MiGrafica9" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button> -->
@@ -79,10 +104,46 @@ $f2 = $_POST['Fefin'];
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
+
+<!-- Gráfica Global -->
+<script>
+    //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
+    var ctx = document.getElementById("Global").getContext("2d");
+    //var container = document.getElementById('1');
+
+    var chart = new Chart(ctx,{
+        type: "bar",
+        data:{
+            labels:["Administración", "Compras", "Logística ", "Imagen", "Empaque", "Adm. Ventas", "Almacen", "Calidad"],
+            datasets:[
+                {
+                label: "General",
+                backgroundColor: [ 'rgb(17, 169, 7)',
+                                  'rgb(195, 3, 3)'],
+                
+                data: [
+                    <?php echo $calificacion?>,
+                   10,
+                  8.5,                   
+                   7
+                    
+                   
+                ]
+                },
+            ]
+
+        }
+        //ctx.update();
+        //ctx.destroy();
+    }); 
+
+</script>
+
+
 <script>
     //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
     var ctx = document.getElementById("MiGrafica").getContext("2d");
-    var container = document.getElementById('1');
+   
 
     var chart = new Chart(ctx,{
         type: "bar",
@@ -90,13 +151,13 @@ $f2 = $_POST['Fefin'];
             labels:["Revisión de Anticipos y Facturas", "Liberación", "Reclamaciones", "Pedidos entregados"],
             datasets:[
                 {
-                labels: "Mi gráfica",
+                label: "Administración",
                 backgroundColor: [ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
                 
                 data: [
-                    <?php echo dias($conexion,'FechaRegistro', 'FechaAdmin',$f1,$f2,'upedido','Admin')?>,
-                   10,
+                    <?php echo dias($conexion,'FechaRegistro', 'FechaAdmin',$f1,$f2,'upedido','Admin', '1', '1')?>,
+                    <?php echo dias($conexion,'FechaEmp', 'FechaLiberacion',$f1,$f2,'upedido','Admin' ,'1', '1')?>,
                    <?php echo reclamos($f1,$f2,$conexion,$area=1)?>,                   
                    <?php echo pedidosEntregado($f1,$f2,$conexion,$area=1)?>
                     
@@ -123,7 +184,7 @@ $f2 = $_POST['Fefin'];
             labels:["Generación de OC's", "Recepción de OC's", "Reclamaciones" , "Pedidos Entregados"],
             datasets:[
                 {
-                label: "Mi gráfica",
+                label: "Compras",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
                 data: [
@@ -150,7 +211,7 @@ $f2 = $_POST['Fefin'];
             labels:["Pedidos Entregados"],
             datasets:[
                 {
-                label: "Mi gráfica",
+                label: "Logistica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
                 data: [<?php echo pedidosEntregado($f1,$f2,$conexion,$area=3)?>

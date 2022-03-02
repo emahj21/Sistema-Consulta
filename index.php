@@ -75,9 +75,9 @@
 <form class="col-4 mt-5" action="" >
 <div class="row">
 <label class="col-12" for="">Fecha Inicial</label>
-<input type="datetime" id="f1" required value='2021-12-01 00:00:00'">
+<input type="date" id="f1" required value='2021-12-01'">
 <label class="col-12" for="">Fecha Final</label>
-<input type="datetime" id="f2" required value='2021-12-15 23:59:59'">
+<input type="date" id="f2" required value='2021-12-15'">
 <button type="button" style="margin-top: 30px; border-radius: 50px;" class=" col-12 btn btn-outline-secondary" id="Enviar">Consultar</button>
 </div>
 </form>

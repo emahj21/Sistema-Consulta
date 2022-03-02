@@ -23,7 +23,7 @@
 	{
         echo'<script type="text/javascript">
 		alert("Usuario o contraseña inválido");
-		window.location.href="log.html";
+		window.location.href="../log.html";
 		</script>';
     
 	}

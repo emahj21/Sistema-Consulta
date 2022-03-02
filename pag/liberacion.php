@@ -95,9 +95,9 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
   </head>
   <body class="m-0 ">
    <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
-    <div class="" id="tabla">
+    <div class="container" id="tabla">
         <div class="row">
-            <table  class="table" width="">
+            <table  class="table">
                 
                     <thead  class="thead-dark">
                     <tr>
@@ -114,10 +114,10 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
                         
 
                         /* $query= "SELECT FechaRegistro, FechaAdmin, Idpedido, PeFeReqCli, FechaLiberacion, DAYOFWEEK(FechaRegistro), DATEDIFF(FechaAdmin, FechaRegistro) from upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2'  AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6)"; */
-                        $query = "SELECT upedido.Idpedido, upedido.FechaRegistro, upedido.FechaAdmin, upedido.idcontacto, contacto.IdContacto, ucliente.IDCliente, ucliente.CRazonSocial FROM upedido 
+                        $query = "SELECT upedido.Idpedido, upedido.FechaEmp, upedido.FechaLiberacion, upedido.idcontacto, contacto.IdContacto, ucliente.IDCliente, ucliente.CRazonSocial FROM upedido 
                         INNER JOIN contacto ON contacto.IdContacto = upedido.idcontacto 
                         INNER JOIN ucliente ON  contacto.IDCliente = ucliente.IDCliente 
-                        WHERE FechaRegistro BETWEEN '$f1' AND '$f2'";
+                        WHERE FechaEmp BETWEEN '$f1' AND '$f2'";
 
 
                         $resultado= $conexion->query($query);
@@ -127,9 +127,9 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
                     <tr>
                         <td><?php echo $row['CRazonSocial'] ?></td>
                         <td><?php echo $row['Idpedido'] ?></td> 
-                        <td><?php echo $row['FechaRegistro'] ?></td> 
-                        <td><?php echo $row['FechaAdmin'] ?></td>
-                        <td><?php echo dias($conexion,'FechaRegistro','FechaAdmin',$f1,$f2,'upedido',null, 'Admin')?></td>
+                        <td><?php echo $row['FechaEmp'] ?></td> 
+                        <td><?php echo $row['FechaLiberacion'] ?></td>
+                        <td><?php echo dias($conexion,'FechaEmp','FechaLiberacion',$f1,$f2,'upedido',null, 'Admin')?></td>
                       
                     </tr>
 

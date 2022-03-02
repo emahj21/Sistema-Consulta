@@ -70,7 +70,7 @@ function pedidosEntregado($f1,$f2,$conexion,$area){
   $resultado2=$conexion->query($queryPuntosPedidos);
 
   if($resultado){
-    $totalPedidos=mysqli_num_rows($resultado);  
+    $pedidos = intval($totalPedidos=mysqli_num_rows($resultado));  
     //echo intval($totalPedidos);
   }
 
@@ -86,11 +86,15 @@ function pedidosEntregado($f1,$f2,$conexion,$area){
     if ($liberacion <= $cliente) {
       $pedidosBuenos++;
     }
+    else
+    {
+      
+    }
 
     //echo intval($pedidosBuenos);
   
   }
-  $pedidosEntregados=($pedidosBuenos*$puntosP)/$totalPedidos;
+  $pedidosEntregados=($pedidosBuenos*$puntosP)/$pedidos;
   return $pedidosEntregados;
 
   
@@ -98,7 +102,7 @@ function pedidosEntregado($f1,$f2,$conexion,$area){
 
 
 
-function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$proc){
+function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$proc, $ind, $ind2){
   //---------- Consultas ----------
   $query = "SELECT ".$FechaI.", ".$FechaF.", DATEDIFF(".$FechaF.", ".$FechaI.") from ".$tabla." WHERE ".$FechaI." BETWEEN '$f1' AND '$f2'";
   $festivo = "SELECT DFFecha from diasfest";
@@ -107,6 +111,16 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$proc){
   $resultado = $conexion->query($query);
   $resultado1 = $conexion->query($festivo);
   $resultado2 = $conexion->query($dia);
+
+  $peso = "SELECT PesoPuntos FROM configuracionindindicadores WHERE ConId = '$ind' AND IndId='$ind2';"; 
+  $result = $conexion->query($peso);
+
+    while($row3 = $result->fetch_assoc())
+    {
+        $pesop = intval($row3['PesoPuntos']);
+        //echo $peso;
+    }
+
   
   //---------- Variables ----------
   $aux;
@@ -148,7 +162,7 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$proc){
       $contador_dias = 0;
   }
 //echo $a_tiempo;
-$val_final = ($a_tiempo*20)/$totalPedidos;
+$val_final = ($a_tiempo*$pesop)/$totalPedidos;
 
 //echo $val_final;
 
