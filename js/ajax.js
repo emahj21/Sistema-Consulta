@@ -59,7 +59,7 @@ $('#Ver2').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/administracion.php',
+    url: 'pag/liberacion.php',
     type: 'POST',
     data: ruta,
   })
@@ -77,3 +77,473 @@ $('#Ver2').click(function(){
     console.log("complete");
   })
 });  
+
+$('#Ver3').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/reclamaciones.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});  
+
+
+$('#Ver4').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregados.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});  
+
+
+$('#Ver6').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/oc.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con2').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});  
+
+$('#Ver6').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/oc.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con2').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+}); 
+
+$('#Ver7').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/reclamaciones.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con2').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+}); 
+
+$('#Ver8').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregados.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con2').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+}); 
+
+$('#logistica').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregados.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con3').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+}); 
+
+$('#entregadosim').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregados.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con4').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+}); 
+
+$('#reclamosim').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/reclamaciones.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con4').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+}); 
+
+$('#personalizacionim').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/administracion.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con4').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+
+$('#generacion').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/administracion.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con4').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+
+$('#empaque').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/administracion.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con5').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+
+$('#reclamoemp').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/reclamaciones.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con5').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+
+$('#pedidosemp').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregados.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con5').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+
+$('#pedreg').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/administracion.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con6').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+
+$('#regas').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregados.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con6').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+
+$('#reclamacionadm').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/reclamaciones.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con6').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+
+$('#pedidosadm').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregados.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con6').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
