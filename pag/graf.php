@@ -27,7 +27,7 @@ $f2 = $_POST['Fefin'];
     <div class="row">
         <div class="col-sm-12" >
 
-        <h3 class="text-center">Calificación General</h3>
+        <h3 class="text-center">Calificaciones Generales</h3>
             <canvas id="Global" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button>
 
@@ -74,7 +74,8 @@ $f2 = $_POST['Fefin'];
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[2]);?></h3>
             <h5 align="center"> Calificación
-                <?php echo pedidosEntregado($f1,$f2,$conexion,$area=3)?>
+                <?php $logistica =  pedidosEntregado($f1,$f2,$conexion,$area=3);
+                echo $logistica?>
             </h5> 
             <canvas id="MiGrafica3" width="500" height="300"></canvas>
             <a class="btn" target="_blank" id="logistica">Pedidos Entregados</a>
@@ -91,6 +92,11 @@ $f2 = $_POST['Fefin'];
             
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[4]);?></h3>
+            <h5 align="center"> Calificación
+                <?php $calificacion3 = (dias($conexion,'FechaEmpR', 'FechaProcesos', $f1, $f2, 'uempaque', 'upedido', 'Emp', '5', '1')+
+                            reclamos($f1,$f2,$conexion,$area=5) + pedidosEntregado($f1,$f2,$conexion,$area=5))/10;
+                            echo $calificacion3?>
+            </h5>
             <canvas id="MiGrafica5" width="500" height="300"></canvas>
             <a class="btn" target="_blank" id="empaque">Empaque</a>
             <a class="btn" target="_blank" id="reclamoemp">Reclamaciones</a>
@@ -99,6 +105,11 @@ $f2 = $_POST['Fefin'];
 
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[5]);?></h3>
+            <h5 align="center"> Calificación
+                <?php $calificacion5 = (dias($conexion,'FechaEnvioBCK', 'FechaRegistro', $f1, $f2, 'upedido', null, 'Registro-Backoffice', '6', '1')+
+                            rechazos($conexion, $f1, $f2)+ reclamos($f1,$f2,$conexion,$area=6)+ pedidosEntregado($f1,$f2,$conexion,$area=6))/10;
+                            echo $calificacion5?>
+            </h5>
             <canvas id="MiGrafica6" width="500" height="300"></canvas>
             <a class="btn" target="_blank" id="pedreg">Pedidos Registrados</a>
             <a class="btn" target="_blank" id="regas">Regresos a Asesores</a>
@@ -111,7 +122,13 @@ $f2 = $_POST['Fefin'];
             <button class="btn" onclick="mensaje();">Ver más</button>
 
             
+
             <h3 class="text-center"><?php echo implode("",$tabla_areas[7]);?></h3>
+            <h5 align="center"> Calificación
+                <?php $calificacion4 = (dias($conexion,'FechaOCReal', 'OC1aRevFe', $f1, $f2, 'uordencompra', null, 'Rev1', '8', '1')+
+                dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2')+defectos($conexion, $f1, $f2, 'Procesos', '8', '3')+reclamos($f1,$f2,$conexion,$area=8)+pedidosEntregado($f1,$f2,$conexion,$area=8))/10;
+                            echo $calificacion4?>
+            </h5>
             <canvas id="MiGrafica8" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button>
 
@@ -151,10 +168,12 @@ $f2 = $_POST['Fefin'];
                 data: [
                     <?php echo $calificacion?>,
                     <?php echo $calificacion2?>,
-                  8.5,                   
-                   7
-                    
-                   
+                    <?php echo $logistica?>,
+                    6,                   
+                    <?php echo $calificacion3?>,
+                    7,
+                    9,
+                    <?php echo $calificacion4?>                   
                 ]
                 },
             ]
@@ -308,6 +327,7 @@ $f2 = $_POST['Fefin'];
     }); 
 </script>
 
+<!-- Completo -->
 <script>
     //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
     var ctx = document.getElementById("MiGrafica6").getContext("2d");
@@ -323,7 +343,7 @@ $f2 = $_POST['Fefin'];
                                   'rgb(195, 3, 3)'],
                 data: [
                     <?php echo dias($conexion,'FechaEnvioBCK', 'FechaRegistro', $f1, $f2, 'upedido', null, 'Registro-Backoffice', '6', '1')?>,
-                    9,
+                    <?php echo rechazos($conexion, $f1, $f2)?>,
                     <?php echo reclamos($f1,$f2,$conexion,$area=6)?>,
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=6)?>
                 ]
@@ -351,8 +371,7 @@ $f2 = $_POST['Fefin'];
                 data: [
                     <?php echo (dias($conexion,'FechaOCReal', 'OC1aRevFe', $f1, $f2, 'uordencompra', null, 'Rev1', '8', '1')+ dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2'))?>,
                     <?php echo oc($conexion, $f1, $f2,'2','2')?>,
-                    <?php 
-echo recoleccion($conexion,$f1,$f2);?>,
+                   6,
                     <?php echo reclamos($f1,$f2,$conexion,$area=7)?>,
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=7)?>
                 ]
