@@ -29,13 +29,14 @@ $f2 = $_POST['Fefin'];
    <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
     <div class="container" id="tabla">
         <div class="row">
-            <h3>Recepción de Órdenes de compra</h3>
+            
             <button class="btn " style="border-color: #000; width:70px;" onclick="ocultar();">Ocultar</button>
             <table  class="table">
                 
                     <thead  class="thead-dark">
                     <tr>
                         <td align="center" width="150">ID Orden de Compra</td>
+                        <td align="center">Tipo OC</td>
                         <td align="center">Proveedor</td>
                         <td align="center">Fecha Programada</td>
                         <td align="center" width="150">Fecha Real</td>
@@ -47,8 +48,9 @@ $f2 = $_POST['Fefin'];
                         
 
                         /* $query= "SELECT FechaRegistro, FechaAdmin, Idpedido, PeFeReqCli, FechaLiberacion, DAYOFWEEK(FechaRegistro), DATEDIFF(FechaAdmin, FechaRegistro) from upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2'  AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6)"; */
-                            $query = "SELECT oc.FechaOCReal, oc.FechaOCprog, oc.IDOC, oc.ProvId, Proveedor FROM uordencompra oc
+                            $query = "SELECT oc.FechaOCReal, oc.FechaOCprog, oc.IDOC, oc.ProvId, Proveedor, DescripcionOC FROM uordencompra oc
                             INNER JOIN proveedores ON  oc.ProvId = proveedores.ProvId
+                            INNER JOIN utipooc ON oc.IdTipoOC = utipooc.IdTipoOC
                             WHERE FechaOCReal BETWEEN '$f1' AND' $f2'";
 
 
@@ -58,6 +60,7 @@ $f2 = $_POST['Fefin'];
 
                     <tr>
                         <td align="center"><?php echo $row['IDOC'] ?></td>
+                        <td align="center"><?php echo $row['DescripcionOC']?></td>
                         <td align="center"><?php echo $row['Proveedor'] ?></td> 
                         <td align="center"><?php echo $row['FechaOCprog'] ?></td>   
                         <td align="center"><?php echo $row['FechaOCReal'] ?></td> 

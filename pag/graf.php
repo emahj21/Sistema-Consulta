@@ -40,44 +40,71 @@ $f2 = $_POST['Fefin'];
             
         <h3 class="text-center"><?php echo implode("",$tabla_areas[0]);?></h3>
             <h5 align="center">Calificación 
-            <?php $calificacion = (dias($conexion,'FechaRegistro', 'FechaAdmin',$f1,$f2,'upedido','Admin' ,'1', '1')+
-                dias($conexion,'FechaEmp', 'FechaLiberacion',$f1,$f2,'upedido','Admin' , '1', '1')+
+            <?php $calificacion = (dias($conexion,'FechaRegistro', 'FechaAdmin',$f1,$f2,'upedido',null,'Admin' ,'1', '1')+
+                dias($conexion,'FechaEmp', 'FechaLiberacion',$f1,$f2,'upedido',null,'Admin' , '1', '1')+
                 reclamos($f1,$f2,$conexion,$area=1)+
                 pedidosEntregado($f1,$f2,$conexion,$area=1))/10; 
                 
                 echo $calificacion;?>
             </h5>
             <canvas id="MiGrafica" style="width: 800px; height: 400px;"></canvas>
-            <a class="btn" target="_blank" id="Ver">Ver más</a>
-            <a class="btn" target="_blank" id="Ver2">Ver más</a>
-            <a class="btn" target="_blank" id="Ver3">Ver más</a>
-            <a class="btn" target="_blank" id="Ver4">Ver más</a>
+            <a class="btn" target="_blank" id="Ver">Revisión Anticipos y Fac.</a>
+            <a class="btn" target="_blank" id="Ver2">Liberación</a>
+            <a class="btn" target="_blank" id="Ver3">Reclamaciones</a>
+            <a class="btn" target="_blank" id="Ver4">Pedidos Entregados</a>
             <div id="con"></div>
 
-            <h3 class="text-center"><?php echo implode("",$tabla_areas[1]);?></h3>         
+
+
+            <h3 class="text-center"><?php echo implode("",$tabla_areas[1]);?></h3>  
+            <h5 align="center">Calificación 
+            <?php $calificacion2 = (dias($conexion,'FechaAdmin', 'FechaRegOC', $f1, $f2, 'upedido', 'uordencompra', 'Comp', '2', '1')+
+                                    oc($conexion, $f1, $f2,'2','2')+
+                                    reclamos($f1,$f2,$conexion,$area=2)+
+                                    pedidosEntregado($f1,$f2,$conexion,$area=2))/10; 
+                
+                echo $calificacion2;?>
+            </h5>      
             <canvas id="MiGrafica2" width="500" height="300"></canvas>
-            <a class="btn" target="_blank" id="Ver5">Ver más</a>
-            <a class="btn" target="_blank" id="Ver6">Ver más</a>
-            <a class="btn" target="_blank" id="Ver7">Ver más</a>
-            <a class="btn" target="_blank" id="Ver8">Ver más</a>
+            <a class="btn" target="_blank" id="Ver5">Generación de OC's</a>
+            <a class="btn" target="_blank" id="Ver6">Recepción de OC's</a>
+            <a class="btn" target="_blank" id="Ver7">Reclamaciones</a>
+            <a class="btn" target="_blank" id="Ver8">Pedidos Entregados</a>
             <div id="con2"></div>
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[2]);?></h3>
+            <h5 align="center"> Calificación
+                <?php echo pedidosEntregado($f1,$f2,$conexion,$area=3)?>
+            </h5> 
             <canvas id="MiGrafica3" width="500" height="300"></canvas>
-            <a class="btn" target="_blank" id="logistica">Ver más</a>
+            <a class="btn" target="_blank" id="logistica">Pedidos Entregados</a>
             <div id="con3"></div>
 
             <h3 class="text-center">Imagen</h3>
             <canvas id="MiGrafica4" width="500" height="300"></canvas>
-            <button class="btn" onclick="mensaje();">Ver más</button>
+            <a class="btn" target="_blank" id="generacion">Gen. de Fichas</a>
+            <a class="btn" target="_blank" id="ver10">Aut. de Fichas</a>
+            <a class="btn" target="_blank" id="personalizacionim">Personalización</a>
+            <a class="btn" target="_blank" id="reclamosim">Reclamaciones</a>
+            <a class="btn" target="_blank" id="entregadosim">Pedidos Entregados</a>
+            <div id="con4"></div>
+            
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[4]);?></h3>
             <canvas id="MiGrafica5" width="500" height="300"></canvas>
-            <button class="btn" onclick="mensaje();">Ver más</button>
+            <a class="btn" target="_blank" id="empaque">Empaque</a>
+            <a class="btn" target="_blank" id="reclamoemp">Reclamaciones</a>
+            <a class="btn" target="_blank" id="pedidosemp">Pedidos Entregados</a>
+            <div id="con5"></div>
+
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[5]);?></h3>
             <canvas id="MiGrafica6" width="500" height="300"></canvas>
-            <button class="btn" onclick="mensaje();">Ver más</button>
+            <a class="btn" target="_blank" id="pedreg">Pedidos Registrados</a>
+            <a class="btn" target="_blank" id="regas">Regresos a Asesores</a>
+            <a class="btn" target="_blank" id="reclamacionadm">Reclamaciones</a>
+            <a class="btn" target="_blank" id="pedidosadm">Pedidos Entregados</a>
+            <div id="con6"></div>
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[6]);?></h3>
             <canvas id="MiGrafica7" width="500" height="300"></canvas>
@@ -123,7 +150,7 @@ $f2 = $_POST['Fefin'];
                 
                 data: [
                     <?php echo $calificacion?>,
-                   10,
+                    <?php echo $calificacion2?>,
                   8.5,                   
                    7
                     
@@ -139,7 +166,7 @@ $f2 = $_POST['Fefin'];
 
 </script>
 
-
+<!-- Completo -->
 <script>
     //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
     var ctx = document.getElementById("MiGrafica").getContext("2d");
@@ -156,8 +183,8 @@ $f2 = $_POST['Fefin'];
                                   'rgb(195, 3, 3)'],
                 
                 data: [
-                    <?php echo dias($conexion,'FechaRegistro', 'FechaAdmin',$f1,$f2,'upedido','Admin', '1', '1')?>,
-                    <?php echo dias($conexion,'FechaEmp', 'FechaLiberacion',$f1,$f2,'upedido','Admin' ,'1', '1')?>,
+                    <?php echo dias($conexion,'FechaRegistro', 'FechaAdmin',$f1,$f2,'upedido',null,'Admin', '1', '1')?>,
+                    <?php echo dias($conexion,'FechaEmp', 'FechaLiberacion',$f1,$f2,'upedido',null,'Admin','1', '1')?>,
                    <?php echo reclamos($f1,$f2,$conexion,$area=1)?>,                   
                    <?php echo pedidosEntregado($f1,$f2,$conexion,$area=1)?>
                     
@@ -174,6 +201,7 @@ $f2 = $_POST['Fefin'];
 
 </script>
 
+<!-- Completo -->
 <script>
     //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
     var ctx = document.getElementById("MiGrafica2").getContext("2d");
@@ -188,7 +216,7 @@ $f2 = $_POST['Fefin'];
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
                 data: [
-                    1, 
+                    <?php echo dias($conexion,'FechaAdmin', 'FechaRegOC', $f1, $f2, 'upedido', 'uordencompra', 'Comp', '2', '1')?>, 
                     <?php echo oc($conexion, $f1, $f2,'2','2')?>,
                     <?php echo reclamos($f1,$f2,$conexion,$area=2)?>, 
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=2)?>
@@ -201,6 +229,7 @@ $f2 = $_POST['Fefin'];
     }); 
 </script>
 
+<!-- Completo -->
 <script>
     //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
     var ctx = document.getElementById("MiGrafica3").getContext("2d");
@@ -238,7 +267,9 @@ $f2 = $_POST['Fefin'];
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
                 data: [
-                    6,8,9,
+                    <?php echo dias($conexion, 'SDeFeSol', 'SDeFeEnvio', $f1, $f2, 'solicituddetalle', null, 'IC', '4', '1')?>,
+                    8,
+                    <?php echo dias($conexion, 'PerEnvioPrendas', 'PerDateR', $f1, $f2, 'upersonalizacion', null, 'Procesos', '4', '3')?>,
                     <?php echo reclamos($f1,$f2,$conexion,$area=4)?>, 
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=4)?>
             ]
@@ -250,6 +281,7 @@ $f2 = $_POST['Fefin'];
     }); 
 </script>
 
+<!-- Completo -->
 <script>
     //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
     var ctx = document.getElementById("MiGrafica5").getContext("2d");
@@ -264,7 +296,7 @@ $f2 = $_POST['Fefin'];
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
                 data: [
-                    7,
+                    <?php echo dias($conexion,'FechaEmpR', 'FechaProcesos', $f1, $f2, 'uempaque', 'upedido', 'Emp', '5', '1')?>,
                     <?php echo reclamos($f1,$f2,$conexion,$area=5)?>, 
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=5)?>
                 ]
@@ -283,14 +315,15 @@ $f2 = $_POST['Fefin'];
     var chart = new Chart(ctx,{
         type: "bar",
         data:{
-            labels:["Pedidos Registrados", "Pedidos a Asesores" , "Reclamaciones", "Pedidos Entregados"],
+            labels:["Pedidos Registrados", "Regresos a Asesores" , "Reclamaciones", "Pedidos Entregados"],
             datasets:[
                 {
                 label: "Mi gráfica",
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
                 data: [
-                    8,9,
+                    <?php echo dias($conexion,'FechaEnvioBCK', 'FechaRegistro', $f1, $f2, 'upedido', null, 'Registro-Backoffice', '6', '1')?>,
+                    9,
                     <?php echo reclamos($f1,$f2,$conexion,$area=6)?>,
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=6)?>
                 ]
@@ -316,9 +349,10 @@ $f2 = $_POST['Fefin'];
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
                 data: [
-                    1,
+                    <?php echo (dias($conexion,'FechaOCReal', 'OC1aRevFe', $f1, $f2, 'uordencompra', null, 'Rev1', '8', '1')+ dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2'))?>,
                     <?php echo oc($conexion, $f1, $f2,'2','2')?>,
-                    4,
+                    <?php 
+echo recoleccion($conexion,$f1,$f2);?>,
                     <?php echo reclamos($f1,$f2,$conexion,$area=7)?>,
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=7)?>
                 ]
@@ -330,6 +364,7 @@ $f2 = $_POST['Fefin'];
     }); 
 </script>
 
+<!-- Completo -->
 <script>
     //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
     var ctx = document.getElementById("MiGrafica8").getContext("2d");
@@ -344,7 +379,9 @@ $f2 = $_POST['Fefin'];
                 backgroundColor:[ 'rgb(17, 169, 7)',
                                   'rgb(195, 3, 3)'],
                 data: [
-                    1,2,3,
+                    <?php echo dias($conexion,'FechaOCReal', 'OC1aRevFe', $f1, $f2, 'uordencompra', null, 'Rev1', '8', '1')?>,
+                    <?php echo dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2')?>,
+                    <?php echo defectos($conexion, $f1, $f2, 'Procesos', '8', '3');?>,
                     <?php echo reclamos($f1,$f2,$conexion,$area=8)?>,
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=8)?>
                 ]

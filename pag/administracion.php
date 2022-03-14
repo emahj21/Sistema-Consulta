@@ -97,6 +97,7 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
    <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
     <div class="" id="tabla">
         <div class="row">
+        
             <table  class="table" width="">
                 
                     <thead  class="thead-dark">
