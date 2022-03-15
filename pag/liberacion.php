@@ -9,71 +9,52 @@ $FechaI='FechaEmp';
 $FechaF='FechaLiberacion';
 $tabla='upedido';
 $proc='Admin';
+//---------- Variables ----------
+$query = "SELECT ".$FechaI.", ".$FechaF.", DATEDIFF(".$FechaF.", ".$FechaI.") from ".$tabla." WHERE ".$FechaI." BETWEEN '$f1' AND '$f2'";
+$dia = "SELECT Proceso, Diastotal from uprocesos WHERE Proceso='$proc'";
+$festivo = "SELECT DFFecha from diasfest";
+$cadena=[];
+$contador_dias = 0;
 $j=0;
+$a_tiempo=0;
 
-
-
-    //---------- Consultas ----------
-  
-
-    $query = "SELECT ".$FechaI.", ".$FechaF.", DATEDIFF(".$FechaF.", ".$FechaI.") from ".$tabla." WHERE ".$FechaI." BETWEEN '$f1' AND '$f2'";
-
-  $resultado = $conexion->query($query);
-  /* Total Pedidos */
-  if($resultado){
-      $totalPedidos=mysqli_num_rows($resultado);  
-      //echo intval($totalPedidos);
-  }
-  $festivo = "SELECT DFFecha from diasfest";
-  $resultado1 = $conexion->query($festivo);
-
-  $dia = "SELECT Proceso, Diastotal from uprocesos WHERE Proceso='$proc'";
-  $resultado2 = $conexion->query($dia);
-
-  $a_tiempo=0;
-
-  while($row2=$resultado2->fetch_assoc())
-  {  
-    $val = intval($row2['Diastotal']);
-  }
-  //---------- Variables ----------
- $cadena=[];
-  $contador_dias = 0;
-  
-  while($row1=$resultado1->fetch_assoc()){
-    while($row=$resultado->fetch_assoc()){
-      $integer2 = intval($row['DATEDIFF('.$FechaF.', '.$FechaI.')']);
-      for($i=0; $i<$integer2; $i++){    
-        if( ($row[$FechaI] != $row1['DFFecha'])){   
-          $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
-          $row[$FechaI] = $aux;
-          if(date("w",strtotime($row[$FechaI])) != 0){
-            $contador_dias++;
-          }       
-        }else{
-          $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
-          $row[$FechaI] = $aux;
-        }
+//---------- Consultas ----------
+$resultado = $conexion->query($query);
+$resultado1 = $conexion->query($festivo);
+$resultado2 = $conexion->query($dia);
+if($resultado){
+    $totalPedidos=mysqli_num_rows($resultado);  
+}
+while($row2=$resultado2->fetch_assoc())
+{  
+  $val = intval($row2['Diastotal']);
+}
+while($row1=$resultado1->fetch_assoc()){
+  while($row=$resultado->fetch_assoc()){
+    $integer2 = intval($row['DATEDIFF('.$FechaF.', '.$FechaI.')']);
+    for($i=0; $i<$integer2; $i++){    
+      if( ($row[$FechaI] != $row1['DFFecha'])){   
+        $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+        $row[$FechaI] = $aux;
+        if(date("w",strtotime($row[$FechaI])) != 0){
+          $contador_dias++;
+        }       
+      }else{
+        $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+        $row[$FechaI] = $aux;
       }
-      if($contador_dias <= $val){
-          $cadena[$j] = '<h5>&#x2714;</h5>';
-          $j++;
-        $a_tiempo++;
-      }else
-      {
-          $cadena[$j] = '<h5>&#10060;</h5>';
-          $j++;
-      }  
-      $contador_dias = 0;
     }
-    
-    $val_final = ($a_tiempo*20)/$totalPedidos;
-   
-  
-  
+    if($contador_dias <= $val){
+        $cadena[$j] = '<h5>&#x2714;</h5>';
+        $j++;
+    }else
+    {
+        $cadena[$j] = '<h5>&#10060;</h5>';
+        $j++;
+    }  
+    $contador_dias = 0;
   }
-  
-
+}
 ?>
 
 <!doctype html>

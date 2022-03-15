@@ -17,33 +17,20 @@ $resultado2 = $conexion->query($queryPuntosPedidos);
 
 if ($resultado) {
   $totalPedidos = mysqli_num_rows($resultado);
-  //echo intval($totalPedidos);
 }
-// $mensaje[]=array();
 while ($row2 = $resultado2->fetch_assoc()) {
   $puntosP = intval($row2['PesoPuntos']);
 }
 
-
 while ($row = $resultado->fetch_assoc()) {
-  /* $liberacion = strtotime($row['FechaEmp']);
-      $cliente = strtotime($row['PeFeReqCli']); */
-
   if ($row['FechaEmp'] <= $row['PeFeReqCli']) {
     $pedidosBuenos++;
     $mensaje[$i] = '<h5>&#x2714;</h5>';
-    //echo $mensaje;
     $i++;
   } else {
     $mensaje[$i] = '<h5> &#10060; </h5>';
-    //echo $mensaje;
     $i++;
   }
-  
-
-
-  //echo intval($pedidosBuenos);
-  //$mensaje = '';
 }
 
 ?>
@@ -104,7 +91,6 @@ while ($row = $resultado->fetch_assoc()) {
               <td align="center"><?php echo $row['FechaEmp'] ?></td>
               <td align="center"><?php echo $row['PeFeReqCli'] ?></td>
               <td align="center"><?php echo $mensaje[$i]; $i++ ?></td>
-
             </tr>
 
           <?php
