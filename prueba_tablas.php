@@ -224,14 +224,14 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2,$tabla,$tabla2,$proc,$ind,$ind2)
     $festivo = "SELECT DFFecha from diasfest";
     $dia = "SELECT Proceso, Diastotal from uprocesos WHERE Proceso='$proc'";
     $peso = "SELECT PesoPuntos FROM configuracionindindicadores WHERE ConId = '$ind' AND IndId='$ind2';"; 
-    echo $query.'<br>';
+   /*  echo $query.'<br>';
     echo $festivo.'<br>';
-    echo $dia.'<br>';
+    echo $dia.'<br>'; */
     $resultado = $conexion->query($query);
     $resultado1 = $conexion->query($festivo);
     $resultado2 = $conexion->query($dia);
     $resultadoPeso = $conexion->query($peso);
-  
+
     //---------- Variables ----------
     $contador_dias = 0;
     $a_tiempo=0;
@@ -240,27 +240,26 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2,$tabla,$tabla2,$proc,$ind,$ind2)
     if($resultado){
         $totalPedidos=mysqli_num_rows($resultado);  
     }
-    echo "Total de pedidos: ";
-    echo $totalPedidos."<br>";
+    /* echo "Total de pedidos: ";
+    echo $totalPedidos."<br>"; */
     //Recorrido total días
     while($row2=$resultado2->fetch_assoc()){  
         $val = intval($row2['Diastotal']);
     }
-    echo "Dias que tarda el proceso: ";
-    echo $val."<br>";
+  /*   echo "Dias que tarda el proceso: ";
+    echo $val."<br>"; */
     //Recorrido Puntos
     while($row3 = $resultadoPeso->fetch_assoc()){
         $peso = intval($row3['PesoPuntos']);
     }
-    echo "Peso Puntos: ";
-    echo $peso.'<br>';
+   /*  echo "Peso Puntos: ";
+    echo $peso.'<br>'; */
     //Recorrido Fechas
     while($row1=$resultado1->fetch_assoc()){
         //array_push($diaFestivo,$row1['DFFecha']);
         while($row=$resultado->fetch_assoc()){
-                if($tabla2==null){
-                  if($row[$FechaF] == '1000-01-01')
-                  {
+            if($tabla2==null){
+                if($row[$FechaF] == '1000-01-01'){
                     $aux = date('d-m-Y');
                     $row[$FechaF] = $aux;
                     
@@ -269,46 +268,54 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2,$tabla,$tabla2,$proc,$ind,$ind2)
                     $diff = $date1->diff($date2);
                     
                     $integer2 = intval($diff->days);
-                  }else
-                  {
-          
-                    $integer2 = intval($row['DATEDIFF('.$FechaF.', '.$FechaI.')']);
-                  }
                 }else{
-                    $integer2 = intval($row['DATEDIFF('.$tabla2.'.'.$FechaF.', '.$tabla.'.'.$FechaI.')']);
-          
+                    $integer2 = intval($row['DATEDIFF('.$FechaF.', '.$FechaI.')']);
                 }
-                for($i=0; $i<$integer2; $i++){    
-                    if( ($row[$FechaI] != $row1['DFFecha'])){   
-                        $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
-                        $row[$FechaI] = $aux;
-                        
-                        if(date("w",strtotime($row[$FechaI])) != 0){
-                            $contador_dias++;
-                        }       
-                    }else{
-                        $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
-                        $row[$FechaI] = $aux;
-                    }
+            }else{
+                $integer2 = intval($row['DATEDIFF('.$tabla2.'.'.$FechaF.', '.$tabla.'.'.$FechaI.')']);
+      
+            }
+            for($i=0; $i<$integer2; $i++){    
+                echo $i." -> ";
+                if( ($row[$FechaI] != $row1['DFFecha'])){   
+                    $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+                    $row[$FechaI] = $aux;
+                    
+                    if(date("w",strtotime($row[$FechaI])) != 0){
+                        $contador_dias++;
+                    }       
+                }else{
+                    $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+                    $row[$FechaI] = $aux;
                 }
-                
                 if($contador_dias <= $val){
                     $a_tiempo++;
-                }  
+                    $cadena[$i] = '<h5>&#x2714;</h5>';
+                    echo $cadena[$i].'<br>';
+                }else{
+                    $cadena[$i] = '<h5>&#10060;</h5>'; 
+                    echo $cadena[$i].'<br>';
+                }
+            }
+            
+            /* if($contador_dias <= $val){
+                $a_tiempo++;
+            } */
+            
+               
                 $contador_dias = 0;
             }
         
 
-    }
-    //Recorrido Funcion
-    
-    echo 'Pedidos a tiempo: ';
+    }    
+   /*  echo 'Pedidos a tiempo: ';
     $val_final = ($a_tiempo*$peso)/$totalPedidos;
     echo $a_tiempo.'<br>';
     echo 'Valor final: ';
-    echo $val_final;
-    
+    echo $val_final; */
     //return $val_final;
+
+    return $cadena;
 } 
 
 function recoleccion($conexion,$f1,$f2){
@@ -400,16 +407,100 @@ function recoleccion($conexion,$f1,$f2){
     echo $val_final;
     //return $val_final;
 }
+function rechazos($conexion, $f1, $f2){
+    //---------- Consultas ----------
+    $query="SELECT FechaAdmin, NoRechazoImg, NoRechazoCom, NoRechazoAdm FROM upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2';";
+    $dia = "SELECT Proceso, Diastotal from uprocesos WHERE Proceso='Admin'";
+    $peso = "SELECT PesoPuntos FROM configuracionindindicadores WHERE ConId = '6' AND IndId='3';"; 
+    echo $query.'<br>';
+    echo $dia.'<br>';
+    echo $peso.'<br>';
+    //---------- Variables ----------
+    $resultado = $conexion->query($query);
+    $resultado2 = $conexion->query($dia);
+    $resultadoPeso = $conexion->query($peso);
+    $cont_rechazos=0;
+    //Recorrido Pedidos
+    if($resultado){
+        $totalPedidos=mysqli_num_rows($resultado);  
+    }
+    echo "Total de pedidos: ";
+    echo $totalPedidos."<br>";
+    //Recorrido días
+    while($row2=$resultado2->fetch_assoc()){  
+        $val = intval($row2['Diastotal']);
+    }
+    echo "Dias que tarda el proceso: ";
+    echo $val."<br>";
+    //Recorrido puntos
+    while($row3 = $resultadoPeso->fetch_assoc()){
+        $peso = intval($row3['PesoPuntos']);
+    }
+    echo "Peso Puntos: ";
+    echo $peso.'<br>';
+    while($row = $resultado->fetch_assoc()){
+        if($row['NoRechazoAdm']!=0 || $row['NoRechazoCom']!=0 ||$row['NoRechazoImg']!=0){
+            $cont_rechazos++;
+        }
+    }
+    $buenos=$totalPedidos-$cont_rechazos;
+    echo "Numero de Rechazos: ";
+    echo $cont_rechazos.'<br>';
+    $val_Total=($buenos*$peso)/$totalPedidos;
+    echo "Valor final: ";
+    echo $val_Total.'<br>';
+    //return $val_Total;
+}
+function defectos($conexion, $f1, $f2, $proc, $ind, $ind2){
+    //---------- Consultas ----------
+    $query = "SELECT OCDefDev, OCDefAcep FROM uordencompra WHERE FechaVoBo BETWEEN '$f1' AND '$f2' ";
+    $dia = "SELECT Proceso, Diastotal from uprocesos WHERE Proceso='$proc'";
+    $peso = "SELECT PesoPuntos FROM configuracionindindicadores WHERE ConId = '$ind' AND IndId='$ind2';"; 
+    echo $query.'<br>';
+    echo $dia.'<br>';
+    echo $peso.'<br>';
+    //---------- Variables ----------
+    $resultado = $conexion->query($query);
+    $resultado2 = $conexion->query($dia);
+    $resultadoPeso = $conexion->query($peso);
+    $defectos = 0;
+    //$buenos;
+    $totalPedidos = 0;
+    $valTotal = 0;
+    if($resultado){
+        $totalPedidos=mysqli_num_rows($resultado);  
+    }
+    echo "Total de pedidos: ";
+    echo $totalPedidos."<br>";
+    while($row2=$resultado2->fetch_assoc()){  
+        $val = intval($row2['Diastotal']);
+    }
+    echo "Dias que tarda el proceso: ";
+    echo $val."<br>";
+    while($row3 = $resultadoPeso->fetch_assoc()){
+        $peso = intval($row3['PesoPuntos']);
+    }
+    echo "Peso Puntos: ";
+    echo $peso.'<br>';
+    while($row = $resultado->fetch_assoc()){
+        if($row['OCDefDev']!=0 || $row['OCDefAcep']!=0){
+            $defectos++;
+        }
+    }
+    
+    $buenos = $totalPedidos - $defectos;
+    $valTotal = ($buenos*$peso)/$totalPedidos;
+    echo 'Valor final: ';
+    echo $valTotal;
+    //return $valTotal;
+}
 
-
-
-$f1='2021-12-15';
-$f2='2021-12-31';
+$f1='2021-06-01';
+$f2='2021-06-30';
 
 echo "<h1> Indicador 1.1 Revisión de Antivipos y Facturas</h1>";
-//dias($conexion,'FechaRegistro','FechaAdmin',$f1,$f2,'upedido',null,'Admin','1','1');
-dias($conexion,'FechaRegistro','FechaAdmin',$f1,$f2,'upedido',null,'Admin','1','1');
-
+ var_dump(dias($conexion,'FechaRegistro','FechaAdmin',$f1,$f2,'upedido',null,'Admin','1','1'));
+/* dias($conexion,'FechaRegistro','FechaAdmin',$f1,$f2,'upedido',null,'Admin','1','1');
 echo "<h1> Indicador 1.2 Liberación</h1>";
 dias($conexion,'FechaEmp','FechaLiberacion',$f1,$f2,'upedido',null,'Admin','1','2');
 echo "<h1> Indicador 1.4 Reclamanciones</h1>";
@@ -432,12 +523,11 @@ echo "<h1> Indicador 4.2 Autorización de Fichas(PENDIENTE)</h1>";
 
 echo "<h1> Indicador 4.3 Personalización</h1>";
 dias($conexion,'PerEnvioPrendas','PerDateR',$f1,$f2,'upersonalizacion',null,'Procesos','4','3');
-
 echo "<h1> Indicador 4.4 Reclamaciones</h1>";
 reclamos($conexion,$f1,$f2,"4");
 echo "<h1> Indicador 4.5 Pedidos Entregados</h1>";
 pedidosEntregado($f1,$f2,$conexion,4);
-echo "<h1> Indicador 5.1 Empaque(PENDIENTE)</h1>";
+echo "<h1> Indicador 5.1 Empaque</h1>";
 dias($conexion,'FechaEmpR','FechaProcesos',$f1,$f2,'uempaque','upedido','Emp','5','1');
 echo "<h1> Indicador 5.4 Reclamaciones</h1>";
 reclamos($conexion,$f1,$f2,"5");
@@ -446,7 +536,7 @@ pedidosEntregado($f1,$f2,$conexion,5);
 echo "<h1> Indicador 6.1 Pedidos Registrados</h1>";
 dias($conexion,'FechaEnvioBCK','FechaRegistro',$f1,$f2,'upedido',null,'Registro-Backoffice','6','1');
 echo "<h1> Indicador 6.3 Regreso a Asesores</h1>";
-
+rechazos($conexion,$f1,$f2);
 echo "<h1> Indicador 6.4 Reclamaciones</h1>";
 reclamos($conexion,$f1,$f2,"6");
 echo "<h1> Indicador 6.5 Pedidos Entregados</h1>";
@@ -455,7 +545,7 @@ echo "<h1> Indicador 7.1 Revisiones</h1>";
 dias($conexion,'FechaOCReal','OC1aRevFe',$f1,$f2,'uordencompra',null,'Rev1','7','1');
 echo "<h1> Indicador 7.2 Recepción de OC's</h1>";
 dias($conexion,'FechaOCReal','OC2aRevFe',$f1,$f2,'uordencompra',null,'Rev2','7','2');
-echo "<h1> Indicador 7.3 Recolección (PENDIENTE)</h1>";
+echo "<h1> Indicador 7.3 Recolección</h1>";
 recoleccion($conexion, $f1,$f2);
 echo "<h1> Indicador 7.4 Reclamaciones</h1>";
 reclamos($conexion,$f1,$f2,"7");
@@ -466,7 +556,7 @@ dias($conexion,'FechaOCReal','OC1aRevFe',$f1,$f2,'uordencompra',null,'Rev1','8',
 echo "<h1> Indicador 8.2 Revisión de Maquilas 2</h1>";
 dias($conexion,'FechaOCReal','OC2aRevFe',$f1,$f2,'uordencompra',null,'Rev2','8','2');
 echo "<h1> Indicador 8.3 Defectos de Calidad</h1>";
-
+defectos($conexion, $f1, $f2, 'Procesos', '8', '3');
 echo "<h1> Indicador 8.4 Reclamaciones</h1>";
 reclamos($conexion,$f1,$f2,"8");
 echo "<h1> Indicador 8.5 Pedidos Entregados</h1>";
@@ -479,3 +569,4 @@ echo "<h1> Indicador 11.4 Reclamaciones</h1>";
 reclamos($conexion,$f1,$f2,"11");
 echo "<h1> Indicador 11.5 Pedidos Entregados</h1>";
 pedidosEntregado($f1,$f2,$conexion,11);
+ */

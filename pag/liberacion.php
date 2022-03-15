@@ -5,9 +5,14 @@ include("../conexion.php");
 
 $f1 = $_POST['Fein'];
 $f2 = $_POST['Fefin'];
+$FechaI='FechaEmp';
+$FechaF='FechaLiberacion';
+$tabla='upedido';
+$proc='Admin';
+$j=0;
 
 
-function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
+
     //---------- Consultas ----------
   
 
@@ -32,49 +37,42 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
     $val = intval($row2['Diastotal']);
   }
   //---------- Variables ----------
-  $aux;
+ $cadena=[];
   $contador_dias = 0;
   
   while($row1=$resultado1->fetch_assoc()){
-  }
-  
-  while($row=$resultado->fetch_assoc())
-  {
-    /* Si la fecha es default */
-    $integer2 = intval($row['DATEDIFF('.$FechaF.', '.$FechaI.')']);
-    /* if($integer2==0){
-        //echo "Del ".date("d-m-Y",strtotime($row[$FechaI]));
-        //echo " al ".date("d-m-Y",strtotime($row[$FechaF])).'<br>';
-    } */
-    for($i=0; $i<$integer2; $i++){    
-      if( ($row[$FechaI] != $row1['DFFecha'])){   
-        $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
-        $row[$FechaI] = $aux;
-        //echo " al ".date("d-m-Y",strtotime($row[$FechaI])).'<br>';
-        if(date("w",strtotime($row[$FechaI])) != 0){
-          $contador_dias++;
-        }       
-      }else{
-        $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
-        $row[$FechaI] = $aux;
+    while($row=$resultado->fetch_assoc()){
+      $integer2 = intval($row['DATEDIFF('.$FechaF.', '.$FechaI.')']);
+      for($i=0; $i<$integer2; $i++){    
+        if( ($row[$FechaI] != $row1['DFFecha'])){   
+          $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+          $row[$FechaI] = $aux;
+          if(date("w",strtotime($row[$FechaI])) != 0){
+            $contador_dias++;
+          }       
+        }else{
+          $aux = date("d-m-Y",strtotime($row[$FechaI]."+ 1 days"));
+          $row[$FechaI] = $aux;
+        }
       }
+      if($contador_dias <= $val){
+          $cadena[$j] = '<h5>&#x2714;</h5>';
+          $j++;
+        $a_tiempo++;
+      }else
+      {
+          $cadena[$j] = '<h5>&#10060;</h5>';
+          $j++;
+      }  
+      $contador_dias = 0;
     }
-    if($contador_dias <= $val){
-        $cadena = '<h5>&#x2714;</h5>';
-      $a_tiempo++;
-    }else
-    {
-        $cadena = '<h5>&#10060;</h5>';
-    }  
-    $contador_dias = 0;
+    
+    $val_final = ($a_tiempo*20)/$totalPedidos;
+   
+  
+  
   }
   
-  $val_final = ($a_tiempo*20)/$totalPedidos;
- 
-  return $cadena;
-
-
-}
 
 ?>
 
@@ -122,6 +120,7 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
 
 
                         $resultado= $conexion->query($query);
+                        $i=0;
                         while($row=$resultado->fetch_assoc()){
                     ?>
 
@@ -130,7 +129,7 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2, $tabla,$tabla2=null, $proc){
                         <td><?php echo $row['Idpedido'] ?></td> 
                         <td><?php echo $row['FechaEmp'] ?></td> 
                         <td><?php echo $row['FechaLiberacion'] ?></td>
-                        <td><?php echo dias($conexion,'FechaEmp','FechaLiberacion',$f1,$f2,'upedido',null, 'Admin')?></td>
+                        <td><?php echo $cadena[$i];$i++?></td>
                       
                     </tr>
 

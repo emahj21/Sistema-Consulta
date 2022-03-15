@@ -254,7 +254,7 @@ function defectos($conexion, $f1, $f2, $proc, $ind, $ind2)
 
   $resultado = $conexion->query($query);
   $defectos = 0;
-  $buenos;
+  //$buenos;
   $totalPedidos = 0;
   $valTotal = 0;
 
@@ -291,9 +291,9 @@ function recoleccion($conexion,$f1,$f2){
   $festivo = "SELECT DFFecha from diasfest";
   $dia = "SELECT Proceso, Diastotal from uprocesos WHERE Proceso='Alm'";
   $peso = "SELECT PesoPuntos FROM configuracionindindicadores WHERE ConId = '7' AND IndId='3';"; 
-  echo $query.'<br>';
+  /* echo $query.'<br>';
   echo $festivo.'<br>';
-  echo $dia.'<br>';
+  echo $dia.'<br>'; */
   //
   $resultado = $conexion->query($query);
   $resultado1 = $conexion->query($festivo);
@@ -301,7 +301,7 @@ function recoleccion($conexion,$f1,$f2){
   $resultadoPeso = $conexion->query($peso);
   $contador_dias=0;
   $a_tiempo=0;
-  $totalPedidos;
+  //$totalPedidos;
   
   //
   if($resultado){
@@ -366,12 +366,55 @@ function recoleccion($conexion,$f1,$f2){
       }
 
   }
-  echo 'Pedidos a tiempo: ';
+  //echo 'Pedidos a tiempo: ';
   $val_final = ($a_tiempo*$peso)/$totalPedidos;
-  echo $a_tiempo.'<br>';
+  /* echo $a_tiempo.'<br>';
   echo 'Valor final: ';
-  echo $val_final;
+  echo $val_final; */
   return $val_final;
 }
-
+function rechazos($conexion, $f1, $f2){
+  //---------- Consultas ----------
+  $query="SELECT FechaAdmin, NoRechazoImg, NoRechazoCom, NoRechazoAdm FROM upedido WHERE FechaAdmin BETWEEN '$f1' AND '$f2';";
+  $dia = "SELECT Proceso, Diastotal from uprocesos WHERE Proceso='Admin'";
+  $peso = "SELECT PesoPuntos FROM configuracionindindicadores WHERE ConId = '6' AND IndId='3';"; 
+  /* echo $query.'<br>';
+  echo $dia.'<br>';
+  echo $peso.'<br>'; */
+  //---------- Variables ----------
+  $resultado = $conexion->query($query);
+  $resultado2 = $conexion->query($dia);
+  $resultadoPeso = $conexion->query($peso);
+  $cont_rechazos=0;
+  //Recorrido Pedidos
+  if($resultado){
+      $totalPedidos=mysqli_num_rows($resultado);  
+  }
+  /* echo "Total de pedidos: ";
+  echo $totalPedidos."<br>"; */
+  //Recorrido días
+  while($row2=$resultado2->fetch_assoc()){  
+      $val = intval($row2['Diastotal']);
+  }
+  /* echo "Dias que tarda el proceso: ";
+  echo $val."<br>"; */
+  //Recorrido puntos
+  while($row3 = $resultadoPeso->fetch_assoc()){
+      $peso = intval($row3['PesoPuntos']);
+  }
+  /* echo "Peso Puntos: ";
+  echo $peso.'<br>'; */
+  while($row = $resultado->fetch_assoc()){
+      if($row['NoRechazoAdm']!=0 || $row['NoRechazoCom']!=0 ||$row['NoRechazoImg']!=0){
+          $cont_rechazos++;
+      }
+  }
+  $buenos=$totalPedidos-$cont_rechazos;
+  /* echo "Numero de Rechazos: ";
+  echo $cont_rechazos.'<br>'; */
+  $val_Total=($buenos*$peso)/$totalPedidos;
+  /* echo "Valor final: ";
+  echo $val_Total.'<br>'; */
+  return $val_Total;
+}
 ?>

@@ -323,7 +323,7 @@ $f2 = $_POST['Fefin'];
                                   'rgb(195, 3, 3)'],
                 data: [
                     <?php echo dias($conexion,'FechaEnvioBCK', 'FechaRegistro', $f1, $f2, 'upedido', null, 'Registro-Backoffice', '6', '1')?>,
-                    9,
+                    <?php echo rechazos($conexion,$f1,$f2);?>,
                     <?php echo reclamos($f1,$f2,$conexion,$area=6)?>,
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=6)?>
                 ]
@@ -351,8 +351,7 @@ $f2 = $_POST['Fefin'];
                 data: [
                     <?php echo (dias($conexion,'FechaOCReal', 'OC1aRevFe', $f1, $f2, 'uordencompra', null, 'Rev1', '8', '1')+ dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2'))?>,
                     <?php echo oc($conexion, $f1, $f2,'2','2')?>,
-                    <?php 
-echo recoleccion($conexion,$f1,$f2);?>,
+                    <?php /* echo recoleccion($conexion,$f1,$f2); */?>1,
                     <?php echo reclamos($f1,$f2,$conexion,$area=7)?>,
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=7)?>
                 ]
