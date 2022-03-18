@@ -6,7 +6,54 @@ include("consulta_gral.php");
 
 $f1 = $_POST['Fein'];
 $f2 = $_POST['Fefin'];
+$ind= '2';
+$ind2= '2';
+$cadena=[];
+$j=0;
+//---------- Consultas ----------
+$query = "SELECT FechaOCprog, FechaOCReal FROM uordencompra WHERE FechaOCprog BETWEEN  '$f1' AND '$f2'";
+$peso = "SELECT PesoPuntos FROM configuracionindindicadores WHERE ConId = '$ind' AND IndId='$ind2';"; 
 
+
+$resultado = $conexion->query($query);
+$result = $conexion->query($peso);
+//---------- Variables ----------
+$contador = 0;
+
+//---------- Recorridos ----------
+if($resultado){
+    $totalPedidos=mysqli_num_rows($resultado);
+}
+//Recorrido Puntos
+while($row2 = $result->fetch_assoc()){
+    $peso = intval($row2['PesoPuntos']);
+}
+//Recorrido Funcion
+while($row = $resultado->fetch_assoc()){
+    if($row['FechaOCReal'] == '1000-01-01'){
+        $fechaActual = date('d-m-Y');
+        $row['FechaOCReal'] = $fechaActual;
+
+        if($row['FechaOCReal'] <= $row['FechaOCprog'])
+        {
+            
+            $cadena[$j] = '<h5>&#x2714;</h5>';
+            $j++;
+        }else{
+            $cadena[$j] = '<h5>&#10060;</h5>';
+            $j++;
+        }
+    }else{
+        if($row['FechaOCReal'] <= $row['FechaOCprog']){
+            
+            $cadena[$j] = '<h5>&#x2714;</h5>';
+            $j++;
+        }else{
+            $cadena[$j] = '<h5>&#10060;</h5>';
+            $j++;
+        }
+    }    
+}
 
 ?>
 
@@ -40,6 +87,7 @@ $f2 = $_POST['Fefin'];
                         <td align="center">Proveedor</td>
                         <td align="center">Fecha Programada</td>
                         <td align="center" width="150">Fecha Real</td>
+                        <td align="center" width="150">Estatus</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -55,6 +103,7 @@ $f2 = $_POST['Fefin'];
 
 
                         $resultado= $conexion->query($query);
+                        $j=0;
                         while($row=$resultado->fetch_assoc()){
                     ?>
 
@@ -64,6 +113,7 @@ $f2 = $_POST['Fefin'];
                         <td align="center"><?php echo $row['Proveedor'] ?></td> 
                         <td align="center"><?php echo $row['FechaOCprog'] ?></td>   
                         <td align="center"><?php echo $row['FechaOCReal'] ?></td> 
+                        <td align="center"><?php echo $cadena[$j];$j++?></td> 
                       
                     </tr>
 

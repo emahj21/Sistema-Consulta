@@ -63,17 +63,17 @@ while ($row1 = $resultado1->fetch_assoc()) {
         $row[$FechaI] = $aux;
       }
     }
-    if ($contador_dias <= $val) {
-      $cadena[$j] = '<h5>&#x2714;</h5>';
-      $j++;
-    } else {
-      $cadena[$j] = '<h5>&#10060;</h5>';
-      $j++;
-    }
+    if($contador_dias <= $val){
+        $cadena[$j] = '<h5>&#x2714;</h5>';
+        $j++;
+    }else
+    {
+        $cadena[$j] = '<h5>&#10060;</h5>';
+        $j++;
+    }  
     $contador_dias = 0;
   }
 }
-
 ?>
 
 <!doctype html>
@@ -141,7 +141,7 @@ while ($row1 = $resultado1->fetch_assoc()) {
                         <td><?php echo $row['Idpedido'] ?></td> 
                         <td><?php echo $row['FechaEmp'] ?></td> 
                         <td><?php echo $row['FechaLiberacion'] ?></td>
-                        <td><?php echo $cadena[$i]; $i++;?></td>
+                        <td><?php echo $cadena[$i];$i++?></td>
                       
                     </tr>
 
