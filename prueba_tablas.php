@@ -120,98 +120,6 @@ function oc($conexion, $f1, $f2, $ind, $ind2){
     echo 'Valor final: '.$varfin;
     //return $varfin;
 }
-/* function dias($conexion,$FechaI,$FechaF,$f1,$f2,$tabla,$tabla2,$proc,$ind,$ind2){
-    //---------- Consultas ----------
-    if($tabla2==null){
-        $query = "SELECT ".$FechaI.", ".$FechaF.", DATEDIFF(".$FechaF.", ".$FechaI.") from ".$tabla." WHERE ".$FechaI." BETWEEN '$f1' AND '$f2'";
-    }else{
-        //$query = "SELECT ".$tabla.".".$FechaI.", ".$tabla2.".".$FechaF.", DATEDIFF(".$tabla2.".".$FechaF.", ".$tabla.".".$FechaI.") from ".$tabla.",".$tabla2." WHERE ".$tabla.".".$FechaI." BETWEEN '$f1' AND '$f2'";
-        $query = "SELECT ".$tabla.".".$FechaI.", ".$tabla2.".".$FechaF.", DATEDIFF(".$tabla2.".".$FechaF.", ".$tabla.".".$FechaI. ")FROM ".$tabla." INNER JOIN ".$tabla2." ON ".$tabla.".Idpedido = ".$tabla2.".Idpedido WHERE ".$tabla.".".$FechaI." BETWEEN '$f1' AND '$f2';";
-    }
-    $festivo = "SELECT DFFecha from diasfest";
-    $dia = "SELECT Proceso, Diastotal from uprocesos WHERE Proceso='$proc'";
-    $peso = "SELECT PesoPuntos FROM configuracionindindicadores WHERE ConId = '$ind' AND IndId='$ind2';"; 
-    echo $query.'<br>';
-    echo $festivo.'<br>';
-    echo $dia.'<br>';
-    $resultado = $conexion->query($query);
-    $resultado1 = $conexion->query($festivo);
-    $resultado2 = $conexion->query($dia);
-    $resultadoPeso = $conexion->query($peso);
-
-    //---------- Variables ----------
-    $contador_dias = 0;
-    $a_tiempo=0;
-    $diaFestivo=[];
-    $integer2=0;
-    if($resultado){
-        $totalPedidos=mysqli_num_rows($resultado);  
-    }
-    echo "Total de pedidos: ";
-    echo $totalPedidos."<br>";
-    //Recorrido total días
-    while($row2=$resultado2->fetch_assoc()){  
-        $val = intval($row2['Diastotal']);
-    }
-    echo "Dias que tarda el proceso: ";
-    echo $val."<br>";
-    //Recorrido Puntos
-    while($row3 = $resultadoPeso->fetch_assoc()){
-        $peso = intval($row3['PesoPuntos']);
-    }
-    echo "Peso Puntos: ";
-    echo $peso.'<br>';
-    //Recorrido Fechas
-    while($row1=$resultado1->fetch_assoc()){
-        array_push($diaFestivo,$row1['DFFecha']);
-    }
-    //Recorrido Funcion
-    while($row=$resultado->fetch_assoc()){
-        if($tabla2==null){
-            if($row[$FechaF]==='1000-01-01'  ){
-                $date1 = new DateTime(date("Y-m-d"));
-                $date2 = new DateTime($row[$FechaI]);
-                $integer2 = date_diff($date1,$date2);
-                var_dump($integer2->days);
-            } 
-            $integer2 = intval($row['DATEDIFF('.$FechaF.', '.$FechaI.')']);
-        }else{
-            /* if($row[$FechaF]=='1000-01-01'  ){
-
-            } 
-            //$integer2 = intval($row['DATEDIFF('.$tabla2.'.'.$FechaF.', '.$tabla.'.'.$FechaI.')']);
-        }
-       echo $integer2;
-        for($i=0; $i<$integer2; $i++){    
-            echo $row[$FechaI].'<br>';
-            if( ($row[$FechaI] != $diaFestivo[$i])){   
-                $aux = date("Y-m-d",strtotime($row[$FechaI]."+ 1 days"));
-                echo $aux.'<br>';
-                $row[$FechaI] = $aux;
-                
-                if(date("w",strtotime($row[$FechaI])) != 0){
-                    $contador_dias++;
-                    echo 'Día: '.$contador_dias.'<br>';
-                }       
-            }else{
-                $aux = date("Y-m-d",strtotime($row[$FechaI]."+ 1 days"));
-                $row[$FechaI] = $aux;
-            }
-        }
-        
-        if($contador_dias <= $val){
-            $a_tiempo++;
-            echo 'Pedido a tiempo: '.$a_tiempo.'<br>';
-        }  
-        $contador_dias = 0;
-    }
-    echo 'Pedidos a tiempo: ';
-    echo $a_tiempo.'<br>';
-    $val_final = ($a_tiempo*$peso)/$totalPedidos;
-    echo 'Valor final: ';
-    echo $val_final;
-    //return $val_final;
-} */
 function dias($conexion,$FechaI,$FechaF,$f1,$f2,$tabla,$tabla2,$proc,$ind,$ind2){
     //---------- Consultas ----------
     if($tabla2==null){
@@ -315,7 +223,6 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2,$tabla,$tabla2,$proc,$ind,$ind2)
 
     //return $cadena;
 } 
-
 function recoleccion($conexion,$f1,$f2){
     //---------- Consultas ----------
     $query = "SELECT FechaOCReal, IdTipoOC, FechaVoBo, FechaEnvioMaq, DATEDIFF(FechaVoBo, FechaOCReal), DATEDIFF(FechaEnvioMaq, FechaOCReal) FROM uordencompra WHERE FechaOCReal BETWEEN '$f1' AND '$f2'";
@@ -494,11 +401,11 @@ function defectos($conexion, $f1, $f2, $proc, $ind, $ind2){
 }
 
 $f1='2021-12-01';
-$f2='2021-12-15';
+$f2='2021-12-25';
 
 echo "<h1> ADMINISTARCIÓN </h1>";
 echo "<h2> Indicador 1.1 Revisión de Antivipos y Facturas</h2>";
- //var_dump(dias($conexion,'FechaRegistro','FechaAdmin',$f1,$f2,'upedido',null,'Admin','1','1'));
+//var_dump(dias($conexion,'FechaRegistro','FechaAdmin',$f1,$f2,'upedido',null,'Admin','1','1'));
 dias($conexion,'FechaRegistro','FechaAdmin',$f1,$f2,'upedido',null,'Admin','1','1');
 echo "<h2> Indicador 1.2 Liberación</h2>";
 dias($conexion,'FechaEmp','FechaLiberacion',$f1,$f2,'upedido',null,'Admin','1','2');
