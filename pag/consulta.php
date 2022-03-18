@@ -9,6 +9,8 @@
   $consultaAreas=mysqli_query($conexion,$queryAreas);
   $tabla_areas=[];
   $i=0;  
+  $puntos = 100;
+  $nuevo=0;
   while($row = mysqli_fetch_array($consultaAreas)){
     $tabla_areas[$i]['nombre']=$row['Area'];
     $i++;
@@ -36,6 +38,7 @@ function reclamos($f1, $f2, $conexion, $area){
       $totalR++;
     }
   }
+ 
 
   if ($totalR == 0) {
     $totalR = $puntosR;
@@ -286,8 +289,8 @@ function rechazos($conexion, $f1, $f2){
   //---------- Variables ----------
   $resultado = $conexion->query($query);
   $resultadoPeso = $conexion->query($peso);
+  
   $cont_rechazos=0;
-  //Recorrido Pedidos
   if($resultado){
       $totalPedidos=mysqli_num_rows($resultado);  
   }
@@ -303,5 +306,7 @@ function rechazos($conexion, $f1, $f2){
   $buenos=$totalPedidos-$cont_rechazos;
   $val_Total=($buenos*$peso)/$totalPedidos;
   return $val_Total;
+
 }
+
 ?>

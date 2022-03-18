@@ -7,6 +7,31 @@ include("consulta_gral.php");
 $f1 = $_POST['Fein'];
 $f2 = $_POST['Fefin'];
 
+$totalR = 0;
+  $puntosR = 0;
+  $reclamos = 0;
+  $j=0;
+  $cadena = [];
+  $cadena2 = [];
+  //Consultas Reclamo
+  $queryReclamo = "SELECT reclamacion,FechaRegistro  FROM upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2'";
+
+  $resultado = $conexion->query($queryReclamo);
+  while ($row = $resultado->fetch_assoc()) {
+
+    if ($row['reclamacion'] != 0) {
+      $reclamos ++;
+      $totalR++;
+      $cadena[$j] = 1;
+      $cadena2[$j] = '<h5>&#10060;</h5>' ;
+      $j++;
+    }else
+    {
+        $cadena[$j] = 0;
+        $cadena2[$j] = '<h5>&#x2714;</h5>';
+        $j++;
+    }
+  }
 
 ?>
 
@@ -22,12 +47,20 @@ $f2 = $_POST['Fefin'];
     <link rel="icon" href="../images/ico.ico">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
+    <script src="js/filtro.js"></script>
 
     <title>Administración</title>
   </head>
   <body class="m-0 ">
-   <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
-    <div class="container" id="tabla">
+      <div class="container" id="tablas">
+        <div style="text-align: center;">
+            <select id="selectCategory" align="center">
+              <option value="">Selecciona Filtro</option>
+              <option value="">Todos</option>
+              <option value="&#x2714">&#x2714;</option>
+              <option value="&#10060">&#10060;</option>
+            </select>
+          </div>
         <div class="row">
             <h3>Reclamaciones</h3>
             <table  class="table">
@@ -38,9 +71,10 @@ $f2 = $_POST['Fefin'];
                         <td>Número de Pedido</td>
                         <td>Fecha de Inicio</td>
                         <td>Reclamos</td>
+                        <td>Estatus</td>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tabla">
                     <?php
                         include("../conexion.php");
                         
@@ -53,6 +87,8 @@ $f2 = $_POST['Fefin'];
 
 
                         $resultado= $conexion->query($query);
+                        $i=0;
+                        $k=0;
                         while($row=$resultado->fetch_assoc()){
                     ?>
 
@@ -60,7 +96,8 @@ $f2 = $_POST['Fefin'];
                         <td align="center"><?php echo $row['CRazonSocial'] ?></td>
                         <td align="center"><?php echo $row['Idpedido'] ?></td> 
                         <td align="center"><?php echo $row['FechaRegistro'] ?></td> 
-                        <td align="center"><?php echo reclamos($f1,$f2,$conexion, $area=1)?></td>
+                        <td align="center"><?php echo $cadena[$i]; $i++;?></td>
+                        <td align="center"><?php echo $cadena2[$k]; $k++;?></td>
                       
                     </tr>
 
@@ -81,7 +118,14 @@ $f2 = $_POST['Fefin'];
     <script>
         function ocultar()
         {
-            document.getElementById('tabla').style.display = 'none';
+          {
+          var x = document.getElementById("tablas");
+          if (x.style.display === "none") {
+              x.style.display = "block";
+          } else {
+              x.style.display = "none";
+          }
+        }
         }
     </script>
 

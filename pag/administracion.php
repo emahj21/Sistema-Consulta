@@ -19,7 +19,6 @@ $j = 0;
 $a_tiempo = 0;
 $contador_dias = 0;
 $cadena = [];
-//---------- Recorridos ----------
 $resultado1 = $conexion->query($festivo);
 if ($resultado) {
   $totalPedidos = mysqli_num_rows($resultado);

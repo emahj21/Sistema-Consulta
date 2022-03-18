@@ -113,7 +113,67 @@ while ($row = $resultado->fetch_assoc()) {
     }
   </script>
 
-  <!-- Gráfica -->
+
+    <script>
+      function ocultar()
+      {
+        for(var i =0; i<=1000; i++)
+        {
+          ocultar1();
+        }
+
+      }
+    </script>
+    <script>
+        function ocultar1()
+        {
+          document.getElementById('tablas').style.display = 'none';              
+        }
+    </script>
+
+    <script>
+      $("#selectCategory").change(function () {
+    if(this.value != "Todos")
+      {
+    //split the current value of searchInput
+    var data = this.value.split(" ");
+    //create a jquery object of the rows
+    var jo = $("#tabla").find("tr");
+    if (this.value == "") {
+        jo.show();
+        return;
+    }
+    //hide all the rows
+    jo.hide();
+    
+    //Recusively filter the jquery object to get results.
+    jo.filter(function (i, v) {
+        var $t = $(this);
+        for (var d = 0; d < data.length; ++d) {
+            if ($t.is(":contains('" + data[d] + "')")) {
+                return true;
+            }
+        }
+        return false;
+    })
+    //show the rows that match.
+    .show();
+      }
+    }).focus(function () {
+    this.value = "";
+    $(this).css({
+        "color": "black"
+    });
+    $(this).unbind('focus');
+    }).css({
+    "color": "#C0C0C0"
+    });
+
+    
+    </script>
+
+
+  
 
 </body>
 

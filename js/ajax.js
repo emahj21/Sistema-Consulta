@@ -91,7 +91,7 @@ $('#Ver3').click(function(){
   })
 
   .done(function(res){
-    $('#con').html(res)
+    $('#con3').html(res)
     //$('#f1').val('');
     //$('#f2').val('');
   })
@@ -132,14 +132,14 @@ $('#Ver4').click(function(){
 });  
 
 
-$('#Ver6').click(function(){
+$('#Ver5').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
 
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/oc.php',
+    url: 'pag/oc1.php',
     type: 'POST',
     data: ruta,
   })
@@ -249,7 +249,7 @@ $('#logistica').click(function(){
   })
 
   .done(function(res){
-    $('#con3').html(res)
+    $('#logis').html(res)
     //$('#f1').val('');
     //$('#f2').val('');
   })
@@ -321,7 +321,7 @@ $('#personalizacionim').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/administracion.php',
+    url: 'pag/personalizacion.php',
     type: 'POST',
     data: ruta,
   })
@@ -347,7 +347,7 @@ $('#generacion').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/administracion.php',
+    url: 'pag/generacion.php',
     type: 'POST',
     data: ruta,
   })
@@ -373,7 +373,7 @@ $('#empaque').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/administracion.php',
+    url: 'pag/empaque.php',
     type: 'POST',
     data: ruta,
   })
@@ -451,7 +451,7 @@ $('#pedreg').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/administracion.php',
+    url: 'pag/registrados.php',
     type: 'POST',
     data: ruta,
   })
@@ -477,7 +477,7 @@ $('#regas').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/entregados.php',
+    url: 'pag/asesores.php',
     type: 'POST',
     data: ruta,
   })
