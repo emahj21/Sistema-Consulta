@@ -127,7 +127,7 @@ $f2 = $_POST['Fefin'];
             <h3 class="text-center"><?php echo implode("",$tabla_areas[7]);?></h3>
             <h5 align="center"> Calificación
                 <?php $calificacion4 = (dias($conexion,'FechaOCReal', 'OC1aRevFe', $f1, $f2, 'uordencompra', null, 'Rev1', '8', '1')+
-                dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2')+defectos($conexion, $f1, $f2, 'Procesos', '8', '3')+reclamos($f1,$f2,$conexion,$area=8)+pedidosEntregado($f1,$f2,$conexion,$area=8))/10;
+                dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2')+defectos($conexion, $f1, $f2, '8', '3')+reclamos($f1,$f2,$conexion,$area=8)+pedidosEntregado($f1,$f2,$conexion,$area=8))/10;
                             echo round($calificacion4,2)?>
             </h5>
             <canvas id="MiGrafica8" width="500" height="300"></canvas>
@@ -158,13 +158,20 @@ $f2 = $_POST['Fefin'];
 
     var chart = new Chart(ctx,{
         type: "bar",
-        data:{
+        data:   {
             labels:["Administración", "Compras", "Logística ", "Imagen", "Empaque", "Adm. Ventas", "Almacen", "Calidad"],
             datasets:[
                 {
                 label: "General",
-                backgroundColor: [ 'rgb(17, 169, 7)',
-                                  'rgb(195, 3, 3)'],
+                backgroundColor: [  'rgba(188, 41, 46, 1)',
+                                    'rgba(58, 56, 54, 1)',
+                                    'rgba(177, 189, 191, 1)',
+                                    'rgba(136, 155, 155, 1)',
+                                    'rgba(71, 104, 101, 1)',
+                                    'rgba(166, 65, 56, 1)',
+                                    'rgba(208, 208, 208, 1)',
+                                    'rgba(114, 114, 115, 1)'
+                                ],
                 
                 data: [
                     <?php echo $calificacion?>,
@@ -182,7 +189,7 @@ $f2 = $_POST['Fefin'];
         }
         //ctx.update();
         //ctx.destroy();
-    }); 
+    });
 
 </script>
 
@@ -199,16 +206,13 @@ $f2 = $_POST['Fefin'];
             datasets:[
                 {
                 label: "Administración",
-                backgroundColor: [ 'rgb(17, 169, 7)',
-                                  'rgb(195, 3, 3)'],
+                backgroundColor: [ 'rgba(188, 41, 46, 1)'],
                 
                 data: [
                     <?php echo dias($conexion,'FechaRegistro', 'FechaAdmin',$f1,$f2,'upedido',null,'Admin', '1', '1')?>,
                     <?php echo dias($conexion,'FechaEmp', 'FechaLiberacion',$f1,$f2,'upedido',null,'Admin','1', '1')?>,
                    <?php echo reclamos($f1,$f2,$conexion,$area=1)?>,                   
                    <?php echo pedidosEntregado($f1,$f2,$conexion,$area=1)?>
-                    
-                   
                 ]
                 },
             ]
@@ -233,8 +237,7 @@ $f2 = $_POST['Fefin'];
             datasets:[
                 {
                 label: "Compras",
-                backgroundColor:[ 'rgb(17, 169, 7)',
-                                  'rgb(195, 3, 3)'],
+                backgroundColor:[ 'rgba(58, 56, 54, 1)'],
                 data: [
                     <?php echo dias($conexion,'FechaAdmin', 'FechaRegOC', $f1, $f2, 'upedido', 'uordencompra', 'Comp', '2', '1')?>, 
                     <?php echo oc($conexion, $f1, $f2,'2','2')?>,
@@ -260,9 +263,8 @@ $f2 = $_POST['Fefin'];
             labels:["Pedidos Entregados"],
             datasets:[
                 {
-                label: "Logistica",
-                backgroundColor:[ 'rgb(17, 169, 7)',
-                                  'rgb(195, 3, 3)'],
+                label: "Logística",
+                backgroundColor:[ 'rgba(177, 189, 191, 1)'],
                 data: [<?php echo pedidosEntregado($f1,$f2,$conexion,$area=3)?>
             ]
                 }
@@ -283,9 +285,8 @@ $f2 = $_POST['Fefin'];
             labels:["Generación de Fichas", "Autorización de Fichas", "Personalización", "Reclamaciones", "Pedidos Entregados"],
             datasets:[
                 {
-                label: "Mi gráfica",
-                backgroundColor:[ 'rgb(17, 169, 7)',
-                                  'rgb(195, 3, 3)'],
+                label: "Imagen",
+                backgroundColor:[ 'rgba(136, 155, 155, 1)'],
                 data: [
                     <?php echo dias($conexion, 'SDeFeSol', 'SDeFeEnvio', $f1, $f2, 'solicituddetalle', null, 'IC', '4', '1')?>,
                     8,
@@ -312,9 +313,8 @@ $f2 = $_POST['Fefin'];
             labels:["Empaque" , "Reclamaciones", "Pedidos Entregados"],
             datasets:[
                 {
-                label: "Mi gráfica",
-                backgroundColor:[ 'rgb(17, 169, 7)',
-                                  'rgb(195, 3, 3)'],
+                label: "Empaque",
+                backgroundColor:[ 'rgba(71, 104, 101, 1)'],
                 data: [
                     <?php echo dias($conexion,'FechaEmpR', 'FechaProcesos', $f1, $f2, 'uempaque', 'upedido', 'Emp', '5', '1')?>,
                     <?php echo reclamos($f1,$f2,$conexion,$area=5)?>, 
@@ -339,9 +339,8 @@ $f2 = $_POST['Fefin'];
             labels:["Pedidos Registrados", "Regresos a Asesores" , "Reclamaciones", "Pedidos Entregados"],
             datasets:[
                 {
-                label: "Mi gráfica",
-                backgroundColor:[ 'rgb(17, 169, 7)',
-                                  'rgb(195, 3, 3)'],
+                label: "Backoffice",
+                backgroundColor:[ 'rgba(166, 65, 56, 1)'],
                 data: [
                     <?php echo dias($conexion,'FechaEnvioBCK', 'FechaRegistro', $f1, $f2, 'upedido', null, 'Registro-Backoffice', '6', '1')?>,
                     <?php echo rechazos($conexion, $f1, $f2)?>,
@@ -366,9 +365,8 @@ $f2 = $_POST['Fefin'];
             labels:["Revisiones", "Recepción OC's", "Recolección" , "Reclamaciones", "Pedidos Entregados"],
             datasets:[
                 {
-                label: "Mi gráfica",
-                backgroundColor:[ 'rgb(17, 169, 7)',
-                                  'rgb(195, 3, 3)'],
+                label: "Almacen",
+                backgroundColor:['rgba(208, 208, 208, 1)',],
                 data: [
                     <?php echo (dias($conexion,'FechaOCReal', 'OC1aRevFe', $f1, $f2, 'uordencompra', null, 'Rev1', '8', '1')+ dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2'))?>,
                     <?php echo oc($conexion, $f1, $f2,'2','2')?>,
@@ -392,16 +390,15 @@ $f2 = $_POST['Fefin'];
     var chart = new Chart(ctx,{
         type: "bar",
         data:{
-            labels:["Revision Maquilas #1" , "Revisión Maquilas #2", "Defectos de calidad","Reclamaciones", "Pedidos Entregados"],
+            labels:["Rev. Maquilas #1" , "Rev. Maquilas #2", "Defectos de calidad","Reclamaciones", "Pedidos Entregados"],
             datasets:[
                 {
-                label: "Mi gráfica",
-                backgroundColor:[ 'rgb(17, 169, 7)',
-                                  'rgb(195, 3, 3)'],
+                label: "Calidad",
+                backgroundColor:[ 'rgba(114, 114, 115, 1)'],
                 data: [
                     <?php echo dias($conexion,'FechaOCReal', 'OC1aRevFe', $f1, $f2, 'uordencompra', null, 'Rev1', '8', '1')?>,
                     <?php echo dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2')?>,
-                    <?php echo defectos($conexion, $f1, $f2, 'Procesos', '8', '3');?>,
+                    <?php echo defectos($conexion, $f1, $f2,'8', '3');?>,
                     <?php echo reclamos($f1,$f2,$conexion,$area=8)?>,
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=8)?>
                 ]

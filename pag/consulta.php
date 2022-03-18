@@ -187,9 +187,11 @@ function dias($conexion, $FechaI, $FechaF, $f1, $f2, $tabla, $tabla2, $proc, $in
 function defectos($conexion, $f1, $f2, $ind, $ind2){
   //---------- Consultas ----------
   $query = "SELECT OCDefDev, OCDefAcep FROM uordencompra WHERE FechaVoBo BETWEEN '$f1' AND '$f2' ";
+  
   $peso = "SELECT PesoPuntos FROM configuracionindindicadores WHERE ConId = '$ind' AND IndId='$ind2';"; 
   //---------- Variables ----------
   $resultadoPeso = $conexion->query($peso);
+  
   $resultado = $conexion->query($query);
   $defectos = 0;
   $totalPedidos = 0;
@@ -209,7 +211,7 @@ function defectos($conexion, $f1, $f2, $ind, $ind2){
   }
   $buenos = $totalPedidos - $defectos;
   $valTotal = ($buenos*$peso)/$totalPedidos;
-  return $valTotal;
+  return $valTotal; 
 }
 //----------Funcion para consulta de Recoleccion----------
 function recoleccion($conexion,$f1,$f2){

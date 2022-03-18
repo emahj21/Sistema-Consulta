@@ -91,7 +91,7 @@ $('#Ver3').click(function(){
   })
 
   .done(function(res){
-    $('#con3').html(res)
+    $('#con').html(res)
     //$('#f1').val('');
     //$('#f2').val('');
   })
