@@ -17,6 +17,7 @@ $f2 = $_POST['Fefin'];
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="js/mensaje.js"></script>
 <script src="js/ajax.js"></script>
+<script src="js/filtro.js"></script>
 
 
 <title class="mt-5">Inidicadores</title>
@@ -29,7 +30,7 @@ $f2 = $_POST['Fefin'];
 
         <h3 class="text-center">Calificaciones Generales</h3>
             <canvas id="Global" width="500" height="300"></canvas>
-            <button class="btn" onclick="mensaje();">Ver más</button>
+         
 
 
 
@@ -45,7 +46,7 @@ $f2 = $_POST['Fefin'];
                 reclamos($f1,$f2,$conexion,$area=1)+
                 pedidosEntregado($f1,$f2,$conexion,$area=1))/10; 
                 
-                echo $calificacion;?>
+                echo round($calificacion,2);?>
             </h5>
             <canvas id="MiGrafica" style="width: 800px; height: 400px;"></canvas>
             <a class="btn" target="_blank" id="Ver">Revisión Anticipos y Fac.</a>
@@ -63,7 +64,7 @@ $f2 = $_POST['Fefin'];
                                     reclamos($f1,$f2,$conexion,$area=2)+
                                     pedidosEntregado($f1,$f2,$conexion,$area=2))/10; 
                 
-                echo $calificacion2;?>
+                echo round($calificacion2,2);?>
             </h5>      
             <canvas id="MiGrafica2" width="500" height="300"></canvas>
             <a class="btn" target="_blank" id="Ver5">Generación de OC's</a>
@@ -75,19 +76,19 @@ $f2 = $_POST['Fefin'];
             <h3 class="text-center"><?php echo implode("",$tabla_areas[2]);?></h3>
             <h5 align="center"> Calificación
                 <?php $logistica =  pedidosEntregado($f1,$f2,$conexion,$area=3);
-                echo $logistica?>
+                echo round($logistica,2)?>
             </h5> 
             <canvas id="MiGrafica3" width="500" height="300"></canvas>
             <a class="btn" target="_blank" id="logistica">Pedidos Entregados</a>
-            <div id="con3"></div>
+            <div id="logis"></div>
 
             <h3 class="text-center">Imagen</h3>
             <canvas id="MiGrafica4" width="500" height="300"></canvas>
-            <a class="btn" target="_blank" id="generacion">Gen. de Fichas</a>
-            <a class="btn" target="_blank" id="ver10">Aut. de Fichas</a>
-            <a class="btn" target="_blank" id="personalizacionim">Personalización</a>
-            <a class="btn" target="_blank" id="reclamosim">Reclamaciones</a>
-            <a class="btn" target="_blank" id="entregadosim">Pedidos Entregados</a>
+            <a class="btn" id="generacion">Gen. de Fichas</a>
+            <a class="btn" id="ver10">Aut. de Fichas</a>
+            <a class="btn" id="personalizacionim">Personalización</a>
+            <a class="btn" id="reclamosim">Reclamaciones</a>
+            <a class="btn" id="entregadosim">Pedidos Entregados</a>
             <div id="con4"></div>
             
 
@@ -95,7 +96,7 @@ $f2 = $_POST['Fefin'];
             <h5 align="center"> Calificación
                 <?php $calificacion3 = (dias($conexion,'FechaEmpR', 'FechaProcesos', $f1, $f2, 'uempaque', 'upedido', 'Emp', '5', '1')+
                             reclamos($f1,$f2,$conexion,$area=5) + pedidosEntregado($f1,$f2,$conexion,$area=5))/10;
-                            echo $calificacion3?>
+                            echo round($calificacion3,2)?>
             </h5>
             <canvas id="MiGrafica5" width="500" height="300"></canvas>
             <a class="btn" target="_blank" id="empaque">Empaque</a>
@@ -104,11 +105,11 @@ $f2 = $_POST['Fefin'];
             <div id="con5"></div>
 
 
-            <h3 class="text-center"><?php echo implode("",$tabla_areas[5]);?></h3>
+            <h3 class="text-center">Backoffice</h3>
             <h5 align="center"> Calificación
                 <?php $calificacion5 = (dias($conexion,'FechaEnvioBCK', 'FechaRegistro', $f1, $f2, 'upedido', null, 'Registro-Backoffice', '6', '1')+
                             rechazos($conexion, $f1, $f2)+ reclamos($f1,$f2,$conexion,$area=6)+ pedidosEntregado($f1,$f2,$conexion,$area=6))/10;
-                            echo $calificacion5?>
+                            echo round($calificacion5,2)?>
             </h5>
             <canvas id="MiGrafica6" width="500" height="300"></canvas>
             <a class="btn" target="_blank" id="pedreg">Pedidos Registrados</a>
@@ -127,7 +128,7 @@ $f2 = $_POST['Fefin'];
             <h5 align="center"> Calificación
                 <?php $calificacion4 = (dias($conexion,'FechaOCReal', 'OC1aRevFe', $f1, $f2, 'uordencompra', null, 'Rev1', '8', '1')+
                 dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2')+defectos($conexion, $f1, $f2, 'Procesos', '8', '3')+reclamos($f1,$f2,$conexion,$area=8)+pedidosEntregado($f1,$f2,$conexion,$area=8))/10;
-                            echo $calificacion4?>
+                            echo round($calificacion4,2)?>
             </h5>
             <canvas id="MiGrafica8" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button>

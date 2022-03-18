@@ -23,6 +23,7 @@ function reclamos($f1, $f2, $conexion, $area)
 {
   $totalR = 0;
   $puntosR = 0;
+  $puntos = 100;
   //Consultas Reclamo
   $queryReclamo = "SELECT reclamacion,FechaRegistro  FROM upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2' ;
   ";
@@ -51,7 +52,7 @@ function reclamos($f1, $f2, $conexion, $area)
     $totalR = $puntosR;
   }else
   {
-    $nuevo = $puntos * 30;
+    $nuevo = $puntos - ($totalR * 30);
     if($totalR >= 4)
     {
        $totalR = 0;
@@ -197,7 +198,7 @@ function dias($conexion,$FechaI,$FechaF,$f1,$f2,$tabla,$tabla2,$proc,$ind,$ind2)
       array_push($diaFestivo,$row1['DFFecha']);
       while($row=$resultado->fetch_assoc()){
           if($tabla2==null){
-            if($row[$FechaF] == '1000-01-01')
+            if($row[$FechaF] == '1000-01-01 00:00:00' || $row[$FechaF] == '1000-01-01')
             {
                $aux = date('d-m-Y');
                $row[$FechaF] = $aux;
@@ -330,6 +331,7 @@ function recoleccion($conexion,$f1,$f2){
   //echo "Peso Puntos: ";
   //echo $peso.'<br>';
   while($row1=$resultado1->fetch_assoc()){
+  }
 
       while($row=$resultado->fetch_assoc()){  
 
@@ -382,7 +384,7 @@ function recoleccion($conexion,$f1,$f2){
   //echo 'Valor final: ';
   //echo $val_final;
   return $val_final;
-}
+
 
 function rechazos($conexion, $f1, $f2){
   //---------- Consultas ----------
