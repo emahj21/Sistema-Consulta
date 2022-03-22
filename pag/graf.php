@@ -120,7 +120,13 @@ $f2 = $_POST['Fefin'];
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[6]);?></h3>
             <canvas id="MiGrafica7" width="500" height="300"></canvas>
-            <button class="btn" onclick="mensaje();">Ver más</button>
+<!--             <a class="btn" target="_blank" id="maquila1">Maquilas #1</a>
+            <a class="btn" target="_blank" id="maquila2">Maquilas #2</a>
+            <a class="btn" target="_blank" id="defectos">Defectos</a>
+            <a class="btn" target="_blank" id="reclamacioncal">Reclamaciones</a>
+            <a class="btn" target="_blank" id="pedidoscal">Pedidos Entregados</a> -->
+            <div id="con7"></div>
+
 
             
 
@@ -131,7 +137,12 @@ $f2 = $_POST['Fefin'];
                             echo round($calificacion4,2)?>
             </h5>
             <canvas id="MiGrafica8" width="500" height="300"></canvas>
-            <button class="btn" onclick="mensaje();">Ver más</button>
+            <a class="btn" target="_blank" id="maquila1">Maquilas #1</a>
+            <a class="btn" target="_blank" id="maquila2">Maquilas #2</a>
+            <a class="btn" target="_blank" id="defectos">Defectos</a>
+            <a class="btn" target="_blank" id="reclamacioncal">Reclamaciones</a>
+            <a class="btn" target="_blank" id="pedidoscal">Pedidos Entregados</a>
+            <div id="con8"></div>
 
 
 

@@ -67,6 +67,7 @@ while ($row1 = $resultado1->fetch_assoc()) {
   <link rel="icon" href="../images/ico.ico">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
+  <script src="js/filtro.js"></script>
 
   <title>Administración</title>
 </head>
@@ -74,6 +75,14 @@ while ($row1 = $resultado1->fetch_assoc()) {
 <body class="m-0 ">
   <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
   <div class="" id="tabla">
+  <div style="text-align: center;">
+        <select id="selectCategory" align="center">
+          <option value="">Selecciona Filtro</option>
+          <option value="">Todos</option>
+          <option value="&#x2714">&#x2714;</option>
+          <option value="&#10060">&#10060;</option>
+        </select>
+      </div>
     <div class="row">
 
       <table class="table" width="">
