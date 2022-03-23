@@ -548,20 +548,20 @@ $('#pedidosadm').click(function(){
   })
 });
 
-$('#Ver5').click(function(){
+$('#maquila1').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
 
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/oc1.php',
+    url: 'pag/maquila1.php',
     type: 'POST',
     data: ruta,
   })
 
   .done(function(res){
-    $('#con9').html(res)
+    $('#con8').html(res)
     //$('#f1').val('');
     //$('#f2').val('');
   })
@@ -572,22 +572,22 @@ $('#Ver5').click(function(){
   .always(function(){
     console.log("complete");
   })
-});  
+});
 
-$('#Ver6').click(function(){
+$('#maquila2').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
 
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/oc.php',
+    url: 'pag/maquila2.php',
     type: 'POST',
     data: ruta,
   })
 
   .done(function(res){
-    $('#con9').html(res)
+    $('#con8').html(res)
     //$('#f1').val('');
     //$('#f2').val('');
   })
@@ -598,9 +598,35 @@ $('#Ver6').click(function(){
   .always(function(){
     console.log("complete");
   })
-}); 
+});
 
-$('#Ver7').click(function(){
+$('#defectos').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/defectos.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con8').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+
+$('#reclamacioncal').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
 
@@ -613,7 +639,7 @@ $('#Ver7').click(function(){
   })
 
   .done(function(res){
-    $('#con9').html(res)
+    $('#con').html(res)
     //$('#f1').val('');
     //$('#f2').val('');
   })
@@ -624,9 +650,9 @@ $('#Ver7').click(function(){
   .always(function(){
     console.log("complete");
   })
-}); 
+});
 
-$('#Ver8').click(function(){
+$('#pedidoscal').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
 
@@ -639,7 +665,7 @@ $('#Ver8').click(function(){
   })
 
   .done(function(res){
-    $('#con9').html(res)
+    $('#con8').html(res)
     //$('#f1').val('');
     //$('#f2').val('');
   })
@@ -650,4 +676,4 @@ $('#Ver8').click(function(){
   .always(function(){
     console.log("complete");
   })
-}); 
+});

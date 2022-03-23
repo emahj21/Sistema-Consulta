@@ -1,5 +1,7 @@
 <?php
 
+
+
 include("../conexion.php");
 include('consulta.php');
 //include('prueba.php');
@@ -30,12 +32,9 @@ $f2 = $_POST['Fefin'];
 
         <h3 class="text-center">Calificaciones Generales</h3>
             <canvas id="Global" width="500" height="300"></canvas>
-         
-
-
-
-            
+                  
         </div>
+
         <div class="col-sm-12   "> 
 
             
@@ -54,9 +53,11 @@ $f2 = $_POST['Fefin'];
             <a class="btn" target="_blank" id="Ver3">Reclamaciones</a>
             <a class="btn" target="_blank" id="Ver4">Pedidos Entregados</a>
             <div id="con"></div>
+        </div>
+    </div>
+</div>
 
-
-
+        <div class="col-sm-12   ">
             <h3 class="text-center"><?php echo implode("",$tabla_areas[1]);?></h3>  
             <h5 align="center">Calificación 
             <?php $calificacion2 = (dias($conexion,'FechaAdmin', 'FechaRegOC', $f1, $f2, 'upedido', 'uordencompra', 'Comp', '2', '1')+
@@ -72,6 +73,7 @@ $f2 = $_POST['Fefin'];
             <a class="btn" target="_blank" id="Ver7">Reclamaciones</a>
             <a class="btn" target="_blank" id="Ver8">Pedidos Entregados</a>
             <div id="con2"></div>
+        </div>
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[2]);?></h3>
             <h5 align="center"> Calificación
@@ -128,7 +130,13 @@ $f2 = $_POST['Fefin'];
                     echo round($calificacion6,2)?>
             </h5>
             <canvas id="MiGrafica7" width="500" height="300"></canvas>
-            <button class="btn" onclick="mensaje();">Ver más</button>
+<!--             <a class="btn" target="_blank" id="maquila1">Maquilas #1</a>
+            <a class="btn" target="_blank" id="maquila2">Maquilas #2</a>
+            <a class="btn" target="_blank" id="defectos">Defectos</a>
+            <a class="btn" target="_blank" id="reclamacioncal">Reclamaciones</a>
+            <a class="btn" target="_blank" id="pedidoscal">Pedidos Entregados</a> -->
+            <div id="con7"></div>
+
 
             
 
@@ -139,7 +147,12 @@ $f2 = $_POST['Fefin'];
                             echo round($calificacion4,2)?>
             </h5>
             <canvas id="MiGrafica8" width="500" height="300"></canvas>
-            <button class="btn" onclick="mensaje();">Ver más</button>
+            <a class="btn" target="_blank" id="maquila1">Maquilas #1</a>
+            <a class="btn" target="_blank" id="maquila2">Maquilas #2</a>
+            <a class="btn" target="_blank" id="defectos">Defectos</a>
+            <a class="btn" target="_blank" id="reclamacioncal">Reclamaciones</a>
+            <a class="btn" target="_blank" id="pedidoscal">Pedidos Entregados</a>
+            <div id="con8"></div>
 
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[10]);?></h3>  
@@ -163,9 +176,8 @@ $f2 = $_POST['Fefin'];
 <!--             <h3 class="text-center"><?php echo implode("",$tabla_areas[8]);?></h3>
             <canvas id="MiGrafica9" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button> -->
-        </div>
-    </div>
-</div>
+    
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

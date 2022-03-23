@@ -13,6 +13,7 @@ $FechaI = 'FechaRegOC';
 $tabla = 'uordencompra';
 $tabla2 = 'upedido';
 $proc = 'Comp';
+$cadena=[];
 $j=0;
 //---------- Variables ----------
 
@@ -161,7 +162,7 @@ while($row1=$resultado1->fetch_assoc()){
                             INNER JOIN proveedores ON  oc.ProvId = proveedores.ProvId
                             INNER JOIN utipooc ON oc.IdTipoOC = utipooc.IdTipoOC
                             INNER JOIN upedido ON oc.Idpedido = upedido.Idpedido
-                            WHERE FechaOCReal BETWEEN '$f1' AND' $f2'";
+                            WHERE FechaAdmin BETWEEN '$f1' AND' $f2'";
 
 
                         $resultado= $conexion->query($query);

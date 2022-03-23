@@ -18,7 +18,7 @@
 <!-- Icons -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
 <!-- SweetAlert2 -->
-<link rel="stylesheet" href="sweetalert2.min.css">
+<!-- <link rel="stylesheet" href="https://sweetalert2.min.css"> -->
 <!-- Animations-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 <link rel="stylesheet" type="text/css" href="css/estilos.css">
@@ -126,8 +126,8 @@ arrow_upward
 
 <!-- SweetAlert 2 -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="sweetalert2.all.min.js"></script>
-<script src="sweetalert2.min.js"></script>
+<!-- <script src="sweetalert2.all.min.js"></script>
+<script src="sweetalert2.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/ajax.js"></script>
 <script src="js/filtro.js"></script>
