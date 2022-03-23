@@ -1,5 +1,7 @@
 <?php
 
+
+
 include("../conexion.php");
 include('consulta.php');
 //include('prueba.php');
@@ -30,12 +32,9 @@ $f2 = $_POST['Fefin'];
 
         <h3 class="text-center">Calificaciones Generales</h3>
             <canvas id="Global" width="500" height="300"></canvas>
-         
-
-
-
-            
+                  
         </div>
+
         <div class="col-sm-12   "> 
 
             
@@ -54,9 +53,11 @@ $f2 = $_POST['Fefin'];
             <a class="btn" target="_blank" id="Ver3">Reclamaciones</a>
             <a class="btn" target="_blank" id="Ver4">Pedidos Entregados</a>
             <div id="con"></div>
+        </div>
+    </div>
+</div>
 
-
-
+        <div class="col-sm-12   ">
             <h3 class="text-center"><?php echo implode("",$tabla_areas[1]);?></h3>  
             <h5 align="center">Calificación 
             <?php $calificacion2 = (dias($conexion,'FechaAdmin', 'FechaRegOC', $f1, $f2, 'upedido', 'uordencompra', 'Comp', '2', '1')+
@@ -72,6 +73,7 @@ $f2 = $_POST['Fefin'];
             <a class="btn" target="_blank" id="Ver7">Reclamaciones</a>
             <a class="btn" target="_blank" id="Ver8">Pedidos Entregados</a>
             <div id="con2"></div>
+        </div>
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[2]);?></h3>
             <h5 align="center"> Calificación
@@ -149,9 +151,8 @@ $f2 = $_POST['Fefin'];
 <!--             <h3 class="text-center"><?php echo implode("",$tabla_areas[8]);?></h3>
             <canvas id="MiGrafica9" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button> -->
-        </div>
-    </div>
-</div>
+    
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

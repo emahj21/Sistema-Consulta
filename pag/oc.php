@@ -75,7 +75,7 @@ while($row = $resultado->fetch_assoc()){
   </head>
   <body class="m-0 ">
    <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
-    <div class="container" id="tabla">
+    <div class="container" id="oc">
     <div style="text-align: center;">
         <select id="selectCategory" align="center">
           <option value="">Selecciona Filtro</option>
@@ -135,7 +135,7 @@ while($row = $resultado->fetch_assoc()){
                         ?>
                 </tbody>
             </table>
-            <button class="btn " style="border-color: #000; " onclick="ocultar();">Ocultar</button>
+            <button class="btn " style="border-color: #000; " id="switchField2">Ocultar</button>
         </div>
     </div>
 
@@ -149,6 +149,14 @@ while($row = $resultado->fetch_assoc()){
         {
             document.getElementById('tabla').style.display = 'none';
         }
+    </script>
+
+<script>
+        $(document).ready(function(){
+        $("#switchField2").click(function() {
+            $("#oc").toggle(500);// Mostrar y ocultar el tiempo de cambio de acción es de 500 ms
+        });
+        });
     </script>
 
     <!-- Gráfica -->
