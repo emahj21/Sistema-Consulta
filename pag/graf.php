@@ -119,6 +119,14 @@ $f2 = $_POST['Fefin'];
             <div id="con6"></div>
 
             <h3 class="text-center"><?php echo implode("",$tabla_areas[6]);?></h3>
+            <h5 align="center">Calificación
+                <?php $calificacion6 = ( dias($conexion,'FechaOCReal', 'OC1aRevFe', $f1, $f2, 'uordencompra', null, 'Rev1', '8', '1')+ dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2')+
+                    oc($conexion, $f1, $f2,'2','2')+
+                    recoleccion($conexion,$f1,$f2)+
+                    reclamos($f1,$f2,$conexion,$area=7)+
+                    pedidosEntregado($f1,$f2,$conexion,$area=7))/10;
+                    echo round($calificacion6,2)?>
+            </h5>
             <canvas id="MiGrafica7" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button>
 
@@ -132,6 +140,23 @@ $f2 = $_POST['Fefin'];
             </h5>
             <canvas id="MiGrafica8" width="500" height="300"></canvas>
             <button class="btn" onclick="mensaje();">Ver más</button>
+
+
+            <h3 class="text-center"><?php echo implode("",$tabla_areas[10]);?></h3>  
+            <h5 align="center">Calificación 
+            <?php $calificacion8 = (dias($conexion,'FechaAdmin', 'FechaRegOC', $f1, $f2, 'upedido', 'uordencompra', 'Comp', '2', '1')+
+                                    oc($conexion, $f1, $f2,'2','2')+
+                                    reclamos($f1,$f2,$conexion,$area=2)+
+                                    pedidosEntregado($f1,$f2,$conexion,$area=2))/10; 
+                
+                echo round($calificacion8,2);?>
+            </h5>      
+            <canvas id="MiGrafica9" width="500" height="300"></canvas>
+            <a class="btn" target="_blank" id="Ver5">Generación de OC's</a>
+            <a class="btn" target="_blank" id="Ver6">Recepción de OC's</a>
+            <a class="btn" target="_blank" id="Ver7">Reclamaciones</a>
+            <a class="btn" target="_blank" id="Ver8">Pedidos Entregados</a>
+            <div id="con9"></div>
 
 
 
@@ -159,7 +184,7 @@ $f2 = $_POST['Fefin'];
     var chart = new Chart(ctx,{
         type: "bar",
         data:   {
-            labels:["Administración", "Compras", "Logística ", "Imagen", "Empaque", "Adm. Ventas", "Almacen", "Calidad"],
+            labels:["Administración", "Compras", "Logística ", "Imagen", "Empaque", "Adm. Ventas", "Almacen", "Calidad", "Producción"],
             datasets:[
                 {
                 label: "General",
@@ -170,7 +195,8 @@ $f2 = $_POST['Fefin'];
                                     'rgba(71, 104, 101, 1)',
                                     'rgba(166, 65, 56, 1)',
                                     'rgba(208, 208, 208, 1)',
-                                    'rgba(114, 114, 115, 1)'
+                                    'rgba(114, 114, 115, 1)',
+                                    'rgba(177, 189, 191, 1)'
                                 ],
                 
                 data: [
@@ -181,7 +207,8 @@ $f2 = $_POST['Fefin'];
                     <?php echo $calificacion3?>,
                     7,
                     9,
-                    <?php echo $calificacion4?>                   
+                    <?php echo $calificacion4?>,
+                    <?php echo $calificacion8?>
                 ]
                 },
             ]
@@ -370,7 +397,7 @@ $f2 = $_POST['Fefin'];
                 data: [
                     <?php echo (dias($conexion,'FechaOCReal', 'OC1aRevFe', $f1, $f2, 'uordencompra', null, 'Rev1', '8', '1')+ dias($conexion,'FechaOCReal', 'OC2aRevFe', $f1, $f2, 'uordencompra', null, 'Rev2', '8', '2'))?>,
                     <?php echo oc($conexion, $f1, $f2,'2','2')?>,
-                    <?php /* echo recoleccion($conexion,$f1,$f2); */?>1,
+                    <?php echo recoleccion($conexion,$f1,$f2);?>,
                     <?php echo reclamos($f1,$f2,$conexion,$area=7)?>,
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=7)?>
                 ]
@@ -401,6 +428,32 @@ $f2 = $_POST['Fefin'];
                     <?php echo defectos($conexion, $f1, $f2,'8', '3');?>,
                     <?php echo reclamos($f1,$f2,$conexion,$area=8)?>,
                     <?php echo pedidosEntregado($f1,$f2,$conexion,$area=8)?>
+                ]
+                }
+            ]
+        }
+        //ctx.update();
+        //ctx.destroy();
+    }); 
+</script>
+
+<script>
+    //let miCanvas=document.getElementById("MiGrafica").getContext("2d");
+    var ctx = document.getElementById("MiGrafica9").getContext("2d");
+
+    var chart = new Chart(ctx,{
+        type: "bar",
+        data:{
+            labels:["Generación de OC's" , "Recepción de OC's", "Reclamaciones", "Pedidos Entregados"],
+            datasets:[
+                {
+                label: "Producción",
+                backgroundColor:[ 'rgba(177, 189, 191, 1)'],
+                data: [
+                    <?php echo dias($conexion,'FechaAdmin', 'FechaRegOC', $f1, $f2, 'upedido', 'uordencompra', 'Comp', '11', '1')?>, 
+                    <?php echo oc($conexion, $f1, $f2,'11','2')?>,
+                    <?php echo reclamos($f1,$f2,$conexion,$area=2)?>, 
+                    <?php echo pedidosEntregado($f1,$f2,$conexion,$area=2)?>
                 ]
                 }
             ]

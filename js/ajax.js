@@ -547,3 +547,107 @@ $('#pedidosadm').click(function(){
     console.log("complete");
   })
 });
+
+$('#Ver5').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/oc1.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con9').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});  
+
+$('#Ver6').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/oc.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con9').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+}); 
+
+$('#Ver7').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/reclamaciones.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con9').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+}); 
+
+$('#Ver8').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregados.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con9').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+}); 
