@@ -73,6 +73,12 @@ while($row = $resultado->fetch_assoc()){
 
     <title>Administración</title>
   </head>
+  <style>
+      html
+      {
+          scroll-behavior: smooth ;
+      }
+  </style>
   <body class="m-0 ">
    <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
     <div class="container" id="oc">
@@ -84,10 +90,10 @@ while($row = $resultado->fetch_assoc()){
           <option value="&#10060">&#10060;</option>
         </select>
       </div>
-        <div class="row">
+        <div class="row" id="inicio">
             
-            <button class="btn " style="border-color: #000; width:70px;" onclick="ocultar();">Ocultar</button>
-            <table  class="table">
+            
+            <table  class="table" id="tablaCompras">
                 
                     <thead  class="thead-dark">
                     <tr>
@@ -135,7 +141,7 @@ while($row = $resultado->fetch_assoc()){
                         ?>
                 </tbody>
             </table>
-            <button class="btn " style="border-color: #000; " id="switchField2">Ocultar</button>
+            <button class="btn " style="border-color: #000; " id="switchField2" onclick="ocultar();" href="#inicio">Ocultar</button>
         </div>
     </div>
 
@@ -147,7 +153,7 @@ while($row = $resultado->fetch_assoc()){
     <script>
         function ocultar()
         {
-            document.getElementById('tabla').style.display = 'none';
+            document.getElementById('tablaCompras').style.display = 'none';
         }
     </script>
 

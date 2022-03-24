@@ -217,7 +217,7 @@ $('#Ver8').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/entregados.php',
+    url: 'pag/entregadosCompras.php',
     type: 'POST',
     data: ruta,
   })
@@ -243,7 +243,7 @@ $('#logistica').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/entregados.php',
+    url: 'pag/entregadosLogistica.php',
     type: 'POST',
     data: ruta,
   })
@@ -269,7 +269,7 @@ $('#entregadosim').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/entregados.php',
+    url: 'pag/entregadosImagen.php',
     type: 'POST',
     data: ruta,
   })
@@ -425,7 +425,7 @@ $('#pedidosemp').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/entregados.php',
+    url: 'pag/entregadosEmpaque.php',
     type: 'POST',
     data: ruta,
   })
@@ -529,7 +529,7 @@ $('#pedidosadm').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/entregados.php',
+    url: 'pag/entregadosBCK.php',
     type: 'POST',
     data: ruta,
   })
@@ -659,7 +659,7 @@ $('#pedidoscal').click(function(){
   var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
 
   $.ajax({
-    url: 'pag/entregados.php',
+    url: 'pag/entregadosAlmacen.php',
     type: 'POST',
     data: ruta,
   })

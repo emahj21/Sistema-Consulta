@@ -56,15 +56,15 @@ while ($row = $resultado->fetch_assoc()) {
 <body class="m-0 ">
   <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
   <div class="container" id="tabla">
-    <div class="row" id="tablaEntregados">
-      <div style="text-align: center;">
+      <div class="row" id="tablaImagen">
+        <div style="text-align: center;">
             <select id="selectCategory" align="center">
-              <option value="">Selecciona Filtro</option>
-              <option value="">Todos</option>
-              <option value="&#x2714">&#x2714;</option>
-              <option value="&#10060">&#10060;</option>
+                <option value="">Selecciona Filtro</option>
+                <option value="">Todos</option>
+                <option value="&#x2714">&#x2714;</option>
+                <option value="&#10060">&#10060;</option>
             </select>
-          </div>
+        </div>
       <h3>Pedidos Entregados</h3>
       <table class="table" >
 
@@ -106,8 +106,8 @@ while ($row = $resultado->fetch_assoc()) {
           }
           ?>
         </tbody>
-      </table>
-      <button class="btn" style="border-color: #000; " id="switchField1" onclick="ocultar();">Ocultar</button>
+    </table>
+    <button class="btn" style="border-color: #000; " id="switchField1" onclick="ocultar();">Ocultar</button>
     </div>
   </div>
 
@@ -118,7 +118,7 @@ while ($row = $resultado->fetch_assoc()) {
 
   <script>
     function ocultar() {
-      document.getElementById('tablaEntregados').style.display = 'none';
+      document.getElementById('tablaImagen').style.display = 'none';
     }
   </script>
 

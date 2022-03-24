@@ -19,7 +19,7 @@
 //----------Funcion para consulta de Reclamos----------
 function reclamos($f1, $f2, $conexion, $area){
   //---------- Consultas ----------
-  $queryReclamo = "SELECT reclamacion,FechaRegistro  FROM upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2' ;";
+  $queryReclamo = "SELECT reclamacion,FechaEntC  FROM upedido WHERE FechaEntC BETWEEN '$f1' AND '$f2' ;";
   $queryPuntosReclamo = "SELECT PesoPuntos FROM configuracionindindicadores WHERE configuracionindindicadores.ConId='$area' AND configuracionindindicadores.IndId=4;";
   //---------- Variables ----------
   $totalR = 0;

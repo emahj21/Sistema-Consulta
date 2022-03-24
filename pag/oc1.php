@@ -140,7 +140,7 @@ while($row1=$resultado1->fetch_assoc()){
         <div class="row">
             
             <button class="btn " style="border-color: #000; width:70px;" onclick="ocultar();">Ocultar</button>
-            <table  class="table" style="font-size: 12px;">
+            <table  class="table" id="tablaCompras" style="font-size: 12px;">
                 
                     <thead  class="thead-dark">
                     <tr>
@@ -197,7 +197,7 @@ while($row1=$resultado1->fetch_assoc()){
     <script>
         function ocultar()
         {
-            document.getElementById('tablas').style.display = 'none';
+            document.getElementById('tablaCompras').style.display = 'none';
         }
     </script>
     <script src="js/filtro.js"></script>
