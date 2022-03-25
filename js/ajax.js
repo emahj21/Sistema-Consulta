@@ -25,7 +25,7 @@ $('#Enviar').click(function(){
 });  
 
 
-
+/*---------- ADMINISTRACION ----------*/
 $('#Ver').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -51,7 +51,6 @@ $('#Ver').click(function(){
     console.log("complete");
   })
 });  
-
 $('#Ver2').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -77,7 +76,6 @@ $('#Ver2').click(function(){
     console.log("complete");
   })
 });  
-
 $('#Ver3').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -103,8 +101,6 @@ $('#Ver3').click(function(){
     console.log("complete");
   })
 });  
-
-
 $('#Ver4').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -131,7 +127,7 @@ $('#Ver4').click(function(){
   })
 });  
 
-
+/*---------- COMPRAS ----------*/
 $('#Ver5').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -157,7 +153,6 @@ $('#Ver5').click(function(){
     console.log("complete");
   })
 });  
-
 $('#Ver6').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -183,7 +178,6 @@ $('#Ver6').click(function(){
     console.log("complete");
   })
 }); 
-
 $('#Ver7').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -209,7 +203,6 @@ $('#Ver7').click(function(){
     console.log("complete");
   })
 }); 
-
 $('#Ver8').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -236,6 +229,7 @@ $('#Ver8').click(function(){
   })
 }); 
 
+/*---------- LOGISTICA ----------*/
 $('#logistica').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -262,84 +256,7 @@ $('#logistica').click(function(){
   })
 }); 
 
-$('#entregadosim').click(function(){
-  var Fechain=document.getElementById('f1').value;
-  var Fechafin=document.getElementById('f2').value;
-
-  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
-
-  $.ajax({
-    url: 'pag/entregadosImagen.php',
-    type: 'POST',
-    data: ruta,
-  })
-
-  .done(function(res){
-    $('#con4').html(res)
-    //$('#f1').val('');
-    //$('#f2').val('');
-  })
-
-  .fail(function(){
-    console.log("error");
-  })
-  .always(function(){
-    console.log("complete");
-  })
-}); 
-
-$('#reclamosim').click(function(){
-  var Fechain=document.getElementById('f1').value;
-  var Fechafin=document.getElementById('f2').value;
-
-  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
-
-  $.ajax({
-    url: 'pag/reclamaciones.php',
-    type: 'POST',
-    data: ruta,
-  })
-
-  .done(function(res){
-    $('#con4').html(res)
-    //$('#f1').val('');
-    //$('#f2').val('');
-  })
-
-  .fail(function(){
-    console.log("error");
-  })
-  .always(function(){
-    console.log("complete");
-  })
-}); 
-
-$('#personalizacionim').click(function(){
-  var Fechain=document.getElementById('f1').value;
-  var Fechafin=document.getElementById('f2').value;
-
-  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
-
-  $.ajax({
-    url: 'pag/personalizacion.php',
-    type: 'POST',
-    data: ruta,
-  })
-
-  .done(function(res){
-    $('#con4').html(res)
-    //$('#f1').val('');
-    //$('#f2').val('');
-  })
-
-  .fail(function(){
-    console.log("error");
-  })
-  .always(function(){
-    console.log("complete");
-  })
-});
-
+/*---------- IMAGEN ----------*/
 $('#generacion').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -365,7 +282,83 @@ $('#generacion').click(function(){
     console.log("complete");
   })
 });
+$('#personalizacionim').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
 
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/personalizacion.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con4').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+$('#reclamosim').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/reclamaciones.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con4').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+}); 
+$('#entregadosim').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregadosImagen.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con4').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+
+/*---------- EMPAQUE ----------*/
 $('#empaque').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -391,7 +384,6 @@ $('#empaque').click(function(){
     console.log("complete");
   })
 });
-
 $('#reclamoemp').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -417,7 +409,6 @@ $('#reclamoemp').click(function(){
     console.log("complete");
   })
 });
-
 $('#pedidosemp').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -444,6 +435,7 @@ $('#pedidosemp').click(function(){
   })
 });
 
+/*---------- BACKOFFICE ----------*/
 $('#pedreg').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -469,7 +461,6 @@ $('#pedreg').click(function(){
     console.log("complete");
   })
 });
-
 $('#regas').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -495,7 +486,6 @@ $('#regas').click(function(){
     console.log("complete");
   })
 });
-
 $('#reclamacionadm').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -521,8 +511,7 @@ $('#reclamacionadm').click(function(){
     console.log("complete");
   })
 });
-
-$('#pedidosadm').click(function(){
+$('#pedidosAdm').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
 
@@ -548,6 +537,134 @@ $('#pedidosadm').click(function(){
   })
 });
 
+/*---------- ALMACEN ----------*/
+$('#revisiones').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregadosBCK.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con6').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+$('#recepcionOCS').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregadosBCK.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con6').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+$('#recolecciones').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregadosBCK.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con6').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+$('#reclamacionAlm').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregadosBCK.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con6').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+$('#pedidosAlm').click(function(){
+  var Fechain=document.getElementById('f1').value;
+  var Fechafin=document.getElementById('f2').value;
+
+  var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
+
+  $.ajax({
+    url: 'pag/entregadosBCK.php',
+    type: 'POST',
+    data: ruta,
+  })
+
+  .done(function(res){
+    $('#con6').html(res)
+    //$('#f1').val('');
+    //$('#f2').val('');
+  })
+
+  .fail(function(){
+    console.log("error");
+  })
+  .always(function(){
+    console.log("complete");
+  })
+});
+
+/*---------- CALIDAD ----------*/
 $('#maquila1').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -573,7 +690,6 @@ $('#maquila1').click(function(){
     console.log("complete");
   })
 });
-
 $('#maquila2').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -599,7 +715,6 @@ $('#maquila2').click(function(){
     console.log("complete");
   })
 });
-
 $('#defectos').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -625,7 +740,6 @@ $('#defectos').click(function(){
     console.log("complete");
   })
 });
-
 $('#reclamacioncal').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -651,7 +765,6 @@ $('#reclamacioncal').click(function(){
     console.log("complete");
   })
 });
-
 $('#pedidoscal').click(function(){
   var Fechain=document.getElementById('f1').value;
   var Fechafin=document.getElementById('f2').value;
@@ -677,3 +790,4 @@ $('#pedidoscal').click(function(){
     console.log("complete");
   })
 });
+/*---------- PRODUCCION ----------*/

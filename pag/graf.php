@@ -130,11 +130,11 @@ $f2 = $_POST['Fefin'];
                     echo round($calificacion6,2)?>
             </h5>
             <canvas id="MiGrafica7" width="500" height="300"></canvas>
-<!--             <a class="btn" target="_blank" id="maquila1">Maquilas #1</a>
-            <a class="btn" target="_blank" id="maquila2">Maquilas #2</a>
-            <a class="btn" target="_blank" id="defectos">Defectos</a>
-            <a class="btn" target="_blank" id="reclamacioncal">Reclamaciones</a>
-            <a class="btn" target="_blank" id="pedidoscal">Pedidos Entregados</a> -->
+            <a class="btn" target="_blank" id="revisiones">Revisiones</a>
+            <a class="btn" target="_blank" id="recepcionOCS">Recepción OC's</a>
+            <a class="btn" target="_blank" id="recoleccion">Recolección</a>
+            <a class="btn" target="_blank" id="reclamacionAlm">Reclamaciones</a>
+            <a class="btn" target="_blank" id="pedidosAlm">Pedidos Entregados</a>
             <div id="con7"></div>
 
 

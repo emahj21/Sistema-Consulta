@@ -129,17 +129,16 @@ while($row1=$resultado1->fetch_assoc()){
    <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
     <div class="container" id="tablas">
     
-      <div style="text-align: center;">
-        <select id="selectCategory" align="center">
-          <option value="">Selecciona Filtro</option>
-          <option value="">Todos</option>
-          <option value="&#x2714">&#x2714;</option>
-          <option value="&#10060">&#10060;</option>
-        </select>
-      </div>
-        <div class="row">
-            
-            <button class="btn " style="border-color: #000; width:70px;" onclick="ocultar();">Ocultar</button>
+        <div class="row" id="generacionOCS">
+            <div style="text-align: center;">
+              <select id="selectCategory" align="center">
+                <option value="">Selecciona Filtro</option>
+                <option value="">Todos</option>
+                <option value="&#x2714">&#x2714;</option>
+                <option value="&#10060">&#10060;</option>
+              </select>
+            </div>
+            <h3>Generación de OC's</h3>
             <table  class="table" id="tablaCompras" style="font-size: 12px;">
                 
                     <thead  class="thead-dark">
@@ -197,7 +196,7 @@ while($row1=$resultado1->fetch_assoc()){
     <script>
         function ocultar()
         {
-            document.getElementById('tablaCompras').style.display = 'none';
+            document.getElementById('generacionOCS').style.display = 'none';
         }
     </script>
     <script src="js/filtro.js"></script>

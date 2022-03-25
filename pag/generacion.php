@@ -1,6 +1,4 @@
-
-
-<?php 
+<?php
 
 include("../conexion.php");
 
@@ -65,24 +63,27 @@ while ($row1 = $resultado1->fetch_assoc()) {
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="icon" href="../images/ico.ico">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
-   
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Administración</title>
-  </head>
-  <body class="m-0 ">
-  
-    
-    <div class="container" id="tablas">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="icon" href="../images/ico.ico">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
+
+
+  <title>Administración</title>
+</head>
+
+<body class="m-0 ">
+
+
+  <div class="container" id="tablas">
+    <div class="row" id="generacionFichas">
       <div style="text-align: center;">
         <select id="selectCategory" align="center">
           <option value="">Selecciona Filtro</option>
@@ -91,109 +92,109 @@ while ($row1 = $resultado1->fetch_assoc()) {
           <option value="&#10060">&#10060;</option>
         </select>
       </div>
-        <div class="row">
-   <table  class="table" width="" >
-                
-                    <thead  class="thead-dark">
-                    <tr>
-                        <td>Cotización</td>
-                        <td>Id Solicitud</td>
-                        <td>Tipo</td>
-                        <td>Fecha de Inicio</td>
-                        <td>Fecha de Término</td>
-                        <td>Estatus</td>
-                    </tr>
-                    </thead>
-                    <tbody  id="tabla">
-                    <?php
-                        include("../conexion.php");
-                        
+      <h3>Generación de Fichas</h3>
+      <table class="table" width="">
 
-                        /* $query= "SELECT FechaRegistro, FechaAdmin, Idpedido, PeFeReqCli, FechaLiberacion, DAYOFWEEK(FechaRegistro), DATEDIFF(FechaAdmin, FechaRegistro) from upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2'  AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6)"; */
-                        $query = "SELECT SolCotizacion, SDeId, SDeTipo, SDeFeSol, SDeFeEnvio from solicituddetalle
+        <thead class="thead-dark">
+          <tr>
+            <td>Cotización</td>
+            <td>Id Solicitud</td>
+            <td>Tipo</td>
+            <td>Fecha de Inicio</td>
+            <td>Fecha de Término</td>
+            <td>Estatus</td>
+          </tr>
+        </thead>
+        <tbody id="tabla">
+          <?php
+          include("../conexion.php");
+
+
+          /* $query= "SELECT FechaRegistro, FechaAdmin, Idpedido, PeFeReqCli, FechaLiberacion, DAYOFWEEK(FechaRegistro), DATEDIFF(FechaAdmin, FechaRegistro) from upedido WHERE FechaRegistro BETWEEN '$f1' AND '$f2'  AND DAYOFWEEK(FechaRegistro) IN (2,3,4,5,6)"; */
+          $query = "SELECT SolCotizacion, SDeId, SDeTipo, SDeFeSol, SDeFeEnvio from solicituddetalle
                         WHERE SDeFeSol BETWEEN '$f1' AND '$f2'";
 
 
-                        $resultado= $conexion->query($query);
-                        $i=0;
-                        while($row=$resultado->fetch_assoc()){
-                    ?>
+          $resultado = $conexion->query($query);
+          $i = 0;
+          while ($row = $resultado->fetch_assoc()) {
+          ?>
 
-                    <tr>
-                        <td><?php echo $row['SolCotizacion'] ?></td>
-                        <td><?php echo $row['SDeId'] ?></td> 
-                        <td><?php echo $row['SDeTipo']?></td>
-                        <td><?php echo $row['SDeFeSol'] ?></td> 
-                        <td><?php echo $row['SDeFeEnvio'] ?></td>
-                        <td><?php echo $cadena[$i];$i++ ?></td>
-                      
-                    </tr>
+            <tr>
+              <td><?php echo $row['SolCotizacion'] ?></td>
+              <td><?php echo $row['SDeId'] ?></td>
+              <td><?php echo $row['SDeTipo'] ?></td>
+              <td><?php echo $row['SDeFeSol'] ?></td>
+              <td><?php echo $row['SDeFeEnvio'] ?></td>
+              <td><?php echo $cadena[$i];
+                  $i++ ?></td>
 
-                    <?php
-                        }
-                        ?>
-                </tbody>
-            </table>
-            <button class="btn" style="border-color: #000; " onclick="ocultar();">Ocultar</button>
-        </div>
+            </tr>
+
+          <?php
+          }
+          ?>
+        </tbody>
+      </table>
+      <button class="btn" style="border-color: #000; " onclick="ocultar();">Ocultar</button>
     </div>
+  </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <script>
-        function ocultar()
-        {
-          {
-          var x = document.getElementById("tablas");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-        }
-        }
-    </script>
-
-    <script>
-      $("#selectCategory").change(function () {
-    if(this.value != "Todos")
+  <script>
+    function ocultar() {
       {
-    //split the current value of searchInput
-    var data = this.value.split(" ");
-    //create a jquery object of the rows
-    var jo = $("#tabla").find("tr");
-    if (this.value == "") {
-        jo.show();
-        return;
-    }
-    //hide all the rows
-    jo.hide();
-    
-    //Recusively filter the jquery object to get results.
-    jo.filter(function (i, v) {
-        var $t = $(this);
-        for (var d = 0; d < data.length; ++d) {
-            if ($t.is(":contains('" + data[d] + "')")) {
-                return true;
-            }
+        var x = document.getElementById("generacionFichas");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
         }
-        return false;
-    })
-    //show the rows that match.
-    .show();
       }
-    }).focus(function () {
-    this.value = "";
-    $(this).css({
+    }
+  </script>
+
+  <script>
+    $("#selectCategory").change(function() {
+      if (this.value != "Todos") {
+        //split the current value of searchInput
+        var data = this.value.split(" ");
+        //create a jquery object of the rows
+        var jo = $("#tabla").find("tr");
+        if (this.value == "") {
+          jo.show();
+          return;
+        }
+        //hide all the rows
+        jo.hide();
+
+        //Recusively filter the jquery object to get results.
+        jo.filter(function(i, v) {
+            var $t = $(this);
+            for (var d = 0; d < data.length; ++d) {
+              if ($t.is(":contains('" + data[d] + "')")) {
+                return true;
+              }
+            }
+            return false;
+          })
+          //show the rows that match.
+          .show();
+      }
+    }).focus(function() {
+      this.value = "";
+      $(this).css({
         "color": "black"
-    });
-    $(this).unbind('focus');
+      });
+      $(this).unbind('focus');
     }).css({
-    "color": "#C0C0C0"
+      "color": "#C0C0C0"
     });
-    </script>
-  </body>
+  </script>
+</body>
+
 </html>
