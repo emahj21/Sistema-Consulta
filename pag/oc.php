@@ -73,27 +73,22 @@ while($row = $resultado->fetch_assoc()){
 
     <title>Administración</title>
   </head>
-  <style>
-      html
-      {
-          scroll-behavior: smooth ;
-      }
-  </style>
+
   <body class="m-0 ">
    <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
-    <div class="container" id="oc">
-    <div style="text-align: center;">
-        <select id="selectCategory" align="center">
-          <option value="">Selecciona Filtro</option>
-          <option value="">Todos</option>
-          <option value="&#x2714">&#x2714;</option>
-          <option value="&#10060">&#10060;</option>
-        </select>
-      </div>
-        <div class="row" id="inicio">
+    <div class="container" >
+        <div class="row" id="tablaOC">
+            <div style="text-align: center;">
+                <select id="selectCategory" align="center">
+                  <option value="">Selecciona Filtro</option>
+                  <option value="">Todos</option>
+                  <option value="&#x2714">&#x2714;</option>
+                  <option value="&#10060">&#10060;</option>
+                </select>
+            </div>
             
             
-            <table  class="table" id="tablaCompras">
+            <table  class="table" >
                 
                     <thead  class="thead-dark">
                     <tr>
@@ -141,7 +136,7 @@ while($row = $resultado->fetch_assoc()){
                         ?>
                 </tbody>
             </table>
-            <button class="btn " style="border-color: #000; " id="switchField2" onclick="ocultar();" href="#inicio">Ocultar</button>
+            <button class="btn " style="border-color: #000; " onclick="ocultar();">Ocultar</button>
         </div>
     </div>
 
@@ -153,7 +148,7 @@ while($row = $resultado->fetch_assoc()){
     <script>
         function ocultar()
         {
-            document.getElementById('tablaCompras').style.display = 'none';
+            document.getElementById('tablaOC').style.display = 'none';
         }
     </script>
 

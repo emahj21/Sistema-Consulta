@@ -150,57 +150,8 @@ Swal.fire({
     popup: 'animate__animated  animate__backOutUp'
   }
 });
-</script>
+</script> <!-- SweetAlert Mensaje Bienvenida -->
 
 
-
-<script> 
-  $('#Ver').click(function(){
-      var Fechain=document.getElementById('f1').value;
-      var Fechafin=document.getElementById('f2').value;
-
-      var ruta="Fein="+Fechain+"&Fefin="+Fechafin;
-
-      $.ajax({
-        url: 'administracion.php',
-        type: 'POST',
-        data: ruta,
-      })
-
-      .done(function(res){
-        $('#con').html(res)
-        //$('#f1').val('');
-        //$('#f2').val('');
-      })
-
-      .fail(function(){
-        console.log("error");
-      })
-      .always(function(){
-        console.log("complete");
-      })
-  });  
-
-</script>
-
-<script>
-  $(document).ready(function(){
-	$('.goup').hide();
-	$('.goup').click(function(){
-		$('body,html').animate({
-			scrollTop:0
-		},1000)
-	});
-	$(window).scroll(function () {
-		if ($(this).scrollTop() &gt; 200) {
-			$('.goup').fadeIn();
-		}
-		else {
-			$('.goup').fadeOut();
-		}
-	});
-});
-</script>
-</body>
 
 </html>

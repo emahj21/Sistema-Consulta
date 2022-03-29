@@ -63,9 +63,8 @@ while($row = $resultado->fetch_assoc()){
   <body class="m-0 ">
    <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
     <div class="container" id="tabla">
-        <div class="row">
-            
-            <button class="btn " style="border-color: #000; width:70px;" onclick="ocultar();">Ocultar</button>
+        <div class="row" id="tablaDefectos">
+          
             <table  class="table">
                 
                     <thead  class="thead-dark">
@@ -122,7 +121,7 @@ while($row = $resultado->fetch_assoc()){
     <script>
         function ocultar()
         {
-            document.getElementById('tabla').style.display = 'none';
+            document.getElementById('tablaDefectos').style.display = 'none';
         }
     </script>
 

@@ -53,15 +53,15 @@ $totalR = 0;
   </head>
   <body class="m-0 ">
       <div class="container" id="tablas">
-        <div class="row" id="reclamaciones">
+        <div class="row" id="reclamacionesProduccion">
           <div style="text-align: center;">
-            <select id="selectCategory" align="center">
-              <option value="">Selecciona Filtro</option>
-              <option value="">Todos</option>
-              <option value="&#x2714">&#x2714;</option>
-              <option value="&#10060">&#10060;</option>
-            </select>
-          </div>
+              <select id="selectCategory" align="center">
+                <option value="">Selecciona Filtro</option>
+                <option value="">Todos</option>
+                <option value="&#x2714">&#x2714;</option>
+                <option value="&#10060">&#10060;</option>
+              </select>
+            </div>
 
             <h3>Reclamaciones</h3>
             <table  class="table">
@@ -120,7 +120,7 @@ $totalR = 0;
         function ocultar()
         {
           {
-          var x = document.getElementById("reclamaciones");
+          var x = document.getElementById("reclamacionesProduccion");
           if (x.style.display === "none") {
               x.style.display = "block";
           } else {

@@ -75,7 +75,8 @@ while ($row1 = $resultado1->fetch_assoc()) {
 <body class="m-0 ">
   <!--  <h1 class="text-center mt-5">Área de Administración</h1> -->
   <div class="" id="tabla">
-  <div style="text-align: center;">
+    <div class="row" id="tablaAdministracion">
+      <div style="text-align: center;">
         <select id="selectCategory" align="center">
           <option value="">Selecciona Filtro</option>
           <option value="">Todos</option>
@@ -83,8 +84,7 @@ while ($row1 = $resultado1->fetch_assoc()) {
           <option value="&#10060">&#10060;</option>
         </select>
       </div>
-    <div class="row">
-
+        
       <table class="table" width="">
 
         <thead class="thead-dark">
@@ -132,7 +132,7 @@ while ($row1 = $resultado1->fetch_assoc()) {
 
   <script>
     function ocultar() {
-      document.getElementById('tabla').style.display = 'none';
+      document.getElementById('tablaAdministracion').style.display = 'none';
     }
   </script>
 
