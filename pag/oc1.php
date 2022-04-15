@@ -131,7 +131,7 @@ while($row1=$resultado1->fetch_assoc()){
     
         <div class="row" id="generacionOCS">
             <div style="text-align: center;">
-              <select id="selectCategory" align="center">
+              <select id="oc1" align="center">
                 <option value="">Selecciona Filtro</option>
                 <option value="">Todos</option>
                 <option value="&#x2714">&#x2714;</option>
@@ -139,7 +139,7 @@ while($row1=$resultado1->fetch_assoc()){
               </select>
             </div>
             <h3>Generación de OC's</h3>
-            <table  class="table" id="tablaCompras" style="font-size: 12px;">
+            <table  class="table"  style="font-size: 12px;">
                 
                     <thead  class="thead-dark">
                     <tr>
@@ -151,7 +151,7 @@ while($row1=$resultado1->fetch_assoc()){
                         <td align="center">Estatus</td>
                     </tr>
                     </thead>
-                    <tbody  id="tabla">
+                    <tbody  id="tablaOC1">
                     <?php
                         include("../conexion.php");
                         
@@ -199,7 +199,44 @@ while($row1=$resultado1->fetch_assoc()){
             document.getElementById('generacionOCS').style.display = 'none';
         }
     </script>
-    <script src="js/filtro.js"></script>
+    <script>
+        $("#oc1").change(function () {
+    if(this.value != "Todos")
+      {
+    //split the current value of searchInput
+    var data = this.value.split(" ");
+    //create a jquery object of the rows
+    var jo = $("#tablaOC1").find("tr");
+    if (this.value == "") {
+        jo.show();
+        return;
+    }
+    //hide all the rows
+    jo.hide();
+    
+    //Recusively filter the jquery object to get results.
+    jo.filter(function (i, v) {
+        var $t = $(this);
+        for (var d = 0; d < data.length; ++d) {
+            if ($t.is(":contains('" + data[d] + "')")) {
+                return true;
+            }
+        }
+        return false;
+    })
+    //show the rows that match.
+    .show();
+      }
+    }).focus(function () {
+    this.value = "";
+    $(this).css({
+        "color": "black"
+    });
+    $(this).unbind('focus');
+    }).css({
+    "color": "#C0C0C0"
+    });
+    </script>
 
     <!-- Gráfica -->
 

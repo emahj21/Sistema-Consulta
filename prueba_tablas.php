@@ -1,5 +1,7 @@
 <?php
 require ("conexion.php");
+#require ("pag/consulta.php");
+
 function pedidosEntregado($f1,$f2,$conexion,$area){
     //------------ Consultas ------------
     $query="SELECT FechaEmp,PeFeReqCli FROM upedido WHERE FechaEmp BETWEEN '$f1' AND '$f2' ";
@@ -493,6 +495,8 @@ pedidosEntregado($f1,$f2,$conexion,11);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.js" integrity="sha512-uLlukEfSLB7gWRBvzpDnLGvzNUluF19IDEdUoyGAtaO0MVSBsQ+g3qhLRL3GTVoEzKpc24rVT6X1Pr5fmsShBg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <title>Document</title>
 
     <style>
@@ -506,88 +510,101 @@ pedidosEntregado($f1,$f2,$conexion,11);
     </style>
 </head>
 <body>
-    <h1> ADMINISTARCIÓN </h1>
-    <h2> Indicador 1.1 Revisión de Anticipos y Facturas</h2>
-    <?php  dias($conexion,'FechaRegistro','FechaAdmin',$f1,$f2,'upedido',null,'Admin','1','1');?>
-    <h2> Indicador 1.2 Liberación</h2>
-    <?php dias($conexion,'FechaEmp','FechaLiberacion',$f1,$f2,'upedido',null,'Admin','1','2');?>
-    <h2> Indicador 1.4 Reclamanciones</h2>
-    <?php reclamos($conexion,$f1,$f2,"1");?>
-    <h2> Indicador 1.5 Pedidos Entregados</h2>
-    <?php pedidosEntregado($f1,$f2,$conexion,1);?>
-
     <div>
-        <div>
-            <button type="button" onclick="mostrarTabla();">Revisión de Anticipos y Facturas</button>
-            <button type="button" onclick="mostrarTabla1();">Liberación</button>
+        <h1> ADMINISTARCIÓN </h1>
+        <div style="width: 400px;">
+            <canvas id="graficaAdmi1" width="400" height="400"></canvas>
+            
         </div>
-        <div id="tabla">
-            <table class="tabla" border="2">
-                <thead class="thead-dark">
-                    <tr>
-                        <td>Nombre del Cliente</td>
-                        <td>Número de Pedido</td>
-                        <td>Fecha de Inicio</td>
-                        <td>Fecha De Término</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $query = "SELECT upedido.Idpedido, upedido.FechaRegistro, upedido.FechaAdmin, upedido.idcontacto, contacto.IdContacto, ucliente.IDCliente, ucliente.CRazonSocial FROM upedido 
+        <div>
+            <h2> 1.1 Revisión de Anticipos y Facturas</h2>
+            <?php  dias($conexion,'FechaRegistro','FechaAdmin',$f1,$f2,'upedido',null,'Admin','1','1');?>
+            <div>
+                <button type="button" onclick="mostrarAdmi1();">Revisión de Anticipos y Facturas</button>
+                <div id="tabla">
+                    <table class="tabla" border="2">
+                        <thead class="thead-dark">
+                            <tr>
+                                <td>Nombre del Cliente</td>
+                                <td>Número de Pedido</td>
+                                <td>Fecha de Inicio</td>
+                                <td>Fecha De Término</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $query = "SELECT upedido.Idpedido, upedido.FechaRegistro, upedido.FechaAdmin, upedido.idcontacto, contacto.IdContacto, ucliente.IDCliente, ucliente.CRazonSocial FROM upedido 
+                                        INNER JOIN contacto ON contacto.IdContacto = upedido.idcontacto 
+                                        INNER JOIN ucliente ON  contacto.IDCliente = ucliente.IDCliente 
+                                        WHERE FechaRegistro BETWEEN '$f1' AND '$f2'";
+                            $resultado = $conexion->query($query);
+                            $i = 0;
+                            while ($row = $resultado->fetch_assoc()) {?>
+                                <tr>
+                                    <td><?php echo $row['CRazonSocial'] ?></td>
+                                    <td><?php echo $row['Idpedido'] ?></td>
+                                    <td><?php echo $row['FechaRegistro'] ?></td>
+                                    <td><?php echo $row['FechaAdmin'] ?></td>
+                                </tr> 
+                            <?php }?> 
+                        </tbody>
+                    </table>
+                    <button type="button" onclick="ocultarAdmi1();">Ocultar Tabla</button>
+                </div>
+            </div><!-- Tabla Admi1 -->
+        </div>
+
+        <div>
+            <h2> 1.2 Liberación</h2>
+            <?php dias($conexion,'FechaEmp','FechaLiberacion',$f1,$f2,'upedido',null,'Admin','1','2');?>
+            <div>
+                <button type="button" onclick="mostrarAdmi2();">Liberación</button>
+                <div id="tabla1">
+                    <table class="tabla" border="2">
+                        <thead  class="thead-dark">
+                            <tr>
+                                <td>Nombre del Cliente</td>
+                                <td>Número de Pedido</td>
+                                <td>Fecha de Empaque</td>
+                                <td>Fecha de Liberación</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $query = "SELECT upedido.Idpedido, upedido.FechaEmp, upedido.FechaLiberacion, upedido.idcontacto, contacto.IdContacto, ucliente.IDCliente, ucliente.CRazonSocial FROM upedido 
                                 INNER JOIN contacto ON contacto.IdContacto = upedido.idcontacto 
                                 INNER JOIN ucliente ON  contacto.IDCliente = ucliente.IDCliente 
-                                WHERE FechaRegistro BETWEEN '$f1' AND '$f2'";
-                    $resultado = $conexion->query($query);
-                    $i = 0;
-                    while ($row = $resultado->fetch_assoc()) {?>
-                        <tr>
-                            <td><?php echo $row['CRazonSocial'] ?></td>
-                            <td><?php echo $row['Idpedido'] ?></td>
-                            <td><?php echo $row['FechaRegistro'] ?></td>
-                            <td><?php echo $row['FechaAdmin'] ?></td>
-                        </tr> 
-                    <?php }?> 
-                </tbody>
-            </table>
-            <button type="button" onclick="ocultarTabla();">Ocultar Tabla</button>
-        </div>
+                                WHERE FechaEmp BETWEEN '$f1' AND '$f2'";
         
-        <div id="tabla1">
-            <table class="tabla" border="2">
-                <thead  class="thead-dark">
-                    <tr>
-                        <td>Nombre del Cliente</td>
-                        <td>Número de Pedido</td>
-                        <td>Fecha de Empaque</td>
-                        <td>Fecha de Liberación</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        $query = "SELECT upedido.Idpedido, upedido.FechaEmp, upedido.FechaLiberacion, upedido.idcontacto, contacto.IdContacto, ucliente.IDCliente, ucliente.CRazonSocial FROM upedido 
-                        INNER JOIN contacto ON contacto.IdContacto = upedido.idcontacto 
-                        INNER JOIN ucliente ON  contacto.IDCliente = ucliente.IDCliente 
-                        WHERE FechaEmp BETWEEN '$f1' AND '$f2'";
-
-                        $resultado= $conexion->query($query);
-                        $i=0;
-                        while($row=$resultado->fetch_assoc()){
-                            if($row['FechaLiberacion'] == '1000-01-01 00:00:00'){
-                                $row['FechaLiberacion'] = date('Y-m-d');
-                            }
-                    ?>
-                    <tr>
-                        <td><?php echo $row['CRazonSocial'] ?></td>
-                        <td><?php echo $row['Idpedido'] ?></td> 
-                        <td><?php echo $row['FechaEmp'] ?></td> 
-                        <td><?php echo $row['FechaLiberacion'] ?></td>
-                    </tr>
-                    <?php }?>
-                </tbody>
-            </table>
-            <button type="button" onclick="ocultarTabla1();">Ocultar Tabla</button>
+                                $resultado= $conexion->query($query);
+                                $i=0;
+                                while($row=$resultado->fetch_assoc()){
+                                    if($row['FechaLiberacion'] == '1000-01-01 00:00:00'){
+                                        $row['FechaLiberacion'] = date('Y-m-d');
+                                    }
+                            ?>
+                            <tr>
+                                <td><?php echo $row['CRazonSocial'] ?></td>
+                                <td><?php echo $row['Idpedido'] ?></td> 
+                                <td><?php echo $row['FechaEmp'] ?></td> 
+                                <td><?php echo $row['FechaLiberacion'] ?></td>
+                            </tr>
+                            <?php }?>
+                        </tbody>
+                    </table>
+                    <button type="button" onclick="ocultarAdmi2();">Ocultar Tabla</button>
+                </div>
+            </div><!-- Tabla Admi2 -->
         </div>
+
+
     </div>
+    
+    <h2> 1.4 Reclamanciones</h2>
+    <?php reclamos($conexion,$f1,$f2,"1");?>
+    <h2> 1.5 Pedidos Entregados</h2>
+    <?php pedidosEntregado($f1,$f2,$conexion,1);?>
+    
     <div>
         <div>
             <button type="button" onclick="mostrarTabla2();">Revisión de Anticipos y Facturas</button>
@@ -661,14 +678,12 @@ pedidosEntregado($f1,$f2,$conexion,11);
         </div>
     </div>
 
-
-
     <script>
-        function mostrarTabla(){
+        function mostrarAdmi1(){
             document.getElementById('tabla').style.display='block';
             document.getElementById('tabla1').style.display='none';
         }
-        function mostrarTabla1(){
+        function mostrarAdmi2(){
             document.getElementById('tabla1').style.display='block';
             document.getElementById('tabla').style.display='none';
         }
@@ -680,10 +695,10 @@ pedidosEntregado($f1,$f2,$conexion,11);
             document.getElementById('tabla3').style.display='block';
             document.getElementById('tabla2').style.display='none';
         }
-        function ocultarTabla(){
+        function ocultarAdmi1(){
             document.getElementById('tabla').style.display='none';
         }
-        function ocultarTabla1(){
+        function ocultarAdmi2(){
             document.getElementById('tabla1').style.display='none';
         }
         function ocultarTabla2(){
@@ -695,6 +710,42 @@ pedidosEntregado($f1,$f2,$conexion,11);
         
 
     </script>
+    
+    <!-- <canvas id="myChart" width="400" height="400"></canvas> -->
+    <script>
+        var ctx = document.getElementById('graficaAdmi1').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 
 </body>
+
+
+
 </html>

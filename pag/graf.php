@@ -173,7 +173,7 @@ $f2 = $_POST['Fefin'];
             <a class="btn" target="_blank" id="prod3">Reclamaciones</a>
             <a class="btn" target="_blank" id="prod4">Pedidos Entregados</a>
             <div id="con9"></div>
-            <!-- Gráfica Produccion -->
+            <!-- Gráfica Producción -->
 
 
 <!-- Optional JavaScript -->
@@ -214,7 +214,7 @@ $f2 = $_POST['Fefin'];
                     <?php echo $logistica?>,
                     6,                   
                     <?php echo $calificacion3?>,
-                    7,
+                    <?php echo $calificacion5?>,
                     <?php echo $calificacion6?>,
                     <?php echo $calificacion4?>,
                     <?php echo $calificacion2?>
